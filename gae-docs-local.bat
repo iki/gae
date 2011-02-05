@@ -1,0 +1,1 @@
+@"%~dp0gae.bat" docs\appengine\docs\python\index.html

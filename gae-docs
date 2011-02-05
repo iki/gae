@@ -1,0 +1,3 @@
+#!/bin/sh
+
+xdg-open "http://code.google.com/appengine/docs/python/" || exit $?

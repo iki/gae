@@ -1,0 +1,1 @@
+@"%~dp0gae.bat" dev_appserver.py %*

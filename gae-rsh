@@ -1,0 +1,5 @@
+#!/bin/sh
+
+G="${0%/*}"; [ "$G" = "$0" ] && G=.; G="$G/gae"
+
+. "$G" && gae_configure "$G.conf" && gae_command remote_api_shell.py "$@" || exit $?

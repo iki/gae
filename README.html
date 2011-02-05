@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.7: http://docutils.sourceforge.net/" />
+<title>Google App Engine Python SDK for Linux/Mac/Windows</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="google-app-engine-python-sdk-for-linux-mac-windows">
+<h1 class="title">Google App Engine Python SDK for Linux/Mac/Windows</h1>
+
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#overview" id="id5">Overview</a><ul>
+<li><a class="reference internal" href="#summary" id="id6">Summary</a></li>
+<li><a class="reference internal" href="#use-cases" id="id7">Use cases</a></li>
+<li><a class="reference internal" href="#getting-started" id="id8">Getting started</a></li>
+<li><a class="reference internal" href="#structure" id="id9">Structure</a></li>
+<li><a class="reference internal" href="#license" id="id10">License</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tools" id="id11">Tools</a><ul>
+<li><a class="reference internal" href="#commands" id="id12">Commands</a></li>
+<li><a class="reference internal" href="#helpers" id="id13">Helpers</a><ul>
+<li><a class="reference internal" href="#command-helpers" id="id14">Command helpers</a></li>
+<li><a class="reference internal" href="#python-helper-module" id="id15">Python helper module</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#configuration-file" id="id16">Configuration file</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="overview">
+<h1><a class="toc-backref" href="#id5">Overview</a></h1>
+<div class="section" id="summary">
+<h2><a class="toc-backref" href="#id6">Summary</a></h2>
+<blockquote>
+Google App Engine (<a class="reference external" href="http://code.google.com/appengine/">GAE</a>) Python <a class="reference external" href="http://code.google.com/appengine/docs/python/overview.html">SDK</a> packaged for simple inclusion within your project.</blockquote>
+</div>
+<div class="section" id="use-cases">
+<h2><a class="toc-backref" href="#id7">Use cases</a></h2>
+<blockquote>
+<ul>
+<li><p class="first">Clone the repository to gain simple SDK updating (<tt class="docutils literal">git pull</tt>)
+and switching:</p>
+<pre class="literal-block">
+git checkout --track origin/1.4.1   # get info on branch 1.4.1 and switch to
+git checkout master                 # switch to newest version
+git checkout 1.4.1                  # switch to 1.4.1
+</pre>
+</li>
+<li><p class="first">Fork the repository and add it as a git <a class="reference external" href="http://progit.org/book/ch6-6.html">submodule</a> of your project,
+so all developers can instantly have the same SDK version
+and operational commands across supported platforms.</p>
+</li>
+<li><p class="first">Control which SDK is used for each project
+via environment variable or configuration file.</p>
+</li>
+<li><p class="first">Control which version of Python runtime is used for each project
+via environment variable or configuration file.</p>
+<ul class="simple">
+<li>Get the required runtime automatically installed on Debian/Ubuntu-based
+distros if needed.</li>
+<li>Get the recommended <a class="reference external" href="http://python.org/download/releases/2.5/">Python 2.5</a> runtime automatically installed
+on Ubuntu Lucid/Maverick using <a class="reference external" href="https://launchpad.net/~fkrull/+archive/deadsnakes">Felix Krull PPA</a> repository.</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</div>
+<div class="section" id="getting-started">
+<h2><a class="toc-backref" href="#id8">Getting started</a></h2>
+<blockquote>
+<ol class="arabic">
+<li><p class="first">Clone the <a class="reference external" href="https://github.com/iki/gae/">repository</a>.
+Or fork it and add as a git submodule to your project.</p>
+<blockquote>
+</blockquote>
+</li>
+<li><p class="first">Copy the <a class="reference internal" href="#configuration-file">configuration file</a> (<tt class="docutils literal">gae.conf</tt>),
+<a class="reference internal" href="#helpers">helpers</a> (<tt class="docutils literal">gae</tt>, <tt class="docutils literal">gae.bat</tt>, <tt class="docutils literal">gae.py</tt>)
+and selected <a class="reference internal" href="#commands">commands</a> (<tt class="docutils literal"><span class="pre">gae-*</span></tt>)
+to your project directory.</p>
+</li>
+<li><p class="first">Set <a class="reference internal" href="#gae-sdk">GAE_SDK</a> path in the configuration file.</p>
+</li>
+</ol>
+</blockquote>
+</div>
+<div class="section" id="structure">
+<h2><a class="toc-backref" href="#id9">Structure</a></h2>
+<blockquote>
+<ul class="simple">
+<li>The <a class="reference external" href="sdk">sdk</a> directory contains the <a class="reference external" href="http://code.google.com/appengine/docs/python/overview.html">SDK</a>
+from an original cross-platform <a class="reference external" href="http://code.google.com/appengine/downloads.html#Google_App_Engine_SDK_for_Python">zip archive</a>.</li>
+<li>Additionally, the <a class="reference external" href="sdk/launcher">sdk/launcher</a> directory
+contains the Windows Launcher GUI from an original <a class="reference external" href="http://code.google.com/appengine/downloads.html#Google_App_Engine_SDK_for_Python">msi installer</a>.<ul>
+<li><em>Note: if you know how to add a Mac Launcher GUI,
+just fork, add it and send me a pull request.</em></li>
+</ul>
+</li>
+<li>Additionally, the <a class="reference external" href="sdk/docs">sdk/docs</a> directory
+contains the documentation from an original <a class="reference external" href="http://code.google.com/appengine/downloads.html#Download_the_Google_App_Engine_Documentation">zip archive</a>.</li>
+<li>The <a class="reference internal" href="#tools">tools</a> outside <tt class="docutils literal">sdk</tt> directory
+are provided for simple use of the SDK
+and do not originate from <a class="reference external" href="http://code.google.com/appengine/">Google App Engine</a> project.</li>
+</ul>
+</blockquote>
+</div>
+<div class="section" id="license">
+<h2><a class="toc-backref" href="#id10">License</a></h2>
+<blockquote>
+<ul class="simple">
+<li>The <tt class="docutils literal">sdk</tt> directory contains the <a class="reference external" href="http://code.google.com/appengine/docs/python/overview.html">SDK</a> and documentation.
+You can find the license terms in <a class="reference external" href="sdk/license">sdk/license</a>.</li>
+<li>The <a class="reference internal" href="#tools">tools</a> outside <tt class="docutils literal">sdk</tt> directory are licensed under
+<a class="reference external" href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.</li>
+</ul>
+</blockquote>
+</div>
+</div>
+<div class="section" id="tools">
+<h1><a class="toc-backref" href="#id11">Tools</a></h1>
+<blockquote>
+Provided for simple use of the SDK across supported platforms.
+They ensure that the configured SDK and Python version are used.</blockquote>
+<div class="section" id="commands">
+<h2><a class="toc-backref" href="#id12">Commands</a></h2>
+<blockquote>
+<p>Shortcuts for running SDK commands using the configured SDK and Python version.</p>
+<p>Provided as a shell scripts for Linux/Mac and a batch scripts (<tt class="docutils literal">*.bat</tt>) for Windows.</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">gae-app</span></tt></dt>
+<dd><tt class="docutils literal">Deploys and maintains the application in App Engine cloud.</tt></dd>
+<dt><tt class="docutils literal"><span class="pre">gae-server</span></tt></dt>
+<dd><tt class="docutils literal">Runs development server.</tt></dd>
+<dt><tt class="docutils literal"><span class="pre">gae-launcher</span></tt></dt>
+<dd><tt class="docutils literal">Runs a Launcher GUI to control development server and deployments.&nbsp; <span class="pre">[windows-only]</span></tt></dd>
+<dt><tt class="docutils literal"><span class="pre">gae-rsh</span></tt></dt>
+<dd><tt class="docutils literal">Connects Python shell to an application via enabled Remote API.</tt></dd>
+<dt><tt class="docutils literal"><span class="pre">gae-bulkloader</span></tt></dt>
+<dd><tt class="docutils literal">Pushes data to an application via enabled Remote API.</tt></dd>
+<dt><tt class="docutils literal"><span class="pre">gae-docs</span></tt></dt>
+<dd><tt class="docutils literal">Opens GAE Python SDK documentation on Google site.</tt></dd>
+<dt><tt class="docutils literal"><span class="pre">gae-docs-local</span></tt></dt>
+<dd><tt class="docutils literal">Opens local copy of GAE Python SDK documentation.</tt></dd>
+<dt><tt class="docutils literal">py</tt></dt>
+<dd><tt class="docutils literal">Runs Python; the version requested in configuration file.</tt></dd>
+</dl>
+</blockquote>
+</div>
+<div class="section" id="helpers">
+<h2><a class="toc-backref" href="#id13">Helpers</a></h2>
+<div class="section" id="command-helpers">
+<h3><a class="toc-backref" href="#id14">Command helpers</a></h3>
+<blockquote>
+<p>Used by most of the <a class="reference internal" href="#commands">commands</a> above.
+They load the configuration and optionally run an SDK command.</p>
+<p>Linux/Mac <a class="reference external" href="gae">gae</a> shell script and library:</p>
+<pre class="literal-block">
+. gae &amp;&amp; gae_configure &lt;config_file&gt;
+gae [-v|--verbose] &lt;command&gt; [options] [arguments]
+gae --help
+</pre>
+<p>Windows <a class="reference external" href="gae.bat">gae.bat</a> script:</p>
+<pre class="literal-block">
+gae [-v|--verbose] &lt;command&gt; [options] [arguments]
+gae --help
+</pre>
+</blockquote>
+</div>
+<div class="section" id="python-helper-module">
+<h3><a class="toc-backref" href="#id15">Python helper module</a></h3>
+<blockquote>
+<p>The python module <a class="reference external" href="gae.py">gae.py</a>
+allows simple SDK acces from any python script or module.
+It loads the configuration and inserts GAE into <tt class="docutils literal">sys.path</tt>.</p>
+<p>Example:</p>
+<pre class="literal-block">
+import gae
+gae.initialize()
+
+print gae.settings.GAE_SDK
+import sys; print '\n'.join(sys.path)
+
+from google.appengine.ext import db, blobstore
+</pre>
+<p>This module is <strong>not needed</strong> for the GAE application itself,
+because the environment is already set up by the development server.</p>
+</blockquote>
+</div>
+</div>
+<div class="section" id="configuration-file">
+<h2><a class="toc-backref" href="#id16">Configuration file</a></h2>
+<blockquote>
+<p>The configuration file <a class="reference external" href="gae.conf">gae.conf</a> defines environment
+for the commands and helpers located in the same directory.
+Users can overload the settings via environment variables.</p>
+<p>It may contain arbitrary configuration variables.
+The following ones are used by most commands:</p>
+<dl class="docutils" id="gae-sdk">
+<dt><strong>GAE_SDK</strong> <tt class="docutils literal">[required]</tt></dt>
+<dd>Directory of the SDK to be used.
+If it starts with <tt class="docutils literal">./</tt>, it is treated as relative to this configuration file.</dd>
+<dt><strong>GAE_PYV</strong></dt>
+<dd>Python version to use.
+Defaults to <strong>2.5</strong>. Using a newer version is not recommended now.</dd>
+<dt><strong>GAE_PYW</strong></dt>
+<dd>Directory of python.exe to be used with SDK on Windows.
+If not set, common locations are searched for requested Python version.</dd>
+</dl>
+</blockquote>
+</div>
+</div>
+</div>
+</body>
+</html>

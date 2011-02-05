@@ -1,0 +1,153 @@
+#!/bin/sh
+##
+## Loads the configuration and optionally runs an SDK command.
+##
+## Environment is read from a configuration file that should
+## be located in the same directory as this script, and bave 
+## the same file name and a .conf extension (ie. gae.conf).
+##
+## To further use the GAE environment variables in a shell,
+## or in another script, you need to source this script via '.',
+## and call gae_configure manually.
+##
+## Usage: . gae && gae_configure <config_file>
+##        gae [-v|--verbose] <command> [options] [arguments]
+##        gae --help 
+##
+
+[ "$1" != '--help' ] || { sed -n '/^##/s/^## \?//p' "$0"; exit $?; }
+
+__main () {
+    gae_configure "$0.conf" || return $?
+    [ -z "$*" ] || gae_command --ignore-empty "$@" || return $?
+    }
+
+gae_configure () { # args: config_file
+    local C L
+    C="$1"
+    [ -n "$C" ] || ! echo "*** API: gae_configure config_file" >&2 || return 2
+    L="${C%/*}"; [ "$L" = "$C" -o "$L" = '.' ] && L="$PWD"; [ "${L#/}" = "$L" ] && L="$PWD/$L"
+
+    [ -z "$GAE_SDK" -o -f "$GAE_SDK/appcfg.py" ] || ! echo "*** Invalid GAE SDK path: '$GAE_SDK'" >&2 || GAE_SDK=
+
+    gae_loadconf "$1" || return $?
+
+    [ -n "$GAE_PYV" ] || GAE_PYV='2.5'
+
+    [ -z "$GAE_SDK" -o "$GAE_SDK" = "${GAE_SDK#./}" ] || GAE_SDK="$L/${GAE_SDK#./}"
+    [ -z "$GAE_SDK" -o -f "$GAE_SDK/appcfg.py" ] || ! echo "*** Invalid GAE SDK path: '$GAE_SDK'" >&2 || GAE_SDK=
+    [ -n "$GAE_SDK" ] || ! echo "*** Please configure GAE SDK path." >&2 || return $?
+    }
+
+gae_loadconf () { # args: config_file
+    local C L K V
+    C="$1"
+    [ -n "$C" ] || ! echo "*** API: gae_loadconf config_file" >&2 || return 2
+    [ -f "$C" -a -r "$C" ] || ! echo "*** Invalid configuration file: '$C'" >&2 || return $?
+    exec 9<&0 <"$C" || return $?
+
+    while read L; do
+        [ -z "$L" -o "$L" != "${L###}" ] && continue  # skip empty lines and comments
+        K="${L%%=*}"
+        [ "$K" != "$L" ] || ! echo "... Invalid configuration line: '$L'" >&2 || continue
+        [ "$K" = "${K#* }" ] || ! echo "... Invalid configuration variable: '$K'" >&2 || continue
+        V="${L#*=}"
+        V="${V#\'}"
+        V="${V%\'}"
+        [ "$V" = "${V#*\'}" ] || ! echo "... Invalid configuration value: '$V'" >&2 || continue
+        eval "[ -n \"\$$K\" ] || ! $K='$V' || export $K" || continue
+        done
+
+    exec <&9 9<&- || return $?
+    }
+
+gae_command () { # args: [--ignore-empty] [-v|--verbose] command [options] [arguments]
+    local C V I
+    [ "$1" = '--ignore-empty' ] && I="$1" && shift || I=
+    [ "$1" = '-v' -o "$1" = '--verbose' ] && V="$1" && shift || V=
+    C="$1"
+
+    [ -n "$GAE_SDK" ] || ! echo "*** Please configure GAE SDK path." >&2 || return $?
+
+    if [ -n "$V" ]; then
+        echo "=== Python:  `which "python$GAE_PYV" 2>/dev/null || echo "python$GAE_PYV (not found)"`" >&2
+        echo "=== GAE SDK: $GAE_SDK" >&2
+        echo >&2
+        fi
+
+    [ -n "$C" ] || [ -z "$I" ] || return 0
+    [ -n "$C" ] || ! echo "*** API: gae_command [-v|--verbose] command [options] [arguments]" >&2 || return 2
+    shift
+
+    if [ -f "$GAE_SDK/$C" ]; then
+        if [ "$C" != "${C%.py}" ]; then
+            [ -z "$V" ] || ! echo "--- python$GAE_PYV $GAE_SDK/$C $@" >&2 || echo >&2
+            run_python "$GAE_PYV" "$GAE_SDK/$C" "$@"; return $?
+        elif [ -x "$GAE_SDK/$C" ]; then
+            [ -z "$V" ] || ! echo "--- $GAE_SDK/$C $@" >&2 || echo >&2
+            "$GAE_SDK/$C" "$@"; return $?
+        else
+            [ -z "$V" ] || ! echo "--- xdg-open $GAE_SDK/$C $@" >&2 || echo >&2
+            xdg-open "$GAE_SDK/$C" "$@"; return $?
+        fi
+
+    elif [ -f "$GAE_SDK/$C.py" ]; then
+        [ -z "$V" ] || ! echo "--- python$GAE_PYV $GAE_SDK/$C.py $@" >&2 || echo >&2
+        run_python "$GAE_PYV" "$GAE_SDK/$C.py" "$@"; return $?
+    else
+        echo "*** GAE command not found: '$GAE_SDK/$C'" >&2
+        return 1
+        fi
+    }
+
+run_python () { # args: version [options] [arguments]
+    local V="$1"
+    [ -n "$V" ] || ! echo "*** API: run_python version [options] [arguments]" >&2|| return 2
+    shift
+
+    which "python$V" >/dev/null 2>&1 || install_python "$V" || ! echo "*** Please install or fix python$V manually." >&2 || return $?
+    "python$V" "$@" || return $?
+    }
+
+install_python () { # args: requested_python_version
+    local V="$1"
+    [ -n "$V" ] || ! echo "*** API: install_python version [options] [arguments]" >&2|| return 2
+
+    . /etc/lsb-release || ! echo "*** Not a LSB compliant system." >&2 || return $?
+
+    if [ -f /etc/debian_version ]; then
+
+        if dpkg -l "python$V" 2>&1 | grep -q "^ii  *python$V"; then
+            echo "=== Python $V is already installed according to 'dpkg -l python$V'." >&2
+
+        else
+            if [ "$V" = '2.5' -a "$DISTRIB_ID" = 'Ubuntu' ] \
+                && dpkg --compare-versions "$DISTRIB_RELEASE" ">=" 10.04 \
+                && ! apt-cache policy 2>&1 | grep -q "^ *[0-9]\+ http://.*/fkrull/deadsnakes/"; then
+
+                echo "=== Adding PPA repository fkrull/deadsnakes for python2.5 on Ubuntu 10.04+." >&2
+                echo "... See https://launchpad.net/~fkrull/+archive/deadsnakes for more info." >&2
+
+                sudo add-apt-repository ppa:fkrull/deadsnakes || return $?
+                sudo apt-get update || return $?
+                apt-cache policy | grep -q "^ *[0-9]\+ http://.*/fkrull/deadsnakes/" || return $?
+                fi
+
+            if apt-cache --no-all-versions show "python$V" >/dev/null 2>&1; then
+                echo "=== Installing python$V package for $DISTRIB_ID $DISTRIB_RELEASE." >&2
+                sudo apt-get install "python$V" || return $?
+
+            else
+                echo "=== Cannot find python$V package for $DISTRIB_ID $DISTRIB_RELEASE." >&2
+                return 1
+                fi
+            fi
+
+    else
+        echo "*** Package management support not implemented for $DISTRIB_ID." >&2
+        return 1
+        fi
+    }
+
+
+[ "${0##*/}" != gae -o -z "$*" ] || __main "$@" || exit $?  # run main unless sourced via . or empty arguments
