@@ -15,7 +15,6 @@
 
 
 
-
  
  
  
@@ -243,6 +242,13 @@ var logged_in_user_email = null;
 
           </ul>
         </li>
+        <li><a href="../../java/capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../../java/capabilities/overview.html">Overview</a></li>
+<li><a href="../../java/javadoc/com/google/appengine/api/capabilities/package-summary.html">Javadoc Reference</a></li>
+
+          </ul>
+        </li>
         <li><a href="../../java/channel/index.html">Channel</a>
           <ul>
             <li><a href="../../java/channel/overview.html">Overview</a></li>
@@ -354,7 +360,7 @@ var logged_in_user_email = null;
     <li><a href="../../java/tools/ant.html">Using Apache Ant</a></li>
     <li><a href="../../java/tools/localunittesting.html">Local Unit Testing</a>
         <ul>
-            <li><a href="../../java/tools/localunittesting/javadoc">Testing Javadoc</a></li>
+            <li><a href="../../java/tools/localunittesting/javadoc/index.html">Testing Javadoc</a></li>
         </ul>    
     </li>
     <li><a href="../../java/tools/appstats.html">Appstats</a></li>
@@ -420,6 +426,18 @@ var logged_in_user_email = null;
     <li><a href="../blobstore/blobreaderclass.html">BlobReader</a></li>
     <li><a href="../blobstore/functions.html">Functions</a></li>
     <li><a href="../blobstore/exceptions.html">Exceptions</a></li>
+  </ul>
+</li>
+
+          </ul>
+        </li>
+        <li><a href="../capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../capabilities/overview.html">Overview</a></li>
+<li><span class="tlw-title tlw-expanded">Reference</span>
+  <ul>
+    <li><a href="../capabilities/capabilitysetclass.html">CapabilitySet</a></li>
+    <li><a href="../capabilities/exceptions.html">Exceptions</a></li>
   </ul>
 </li>
 
@@ -676,7 +694,7 @@ var logged_in_user_email = null;
 
 
 
-<p>In addition to the Python standard library, the App Engine APIs and tools, the App Engine Python runtime environment includes several third-party libraries that your application can use.  Some of these libraries have been customized or reimplemented to run within the App Engine sandbox restrictions.  This page documents which libraries are available and how the App Engine implementations differ from the original versions.</p>
+<p>In addition to the Python standard library, the App Engine APIs and tools, the App Engine Python runtime environment includes several third-party libraries that your application can use. Some of these libraries have been customized or reimplemented to run within the App Engine sandbox restrictions. This page documents which libraries are available and how the App Engine implementations differ from the original versions.</p>
 
 <ul>
   <li><a href="#Antlr">Antlr 3</a></li>
@@ -690,20 +708,22 @@ var logged_in_user_email = null;
 
 <h2 id="Antlr">Antlr 3</h2>
 
-<p><a href="http://www.antlr.org/">Antlr</a> is a framework for language parsers and translators.  The App Engine Python SDK uses Antlr to support the parsing of cron schedule configuration.  App Engine provides Antlr 3.1.1 for Python.</p>
+<p><a href="http://www.antlr.org/">Antlr</a> is a framework for language parsers and translators. The App Engine Python SDK uses Antlr to support the parsing of cron schedule configuration. App Engine provides Antlr 3.1.1 for Python.</p>
 
 
 <h2 id="Django">Django</h2>
 
-<p><a href="http://www.djangoproject.com/">Django</a> is a full-featured web application framework for Python.  It provides a full stack of interchangable components, including dispatch, views, middleware, and templating components, and many others.</p>
+<p><a href="http://www.djangoproject.com/">Django</a> is a full-featured web application framework for Python. It provides a full stack of interchangable components, including dispatch, views, middleware, and templating components, and many others.</p>
 
-<p>The Django data modeling interface is not compatible with the App Engine datastore.  You can use the App Engine data modeling libraries in your Django applications.  However, third-party Django applications that use the Django data modeling interface&mdash;most notably Django's Admin application&mdash;may not work with App Engine directly.</p>
+<p>The Django data modeling interface is not compatible with the App Engine datastore. You can use the App Engine data modeling libraries in your Django applications. However, third-party Django applications that use the Django data modeling interface&mdash;most notably Django's Admin application&mdash;may not work with App Engine directly.</p>
 
-<p>The App Engine Python environment includes three versions of Django: 0.96, 1.0.2, and 1.1.  Django 0.96 is included with the App Engine SDK, and is the version that gets imported by default when an app imports the <code>django</code> package.  Django 0.96 was the latest when App Engine for Python was released, and remains the default in version 1 of the Python runtime to maintain compatibility with apps that use it.</p>
+<p>The App Engine Python environment includes these versions of Django: 1.2, 1.1, 1.0, and 0.96. Django 1.2 and 0.96 are included with the App Engine SDK. Legacy Django version 0.96 is currently imported by default when an app imports the <code>django</code> package. However, this default may change in future SDK releases, so it's important to declare which version you wish to use, as described below.</p>
 
-<p>Django 1.0.2 and 1.1 are also available in the runtime when running on App Engine.  To use one of these with your app, you call the <code>use_library()</code> function provided by the <code>google.appengine.dist</code> package to declare which version to use.  Subsequent attempts to import the <code>django</code> package will use the selected version of Django.</p>
+<p class="note"><strong>Note:</strong> If you currently use version 0.96 or 1.0, you are strongly encouraged to upgrade your application and use version 1.2 to take advantage of the most recent features and security developments.</p>
 
-<p>The <code>use_library()</code> function takes the name of the package (<code>'django'</code>), and a version identifier argument.  For Django 1.1, use <code>'1.1'</code>.  For Django 1.0.2, use <code>'1.0'</code>.</p>
+<p>Django 1.2, 1.1, 1.0, and 0.96 are all available in the runtime when running on App Engine. To use one of these with your app, call the <code>use_library()</code> function provided by the <code>google.appengine.dist</code> package to declare which version to use. Subsequent attempts to import the <code>django</code> package will use the selected version of Django.</p>
+
+<p>The <code>use_library()</code> function takes the name of the package (<code>'django'</code>), and a version identifier argument. For Django 1.2, use <code>'1.2'</code>. For Django 1.1, use <code>'1.1'</code>. For Django 1.0, use <code>'1.0'</code>. For Django 0.96, use <code>'0.96'</code>.</p>
 
 <p>For example, to use Django 1.1, add the following lines to the beginning of your script handler (<code>main.py</code>):</p>
 
@@ -715,11 +735,13 @@ from google.appengine.dist import use_library
 use_library('django', '1.1')
 </pre>
 
-<p>Django 1.1 requires that the <code>DJANGO_SETTINGS_MODULE</code> environment variable be set to the name of your Django settings module, typically <code>'settings'</code>, before packages are imported.  If your Django settings module is something other than <code>settings.py</code>, adjust the <code>DJANGO_SETTINGS_MODULE</code> environment variable accordingly.</p>
+<p>Django 1.1 requires that the <code>DJANGO_SETTINGS_MODULE</code> environment variable be set to the name of your Django settings module, typically <code>'settings'</code>, before packages are imported. If your Django settings module is something other than <code>settings.py</code>, adjust the <code>DJANGO_SETTINGS_MODULE</code> environment variable accordingly.</p>
 
-<p>Django versions 1.0 are later are <i>not</i> included in the SDK.  To test your app with a newer version of Django on your computer, you must download and install Django from <a href="http://www.djangoproject.com/download/">the Django website</a>. Django 1.0.2 is available <a href="http://www.djangoproject.com/download/1.0.2/tarball/">here</a>.  You do not need to add the newer Django library to your application directory.</p>
+<p class="note"><strong>Note:</strong> It's important to declare the version of Django you wish to use even if you use the current default. The default version may change in future SDK releases. Explicitly declaring the version you are using protects your application from breaking if the default version changes.</p>
 
-<p>See the following articles for more information about using Django with App Engine.  Note that these articles have not been updated with instructions for using the versions of Django 1.0 and later included with the runtime environment.</p>
+<p>Django versions 0.96 and 1.2 are included in the SDK but Django versions 1.0 and 1.1 are <i>not</i> included and must be downloaded first. To test your app with a version of Django on your computer, you must download and install Django from <a href="http://www.djangoproject.com/download/">the Django website</a>. Django 1.0.2 is available <a href="http://www.djangoproject.com/download/1.0.2/tarball/">here</a>. You do not need to add the versions you download to your application directory.</p>
+
+<p>See the following articles for more information about using Django with App Engine. Note that these articles have not been updated with instructions for using the versions of Django 1.0 and later included with the runtime environment.</p>
 
 <ul class="doublespace">
   <li><a href="../../../articles/appengine_helper_for_django.html">Using the Google App Engine Helper for Django</a></li>
@@ -730,39 +752,39 @@ use_library('django', '1.1')
 
 <h2 id="PyCrypto">PyCrypto</h2>
 
-<p>App Engine includes a custom version of the <a href="http://www.amk.ca/python/code/crypto">Python Cryptography Toolkit</a>, also known as PyCrypto.  The version included with App Engine is based on pycrypto 2.0.1.  This is not <a href="http://pycrypto.org">the latest version</a>, but should be largely compatible with more recent versions.</p>
+<p>App Engine includes a custom version of the <a href="http://www.amk.ca/python/code/crypto">Python Cryptography Toolkit</a>, also known as PyCrypto. The version included with App Engine is based on pycrypto 2.0.1. This is not <a href="http://pycrypto.org">the latest version</a>, but should be largely compatible with more recent versions.</p>
 
 <p>For reasons both technical and legal, the App Engine version of PyCrypto has the following differences from the original PyCrypto 2.0.1:</p>
 
 <ul>
   <li><p>The RC5 and IDEA ciphers have been removed.</p></li>
   <li><p>The MODE_PGP encryption mode has been removed.</p></li>
-  <li><p>All public key cryptography routines are implemented in pure Python code.  They do not use any native acceleration (C code).</p></li>
+  <li><p>All public key cryptography routines are implemented in pure Python code. They do not use any native acceleration (C code).</p></li>
 </ul>
 
 
 <h2 id="WebOb">WebOb</h2>
 
-<p><a href="http://pythonpaste.org/webob/">WebOb</a> is an object-oriented interface for HTTP requests and responses.  App Engine uses WebOb as part of the <a href="webapp/index.html">webapp web application framework</a>.  The environment provides WebOb 0.9.</p>
+<p><a href="http://pythonpaste.org/webob/">WebOb</a> is an object-oriented interface for HTTP requests and responses. App Engine uses WebOb as part of the <a href="webapp/index.html">webapp web application framework</a>. The environment provides WebOb 0.9.</p>
 
 
 <h2 id="YAML">YAML</h2>
 
-<p><a href="http://www.yaml.org/">YAML</a> is a data format for human-readable message serialization.  The App Engine Python SDK uses YAML as the format for its <a href="../config/index.html">configuration files</a>.  The environment provides the YAML parsing libraries for Python, PyYAML 3.05.</p>
+<p><a href="http://www.yaml.org/">YAML</a> is a data format for human-readable message serialization. The App Engine Python SDK uses YAML as the format for its <a href="../config/index.html">configuration files</a>. The environment provides the YAML parsing libraries for Python, PyYAML 3.05.</p>
 
 
 <h2 id="zipimport">zipimport</h2>
 
-<p><a href="http://www.python.org/doc/2.5.2/library/zipimport.html">zipimport</a> is a feature of the Python standard library for importing Python modules from Zip archive files.  You can use zipimport to save space and reduce the number of files used when including packages with your application.  For example, you can <a href="../../../articles/django10_zipimport.html">use zipimport to bundle Django</a> with your application so the Django code only uses 1 megabyte of storage and 1 file, instead of several megabytes and hundreds of files.</p>
+<p><a href="http://www.python.org/doc/2.5.2/library/zipimport.html">zipimport</a> is a feature of the Python standard library for importing Python modules from Zip archive files. You can use zipimport to save space and reduce the number of files used when including packages with your application. For example, you can <a href="../../../articles/django10_zipimport.html">use zipimport to bundle Django</a> with your application so the Django code only uses 1 megabyte of storage and 1 file, instead of several megabytes and hundreds of files.</p>
 
-<p>App Engine provides a custom implementation of the zipimport library that runs within the environment's sandbox restrictions.  It functions similarly to the version included with the Python standard library, with the following exceptions:</p>
+<p>App Engine provides a custom implementation of the zipimport library that runs within the environment's sandbox restrictions. It functions similarly to the version included with the Python standard library, with the following exceptions:</p>
 
 <ul>
-  <li><p>zipimport can only import modules stored in the archive as <code>.py</code> source files.  It cannot import modules stored as <code>.pyc</code> or <code>.pyo</code> files.</li>
+  <li><p>zipimport can only import modules stored in the archive as <code>.py</code> source files. It cannot import modules stored as <code>.pyc</code> or <code>.pyo</code> files.</li>
   <li><p>zipimport is implemented in pure Python, and does not use native code for decompression (C code).</p></li>
 </ul>
 
-<p><b>Note:</b> The local development server uses the standard library version of zipimport, not the custom version used when running on App Engine.  If you use features of zipimport, be sure to test your application on App Engine.</p>
+<p><b>Note:</b> The local development server uses the standard library version of zipimport, not the custom version used when running on App Engine. If you use features of zipimport, be sure to test your application on App Engine.</p>
 
 
 
@@ -803,7 +825,7 @@ Java is a registered trademark of Oracle and/or its affiliates</div>
     ©2011 Google -
     <a href="http://code.google.com">Code Home</a> -
     <a href="http://code.google.com/terms.html">Terms of Service</a> -
-    <a href="http://www.google.com/intl/en/privacypolicy.html">Privacy Policy</a> -
+    <a href="http://code.google.com/privacy.html">Privacy Policy</a> -
     <a href="http://code.google.com/more">Site Directory</a>
     <br> <br>
     Google Code offered in:

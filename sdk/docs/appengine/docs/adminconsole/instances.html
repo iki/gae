@@ -16,7 +16,6 @@
 
 
 
-
  
  
  
@@ -244,6 +243,13 @@ var logged_in_user_email = null;
 
           </ul>
         </li>
+        <li><a href="../java/capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../java/capabilities/overview.html">Overview</a></li>
+<li><a href="../java/javadoc/com/google/appengine/api/capabilities/package-summary.html">Javadoc Reference</a></li>
+
+          </ul>
+        </li>
         <li><a href="../java/channel/index.html">Channel</a>
           <ul>
             <li><a href="../java/channel/overview.html">Overview</a></li>
@@ -355,7 +361,7 @@ var logged_in_user_email = null;
     <li><a href="../java/tools/ant.html">Using Apache Ant</a></li>
     <li><a href="../java/tools/localunittesting.html">Local Unit Testing</a>
         <ul>
-            <li><a href="../java/tools/localunittesting/javadoc">Testing Javadoc</a></li>
+            <li><a href="../java/tools/localunittesting/javadoc/index.html">Testing Javadoc</a></li>
         </ul>    
     </li>
     <li><a href="../java/tools/appstats.html">Appstats</a></li>
@@ -421,6 +427,18 @@ var logged_in_user_email = null;
     <li><a href="../python/blobstore/blobreaderclass.html">BlobReader</a></li>
     <li><a href="../python/blobstore/functions.html">Functions</a></li>
     <li><a href="../python/blobstore/exceptions.html">Exceptions</a></li>
+  </ul>
+</li>
+
+          </ul>
+        </li>
+        <li><a href="../python/capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../python/capabilities/overview.html">Overview</a></li>
+<li><span class="tlw-title tlw-expanded">Reference</span>
+  <ul>
+    <li><a href="../python/capabilities/capabilitysetclass.html">CapabilitySet</a></li>
+    <li><a href="../python/capabilities/exceptions.html">Exceptions</a></li>
   </ul>
 </li>
 
@@ -684,6 +702,7 @@ var logged_in_user_email = null;
   <li><a href="#Introduction_to_Instances">Introduction to Instances</a></li>
   <li><a href="#How_Applications_Scale">How Applications Scale</a></li>
   <li><a href="#Loading_Requests">Loading Requests</a></li>
+  <li><a href="#Warming_Requests">Warming Requests</a></li>
   <li><a href="#Always_On">Always On</a></li>
   <li><a href="#The_Instances_View">The Instances View</a></li>
 </ul>
@@ -719,16 +738,16 @@ inadvertently affect each other. At any given time, your application may be runn
   <li>In some cases, loading code from a zip or jar file is faster than loading from many separate files.</li>
 </ul>
 
-<h2 id="Warming_Requests">Warming Requests</h2>
-<p>Warming requests are a specific type of loading request that load application code into an instance ahead of time, before any live requests are made. To learn more about how to use warming requests, see the Warming Requests section of the Application Configuration page (<a href="../java/config/appconfig.html#Warming_Requests">Java</a> | <a href="../python/config/appconfig.html#Warming_Requests">Python</a>).</p>
+<h2 id="Warmup_Requests">Warmup Requests</h2>
+<p>Warmup requests are a specific type of loading request that load application code into an instance ahead of time, before any live requests are made. To learn more about how to use warmup requests, see the Warmup Requests section of the Application Configuration page (<a href="../java/config/appconfig.html#Warmup_Requests">Java</a> | <a href="../python/config/appconfig.html#Warmup_Requests">Python</a>).</p>
 
-<p class="note"><b>Note:</b> Warming requests are not always called for every new instance. For example, if the new instance is the very first instance of your application, the user's request is sent to the application directly. As a result, you may still encounter loading requests, even with warming requests enabled. Using the <a href="#Always_On">Always On</a> feature will prevent loading requests in most cases.</p>
+<p class="note"><b>Note:</b> Warmup requests are not always called for every new instance. For example, if the new instance is the very first instance of your application, the user's request is sent to the application directly. As a result, you may still encounter loading requests, even with warmup requests enabled. Using the <a href="#Always_On">Always On</a> feature will prevent loading requests in most cases.</p>
 
 <h2 id="Always_On">Always On</h2>
 
-<p>While warming requests help your application scale smoothly, they do not help if your application has very low amounts of traffic. For high-priority applications with low traffic, you can reserve instances via App Engine's  <b>Always On</b> feature.</p>
+<p>While warmup requests help your application scale smoothly, they do not help if your application has very low amounts of traffic. For high-priority applications with low traffic, you can reserve instances via App Engine's  <b>Always On</b> feature.</p>
 
-<p>Always On is a premium feature which reserves three instances of your application, never turning them off, even if the application has no traffic. This mitigates the impact of loading requests on applications that have small or variable amounts of traffic. Additionally, if an Always On instance dies accidentally, App Engine automatically restarts the instance with a warming request. As a result, Always On applications should be sure to do as much initialization as possible during warming requests.</p>
+<p>Always On is a premium feature which reserves three instances of your application, never turning them off, even if the application has no traffic. This mitigates the impact of loading requests on applications that have small or variable amounts of traffic. Additionally, if an Always On instance dies accidentally, App Engine automatically restarts the instance with a warmup request. As a result, Always On applications should be sure to do as much initialization as possible during warmup requests.</p>
 
 <p class="note">Even after enabling Always On, your application may experience loading requests if there is a sudden increase in traffic.</p>
 
@@ -780,7 +799,7 @@ Java is a registered trademark of Oracle and/or its affiliates</div>
     ©2011 Google -
     <a href="http://code.google.com">Code Home</a> -
     <a href="http://code.google.com/terms.html">Terms of Service</a> -
-    <a href="http://www.google.com/intl/en/privacypolicy.html">Privacy Policy</a> -
+    <a href="http://code.google.com/privacy.html">Privacy Policy</a> -
     <a href="http://code.google.com/more">Site Directory</a>
     <br> <br>
     Google Code offered in:

@@ -15,7 +15,6 @@
 
 
 
-
  
  
  
@@ -243,6 +242,13 @@ var logged_in_user_email = null;
 
           </ul>
         </li>
+        <li><a href="../capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../capabilities/overview.html">Overview</a></li>
+<li><a href="../javadoc/com/google/appengine/api/capabilities/package-summary.html">Javadoc Reference</a></li>
+
+          </ul>
+        </li>
         <li><a href="../channel/index.html">Channel</a>
           <ul>
             <li><a href="../channel/overview.html">Overview</a></li>
@@ -354,7 +360,7 @@ var logged_in_user_email = null;
     <li><a href="ant.html">Using Apache Ant</a></li>
     <li><a href="localunittesting.html">Local Unit Testing</a>
         <ul>
-            <li><a href="localunittesting/javadoc">Testing Javadoc</a></li>
+            <li><a href="localunittesting/javadoc/index.html">Testing Javadoc</a></li>
         </ul>    
     </li>
     <li><a href="appstats.html">Appstats</a></li>
@@ -420,6 +426,18 @@ var logged_in_user_email = null;
     <li><a href="../../python/blobstore/blobreaderclass.html">BlobReader</a></li>
     <li><a href="../../python/blobstore/functions.html">Functions</a></li>
     <li><a href="../../python/blobstore/exceptions.html">Exceptions</a></li>
+  </ul>
+</li>
+
+          </ul>
+        </li>
+        <li><a href="../../python/capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../../python/capabilities/overview.html">Overview</a></li>
+<li><span class="tlw-title tlw-expanded">Reference</span>
+  <ul>
+    <li><a href="../../python/capabilities/capabilitysetclass.html">CapabilitySet</a></li>
+    <li><a href="../../python/capabilities/exceptions.html">Exceptions</a></li>
   </ul>
 </li>
 
@@ -707,7 +725,7 @@ public class MyFirstTest {
 
 <p><code>MyFirstTest</code> demonstrates the simplest possible test setup, and for tests that have no dependency on App Engine APIs or local service implementations you may not need anything more.   However, if your tests or code under test have these dependencies you'll need a few more JARs on your testing classpath: <code>${SDK_ROOT}/lib/impl/appengine-api.jar</code>, <code>${SDK_ROOT}/lib/impl/appengine-api-labs.jar</code>, and <code>${SDK_ROOT}/lib/impl/appengine-api-stubs.jar</code>.  These JARs make the runtime APIs and the local implementations of those APIs available to your tests.</p>
 <p class="warning"><strong>Warning!</strong> To avoid crashing the development server, store your unit tests in a different location than your application code. Also avoid deploying JUnit and other testing packages with your application.</p>
-<p>You could stop here, but you would quickly learn that App Engine services expect a number of things from their execution environment and that setting these things up involves a fair amount of boilerplate code.  So, rather than setting it up yourself let's ask the utilities in the <code>com.google.appengine.tools.development.testing</code> package to do the heavy lifting for us.  The code in this package lives in <code>${SDK_ROOT}/lib/testing/appengine-testing.jar</code> so you'll need to add that JAR to your testing classpath.  Then, take a minute to browse the <a href="localunittesting/javadoc">javadoc</a> for this package.</p>
+<p>You could stop here, but you would quickly learn that App Engine services expect a number of things from their execution environment and that setting these things up involves a fair amount of boilerplate code.  So, rather than setting it up yourself let's ask the utilities in the <code>com.google.appengine.tools.development.testing</code> package to do the heavy lifting for us.  The code in this package lives in <code>${SDK_ROOT}/lib/testing/appengine-testing.jar</code> so you'll need to add that JAR to your testing classpath.  Then, take a minute to browse the <a href="localunittesting/javadoc/index.html">javadoc</a> for this package.</p>
 <p>The most important class in this package is <code>com.google.appengine.tools.development.testing.LocalServiceTestHelper</code>, which handles all of the necessary environment setup and gives you a top-level point of configuration for all the local services you might want to access in your tests.  In order to write a test that accesses a specific local service, create an instance of <code>LocalServiceTestHelper</code> with a <code>com.google.appengine.tools.development.testing.LocalServiceTestConfig</code> implementation for that specific local service, then call <code>setUp()</code> on your <code>LocalServiceTestHelper</code> instance before each test and <code>tearDown()</code> after each test.  Let's look at an example that uses the Datastore.</p>
 
 <h2 id="Writing_Datastore_Tests">Writing Datastore Tests</h2>
@@ -761,7 +779,7 @@ public class LocalDatastoreTest {
 }
 </pre>
 
-<p>What's going on here?  <code>LocalServiceTestHelper</code> is setting up and tearing down the parts of the execution environment that are common to all local services, and <code>LocalDatastoreServiceTestConfig</code> is setting up and tearing down the parts of the execution environment that are specific to the local Datastore service.  If you read the <a href="localunittesting/javadoc">javadoc</a> you'll learn that this involves configuring the local Datastore service to keep all data in-memory (as opposed to flushing to disk at regular intervals) and wiping out all in-memory data at the end of every test.  This is just the default behavior for a Datastore test, and if this behavior isn't what you want you can change it.</p>
+<p>What's going on here?  <code>LocalServiceTestHelper</code> is setting up and tearing down the parts of the execution environment that are common to all local services, and <code>LocalDatastoreServiceTestConfig</code> is setting up and tearing down the parts of the execution environment that are specific to the local Datastore service.  If you read the <a href="localunittesting/javadoc/index.html">javadoc</a> you'll learn that this involves configuring the local Datastore service to keep all data in-memory (as opposed to flushing to disk at regular intervals) and wiping out all in-memory data at the end of every test.  This is just the default behavior for a Datastore test, and if this behavior isn't what you want you can change it.</p>
 
 
 <h2 id="Writing_Memcache_Tests">Writing Memcache Tests</h2>
@@ -962,7 +980,7 @@ Java is a registered trademark of Oracle and/or its affiliates</div>
     ©2011 Google -
     <a href="http://code.google.com">Code Home</a> -
     <a href="http://code.google.com/terms.html">Terms of Service</a> -
-    <a href="http://www.google.com/intl/en/privacypolicy.html">Privacy Policy</a> -
+    <a href="http://code.google.com/privacy.html">Privacy Policy</a> -
     <a href="http://code.google.com/more">Site Directory</a>
     <br> <br>
     Google Code offered in:

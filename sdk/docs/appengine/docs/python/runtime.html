@@ -15,7 +15,6 @@
 
 
 
-
  
  
  
@@ -243,6 +242,13 @@ var logged_in_user_email = null;
 
           </ul>
         </li>
+        <li><a href="../java/capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../java/capabilities/overview.html">Overview</a></li>
+<li><a href="../java/javadoc/com/google/appengine/api/capabilities/package-summary.html">Javadoc Reference</a></li>
+
+          </ul>
+        </li>
         <li><a href="../java/channel/index.html">Channel</a>
           <ul>
             <li><a href="../java/channel/overview.html">Overview</a></li>
@@ -354,7 +360,7 @@ var logged_in_user_email = null;
     <li><a href="../java/tools/ant.html">Using Apache Ant</a></li>
     <li><a href="../java/tools/localunittesting.html">Local Unit Testing</a>
         <ul>
-            <li><a href="../java/tools/localunittesting/javadoc">Testing Javadoc</a></li>
+            <li><a href="../java/tools/localunittesting/javadoc/index.html">Testing Javadoc</a></li>
         </ul>    
     </li>
     <li><a href="../java/tools/appstats.html">Appstats</a></li>
@@ -420,6 +426,18 @@ var logged_in_user_email = null;
     <li><a href="blobstore/blobreaderclass.html">BlobReader</a></li>
     <li><a href="blobstore/functions.html">Functions</a></li>
     <li><a href="blobstore/exceptions.html">Exceptions</a></li>
+  </ul>
+</li>
+
+          </ul>
+        </li>
+        <li><a href="capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="capabilities/overview.html">Overview</a></li>
+<li><span class="tlw-title tlw-expanded">Reference</span>
+  <ul>
+    <li><a href="capabilities/capabilitysetclass.html">CapabilitySet</a></li>
+    <li><a href="capabilities/exceptions.html">Exceptions</a></li>
   </ul>
 </li>
 
@@ -718,6 +736,7 @@ var logged_in_user_email = null;
   <li><a href="#Selecting_the_Python_Runtime">Selecting the Python Runtime</a></li>
   <li><a href="#Requests_and_Domains">Requests and Domains</a></li>
   <li><a href="#Requests_and_CGI">Requests and CGI</a></li>
+
   <li><a href="#Responses">Responses</a></li>
   <li><a href="#The_Request_Timer">The Request Timer</a></li>
   <li><a href="#The_Sandbox">The Sandbox</a></li>
@@ -751,15 +770,15 @@ api_version: 1
 
 <h2 id="Requests_and_Domains">Requests and Domains</h2>
 
-<p>App Engine determines that an incoming request is intended for your application using the domain name of the request.  A request whose domain name is <code><i>application-id</i>.appspot.com</code> is routed to the application whose ID is <code><i>application-id</i></code>.  Every application gets an <code>appspot.com</code> domain name for free.</p>
+<p>App Engine determines that an incoming request is intended for your application using the domain name of the request. A request whose domain name is <code><i>application-id</i>.appspot.com</code> is routed to the application whose ID is <code><i>application-id</i></code>. Every application gets an <code>appspot.com</code> domain name for free.</p>
 
-<p><code>appspot.com</code> domains also support subdomains of the form <code><i>subdomain</i>.<i>application-id</i>.appspot.com</code>, where <code>subdomain</code> can be any string allowed in one part of a domain name (not <code>.</code>).  Requests sent to any subdomain in this way is routed to your application.</p>
+<p><code>appspot.com</code> domains also support subdomains of the form <code><i>subdomain</i>.<i>application-id</i>.appspot.com</code>, where <code>subdomain</code> can be any string allowed in one part of a domain name (not <code>.</code>). Requests sent to any subdomain in this way is routed to your application.</p>
 
-<p>You can set up a custom top-level domain using Google Apps.  With Google Apps, you assign subdomains of your business's domain to various applications, such as Google Mail or Sites.  You can also associate an App Engine application with a subdomain.  For convenience, you can set up a Google Apps domain when you register your application ID, or later from the Administrator Console.  See <a href="../../articles/domains.html">this article</a> for more information.</p>
+<p>You can set up a custom top-level domain using Google Apps. With Google Apps, you assign subdomains of your business's domain to various applications, such as Google Mail or Sites. You can also associate an App Engine application with a subdomain. For convenience, you can set up a Google Apps domain when you register your application ID, or later from the Administrator Console. See <a href="../../articles/domains.html">this article</a> for more information.</p>
 
-<p>Requests for these URLs all go to the version of your application that you have selected as the default version in the Administrator Console.  Each version of your application also has its own URL, so you can deploy and test a new version before making it the default version.  The version-specific URL uses the version identifier from your app's configuration file in addition to the <code>appspot.com</code> domain name, in this pattern: <code><i>version-id</i>.latest.<i>application-id</i>.appspot.com</code>  You can also use subdomains with the version-specific URL: <code><i>subdomain</i>.<i>version-id</i>.latest.<i>application-id</i>.appspot.com</code></p>
+<p>Requests for these URLs all go to the version of your application that you have selected as the default version in the Administrator Console. Each version of your application also has its own URL, so you can deploy and test a new version before making it the default version. The version-specific URL uses the version identifier from your app's configuration file in addition to the <code>appspot.com</code> domain name, in this pattern: <code><i>version-id</i>.latest.<i>application-id</i>.appspot.com</code>  You can also use subdomains with the version-specific URL: <code><i>subdomain</i>.<i>version-id</i>.latest.<i>application-id</i>.appspot.com</code></p>
 
-<p>The domain name used for the request is included in the request data passed to the application.  If you want your app to respond differently depending on the domain name used to access it (such as to restrict access to certain domains, or redirect to an official domain), you can check the request data (such as the <code>Host</code> request header) for the domain from within the application code and respond accordingly.</p>
+<p>The domain name used for the request is included in the request data passed to the application. If you want your app to respond differently depending on the domain name used to access it (such as to restrict access to certain domains, or redirect to an official domain), you can check the request data (such as the <code>Host</code> request header) for the domain from within the application code and respond accordingly.</p>
 
 
 
@@ -791,14 +810,14 @@ print "Hello, world!"
 <p>App Engine does not support sending data to the user's browser before exiting the handler.  Some web servers use this technique to "stream" data to the user's browser over a period of time in response to a single request.  App Engine does not support this streaming technique.</p>
 
 
-<p>If the client sends HTTP headers with the request indicating that the client can accept compressed (gzipped) content, App Engine compresses the response data automatically and attaches the appropriate response headers.  It uses both the <code>Accept-Encoding</code> and <code>User-Agent</code> request headers to determine if the client can reliably receive compressed responses.  Custom clients can force content to be compressed by specifying both <code>Accept-Encoding</code> and <code>User-Agent</code> headers with a value of "gzip".</p>
+<p>If the client sends HTTP headers with the request indicating that the client can accept compressed (gzipped) content, App Engine compresses the response data automatically and attaches the appropriate response headers. It uses both the <code>Accept-Encoding</code> and <code>User-Agent</code> request headers to determine if the client can reliably receive compressed responses. Custom clients can force content to be compressed by specifying both <code>Accept-Encoding</code> and <code>User-Agent</code> headers with a value of "gzip".</p>
 
-<p>If you access your site while signed in using an administrator account, App Engine includes per-request statistics in the response headers.  The header <code>X-AppEngine-Estimated-CPM-US-Dollars</code> represents an estimate of what 1,000 requests similar to this request would cost in US dollars.  The header <code>X-AppEngine-Resource-Usage</code> represents the resources used by the request, including server-side time, app server CPU time, and API CPU time, each as a number of milliseconds.</p>
+<p>If you access your site while signed in using an administrator account, App Engine includes per-request statistics in the response headers. The header <code>X-AppEngine-Estimated-CPM-US-Dollars</code> represents an estimate of what 1,000 requests similar to this request would cost in US dollars. The header <code>X-AppEngine-Resource-Usage</code> represents the resources used by the request, including server-side time, app server CPU time, and API CPU time, each as a number of milliseconds.</p>
 
 
 <h2 id="The_Request_Timer">The Request Timer</h2>
 
-<p>A request handler has a limited amount of time to generate and return a response to a request, typically around 30 seconds.  Once the deadline has been reached, the request handler is interrupted.</p>
+<p>A request handler has a limited amount of time to generate and return a response to a request, typically around 30 seconds. Once the deadline has been reached, the request handler is interrupted.</p>
 
 
 <p>The Python runtime environment interrupts the request handler by raising a <code>DeadlineExceededError</code>, from the package <code>google.appengine.runtime</code>.  If the request handler does not catch this exception, as with all uncaught exceptions, the runtime environment will return an HTTP 500 server error to the client.</p>
@@ -822,21 +841,21 @@ class MainPage(webapp.RequestHandler):
 <p>If the handler hasn't returned a response or raised an exception by the second deadline, the handler is terminated and a default error response is returned.</p>
 
 
-<p>While a request can take as long as 30 seconds to respond, App Engine is optimized for applications with short-lived requests, typically those that take a few hundred milliseconds.  An efficient app responds quickly for the majority of requests.  An app that doesn't will not scale well with App Engine's infrastructure.</p>
+<p>While a request can take as long as 30 seconds to respond, App Engine is optimized for applications with short-lived requests, typically those that take a few hundred milliseconds. An efficient app responds quickly for the majority of requests. An app that doesn't will not scale well with App Engine's infrastructure.</p>
 
 
 <h2 id="The_Sandbox">The Sandbox</h2>
 
-<p>To allow App Engine to distribute requests for applications across multiple web servers, and to prevent one application from interfering with another, the application runs in a restricted "sandbox" environment.  In this environment, the application can execute code, store and query data in the App Engine datastore, use the App Engine mail, URL fetch and users services, and examine the user's web request and prepare the response.</p>
+<p>To allow App Engine to distribute requests for applications across multiple web servers, and to prevent one application from interfering with another, the application runs in a restricted "sandbox" environment. In this environment, the application can execute code, store and query data in the App Engine datastore, use the App Engine mail, URL fetch and users services, and examine the user's web request and prepare the response.</p>
 
 <p>An App Engine application cannot:</p>
 <ul class="doublespace">
 
-<li>write to the filesystem.  Applications must use <a href="datastore/index.html">the App Engine datastore</a> for storing persistent data.  Reading from the filesystem is allowed, and all application files uploaded with the application are available.</li>
+<li>write to the filesystem. Applications must use <a href="datastore/index.html">the App Engine datastore</a> for storing persistent data. Reading from the filesystem is allowed, and all application files uploaded with the application are available.</li>
 
-<li>open a socket or access another host directly.  An application can use <a href="urlfetch/index.html">the App Engine URL fetch service</a> to make HTTP and HTTPS requests to other hosts on ports 80 and 443, respectively.</li>
+<li>open a socket or access another host directly. An application can use <a href="urlfetch/index.html">the App Engine URL fetch service</a> to make HTTP and HTTPS requests to other hosts on ports 80 and 443, respectively.</li>
 
-<li>spawn a sub-process or thread.  A web request to an application must be handled in a single process within a few seconds.  Processes that take a very long time to respond are terminated to avoid overloading the web server.</li>
+<li>spawn a sub-process or thread. A web request to an application must be handled in a single process within a few seconds. Processes that take a very long time to respond are terminated to avoid overloading the web server.</li>
 
 <li>make other kinds of system calls.</li>
 
@@ -1020,15 +1039,15 @@ class PrintEnvironmentHandler(webapp.RequestHandler):
 
 <h2 id="Quotas_and_Limits">Quotas and Limits</h2>
 
-<p>Google App Engine allocates resources to your application automatically as traffic increases to support many simultaneous requests.  However, App Engine reserves automatic scaling capacity for applications with low latency, where the application responds to requests in less than one second. Applications with very high latency (over one second per request for many requests) are limited by the system, and require a special exemption in order to have a large number of simultaneous dynamic requests.  If your application has a strong need for a high throughput of long-running requests, you can <a href="http://code.google.com/appengine/kb/billing.html#cpu">request an exemption</a> from the simultaneous dynamic request limit.  The vast majority of applications do not require any exemption.</p>
+<p>Google App Engine allocates resources to your application automatically as traffic increases to support many simultaneous requests. However, App Engine reserves automatic scaling capacity for applications with low latency, where the application responds to requests in less than one second. Applications with very high latency (over one second per request for many requests) are limited by the system, and require a special exemption in order to have a large number of simultaneous dynamic requests. If your application has a strong need for a high throughput of long-running requests, you can <a href="http://code.google.com/appengine/kb/billing.html#cpu">request an exemption</a> from the simultaneous dynamic request limit. The vast majority of applications do not require any exemption.</p>
 
 <p>Applications that are heavily CPU-bound may also incur some additional latency in order to efficiently share resources with other applications on the same servers. Requests for static files are exempt from these latency limits.</p>
 
 <p>Each incoming request to the application counts toward the <b>Requests</b> quota.</p>
 
-<p>Data received as part of a request counts toward the <b>Incoming Bandwidth (billable)</b> quota.  Data sent in response to a request counts toward the <b>Outgoing Bandwidth (billable)</b> quota.</p>
+<p>Data received as part of a request counts toward the <b>Incoming Bandwidth (billable)</b> quota. Data sent in response to a request counts toward the <b>Outgoing Bandwidth (billable)</b> quota.</p>
 
-<p>Both HTTP and HTTPS (secure) requests count toward the <b>Requests</b>, <b>Incoming Bandwidth (billable)</b> and <b>Outgoing Bandwidth (billable)</b> quotas.  The Quota Details page of the Admin Console also reports <b>Secure Requests</b>, <b>Secure Incoming Bandwidth</b> and <b>Secure Outgoing Bandwidth</b> as separate values for informational purposes.  Only HTTPS requests count toward these values.</p>
+<p>Both HTTP and HTTPS (secure) requests count toward the <b>Requests</b>, <b>Incoming Bandwidth (billable)</b> and <b>Outgoing Bandwidth (billable)</b> quotas. The Quota Details page of the Admin Console also reports <b>Secure Requests</b>, <b>Secure Incoming Bandwidth</b> and <b>Secure Outgoing Bandwidth</b> as separate values for informational purposes. Only HTTPS requests count toward these values.</p>
 
 <p>CPU processing time spent executing a request handler counts toward the <b>CPU Time (billable)</b> quota.</p>
 
@@ -1110,7 +1129,7 @@ Java is a registered trademark of Oracle and/or its affiliates</div>
     ©2011 Google -
     <a href="http://code.google.com">Code Home</a> -
     <a href="http://code.google.com/terms.html">Terms of Service</a> -
-    <a href="http://www.google.com/intl/en/privacypolicy.html">Privacy Policy</a> -
+    <a href="http://code.google.com/privacy.html">Privacy Policy</a> -
     <a href="http://code.google.com/more">Site Directory</a>
     <br> <br>
     Google Code offered in:

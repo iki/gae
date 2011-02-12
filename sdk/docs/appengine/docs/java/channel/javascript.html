@@ -16,7 +16,6 @@
 
 
 
-
  
  
  
@@ -244,6 +243,13 @@ var logged_in_user_email = null;
 
           </ul>
         </li>
+        <li><a href="../capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../capabilities/overview.html">Overview</a></li>
+<li><a href="../javadoc/com/google/appengine/api/capabilities/package-summary.html">Javadoc Reference</a></li>
+
+          </ul>
+        </li>
         <li><a href="index.html">Channel</a>
           <ul>
             <li><a href="overview.html">Overview</a></li>
@@ -355,7 +361,7 @@ var logged_in_user_email = null;
     <li><a href="../tools/ant.html">Using Apache Ant</a></li>
     <li><a href="../tools/localunittesting.html">Local Unit Testing</a>
         <ul>
-            <li><a href="../tools/localunittesting/javadoc">Testing Javadoc</a></li>
+            <li><a href="../tools/localunittesting/javadoc/index.html">Testing Javadoc</a></li>
         </ul>    
     </li>
     <li><a href="../tools/appstats.html">Appstats</a></li>
@@ -421,6 +427,18 @@ var logged_in_user_email = null;
     <li><a href="../../python/blobstore/blobreaderclass.html">BlobReader</a></li>
     <li><a href="../../python/blobstore/functions.html">Functions</a></li>
     <li><a href="../../python/blobstore/exceptions.html">Exceptions</a></li>
+  </ul>
+</li>
+
+          </ul>
+        </li>
+        <li><a href="../../python/capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../../python/capabilities/overview.html">Overview</a></li>
+<li><span class="tlw-title tlw-expanded">Reference</span>
+  <ul>
+    <li><a href="../../python/capabilities/capabilitysetclass.html">CapabilitySet</a></li>
+    <li><a href="../../python/capabilities/exceptions.html">Exceptions</a></li>
   </ul>
 </li>
 
@@ -682,9 +700,9 @@ var logged_in_user_email = null;
 <p>Use the following reference when building JavaScript clients for the channel API.</p>
 
 <h2>Building your JavaScript Client</h2>
-<p>Include the following in the <code>&lt;head&gt;</code> of your html page:</p>
-<pre>&lt;script src='/_ah/channel/jsapi'&gt;&lt;/script&gt;</pre>
-<p>All other JavaScript must be between the <code>&lt;body&gt;</code> tags of the page.</p>
+<p>Include the following in your html page before any JavaScript code that refers to it:</p>
+<pre>&lt;script type="text/javascript" src="/_ah/channel/jsapi"&gt;&lt;/script&gt;</pre>
+<p>All other JavaScript code must be between the <code>&lt;body&gt;</code> tags of the page. For best performance, place your JavaScript code at the bottom of your HTML markup just before the <code>&lt;/body&gt;</code>.</p>
 
 <h2>goog.appengine.Channel() Class</h2>
 
@@ -771,7 +789,7 @@ Java is a registered trademark of Oracle and/or its affiliates</div>
     ©2011 Google -
     <a href="http://code.google.com">Code Home</a> -
     <a href="http://code.google.com/terms.html">Terms of Service</a> -
-    <a href="http://www.google.com/intl/en/privacypolicy.html">Privacy Policy</a> -
+    <a href="http://code.google.com/privacy.html">Privacy Policy</a> -
     <a href="http://code.google.com/more">Site Directory</a>
     <br> <br>
     Google Code offered in:

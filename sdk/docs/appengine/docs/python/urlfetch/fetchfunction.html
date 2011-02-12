@@ -15,7 +15,6 @@
 
 
 
-
  
  
  
@@ -243,6 +242,13 @@ var logged_in_user_email = null;
 
           </ul>
         </li>
+        <li><a href="../../java/capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../../java/capabilities/overview.html">Overview</a></li>
+<li><a href="../../java/javadoc/com/google/appengine/api/capabilities/package-summary.html">Javadoc Reference</a></li>
+
+          </ul>
+        </li>
         <li><a href="../../java/channel/index.html">Channel</a>
           <ul>
             <li><a href="../../java/channel/overview.html">Overview</a></li>
@@ -354,7 +360,7 @@ var logged_in_user_email = null;
     <li><a href="../../java/tools/ant.html">Using Apache Ant</a></li>
     <li><a href="../../java/tools/localunittesting.html">Local Unit Testing</a>
         <ul>
-            <li><a href="../../java/tools/localunittesting/javadoc">Testing Javadoc</a></li>
+            <li><a href="../../java/tools/localunittesting/javadoc/index.html">Testing Javadoc</a></li>
         </ul>    
     </li>
     <li><a href="../../java/tools/appstats.html">Appstats</a></li>
@@ -420,6 +426,18 @@ var logged_in_user_email = null;
     <li><a href="../blobstore/blobreaderclass.html">BlobReader</a></li>
     <li><a href="../blobstore/functions.html">Functions</a></li>
     <li><a href="../blobstore/exceptions.html">Exceptions</a></li>
+  </ul>
+</li>
+
+          </ul>
+        </li>
+        <li><a href="../capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../capabilities/overview.html">Overview</a></li>
+<li><span class="tlw-title tlw-expanded">Reference</span>
+  <ul>
+    <li><a href="../capabilities/capabilitysetclass.html">CapabilitySet</a></li>
+    <li><a href="../capabilities/exceptions.html">Exceptions</a></li>
   </ul>
 </li>
 
@@ -676,43 +694,48 @@ var logged_in_user_email = null;
 
 
 
-<p>The <code>fetch()</code> function makes a synchronous request to fetch a URL.  This function is provided by the <code>google.appengine.api.urlfetch</code> package.</p>
+<p>The <code>fetch()</code> function makes a synchronous request to fetch a URL. This function is provided by the <code>google.appengine.api.urlfetch</code> package.</p>
 
 <p>See also <a href="asynchronousrequests.html">Asychronous Requests</a>.</p>
 
 <dl class="apireference">
-  <dt id="fetch"><span class="itemname">fetch</span>(<span class="argname">url</span>, <span class="argname">payload</span>=<span class="argdefault">None</span>, <span class="argname">method</span>=<span class="argdefault">GET</span>, <span class="argname">headers</span>=<span class="argdefault">{}</span>, <span class="argname">allow_truncated</span>=<span class="argdefault">False</span>, <span class="argname">follow_redirects</span>=<span class="argdefault">True</span>, <span class="argname">deadline</span>=<span class="argdefault">None</span>)</dt>
+  <dt id="fetch"><span class="itemname">fetch</span>(<span class="argname">url</span>, <span class="argname">payload</span>=<span class="argdefault">None</span>, <span class="argname">method</span>=<span class="argdefault">GET</span>, <span class="argname">headers</span>=<span class="argdefault">{}</span>, <span class="argname">allow_truncated</span>=<span class="argdefault">False</span>, <span class="argname">follow_redirects</span>=<span class="argdefault">True</span>, <span class="argname">deadline</span>=<span class="argdefault">None</span>, <span class="argname">validate_certificate</span>=<span class="argdefault">None</span>)</dt>
   <dd>
-    <p>Fetches a document at the URL given in <span class="argname">url</span>, and returns an object containing the details of the response.  See <a href="responseobjects.html">Response Objects</a> for details about the return value.</p>
-    <p>The fetch action is synchronous.  fetch() will not return until the server responds.  A slow remote server may cause your application's own request to time out.</p>
+    <p>Fetches a document at the URL given in <span class="argname">url</span>, and returns an object containing the details of the response. See <a href="responseobjects.html">Response Objects</a> for details about the return value.</p>
+    <p>The fetch action is synchronous. fetch() will not return until the server responds. A slow remote server may cause your application's own request to time out.</p>
     <p>Arguments:</p>
     <dl>
       <dt><span class="argname">url</span></dt>
-      <dd>An <code>http</code> or <code>https</code> URL.  If the URL is invalid, a <a href="exceptions.html#InvalidURLError">InvalidURLError</a> is raised.</dd>
+      <dd>An <code>http</code> or <code>https</code> URL. If the URL is invalid, a <a href="exceptions.html#InvalidURLError">InvalidURLError</a> is raised.</dd>
 
       <dt><span class="argname">payload</span></dt>
       <dd>Body content for a <code>POST</code> or <code>PUT</code> request.</dd>
 
       <dt><span class="argname">method</span></dt>
-      <dd>The HTTP method to use for the request.  Acceptable values include <code>GET</code>, <code>POST</code>, <code>HEAD</code>, <code>PUT</code>, and <code>DELETE</code>.  These values are constants provided by the package.  The value can also be a string equivalent to the name of the method.</dd>
+      <dd>The HTTP method to use for the request. Acceptable values include <code>GET</code>, <code>POST</code>, <code>HEAD</code>, <code>PUT</code>, and <code>DELETE</code>. These values are constants provided by the package. The value can also be a string equivalent to the name of the method.</dd>
 
       <dt><span class="argname">headers</span></dt>
-      <dd>The set of HTTP headers to include with the request, as a mapping of names and values.  For security reasons, some HTTP headers cannot be modified by the application.  See <a href="overview.html#Request_Headers">the URL Fetch Service overview</a>.</dd>
+      <dd>The set of HTTP headers to include with the request, as a mapping of names and values. For security reasons, some HTTP headers cannot be modified by the application. See <a href="overview.html#Request_Headers">the URL Fetch Service overview</a>.</dd>
 
       <dt><span class="argname">allow_truncated</span></dt>
-      <dd>If <code>False</code> and the response data exceeds the maximum allowed response size, a <a href="exceptions.html#ResponseTooLargeError">ResponseTooLargeError</a> exception is raised.  If <code>True</code>, no exception is raised, and the response's <code>content</code> is truncated to the maximum size, and the response object's <code>content_was_truncated</code> attribute is set to <code>True</code>.  For more information on limits, see <a href="overview.html#Quotas_and_Limits">the URL Fetch Service overview</a>.</dd>
+      <dd>If <code>False</code> and the response data exceeds the maximum allowed response size, a <a href="exceptions.html#ResponseTooLargeError">ResponseTooLargeError</a> exception is raised. If <code>True</code>, no exception is raised, and the response's <code>content</code> is truncated to the maximum size, and the response object's <code>content_was_truncated</code> attribute is set to <code>True</code>. For more information on limits, see <a href="overview.html#Quotas_and_Limits">the URL Fetch Service overview</a>.</dd>
 
       <dt><span class="argname">follow_redirects</span></dt>
       <dd>
-        <p>If <code>True</code>, responses that are HTTP redirects are followed, up to 5 consecutive redirects.  The response data is from the final location, as if the data were for the requested location.  If <code>False</code>, redirects are not followed, and a redirect response is returned directly to the application, including the header information that describes the redirect.</p>
+        <p>If <code>True</code>, responses that are HTTP redirects are followed, up to 5 consecutive redirects. The response data is from the final location, as if the data were for the requested location. If <code>False</code>, redirects are not followed, and a redirect response is returned directly to the application, including the header information that describes the redirect.</p>
         <p class="warning"><b>Warning:</b> Cookies are not handled upon redirection. If cookie handling is needed, set <span class="argname">follow_redirects</span> to <code>False</code> and handle both cookies and redirects manually.</p>
       </dd>
 
       <dt><span class="argname">deadline</span></dt>
       <dd>
-        <p>The maximum amount of time to wait for a response from the remote host, as a number of seconds.  If the remote host does not respond in this amount of time, a DownloadError is raised.</p>
-        <p>Time spent waiting for a request does not count toward the CPU quota for the request.  It does count toward the request timer.  If the app request timer expires before the URL Fetch call returns, the call is canceled.</p>
-        <p>The deadline can be up to a maximum of 10 seconds.  If <span class="argname">deadline</span> is <code>None</code>, the deadline is set to 5 seconds.</p>
+        <p>The maximum amount of time to wait for a response from the remote host, as a number of seconds. If the remote host does not respond in this amount of time, a DownloadError is raised.</p>
+        <p>Time spent waiting for a request does not count toward the CPU quota for the request. It does count toward the request timer. If the app request timer expires before the URL Fetch call returns, the call is canceled.</p>
+        <p>The deadline can be up to a maximum of 10 seconds. If <span class="argname">deadline</span> is <code>None</code>, the deadline is set to 5 seconds.</p>
+      </dd>
+
+      <dt><span class="argname">validate_certificate</span></dt>
+      <dd>
+        <p>A value of <code>True</code> instructs the application to send a request to the server only if the certificate is valid and signed by a trusted CA, and also includes a hostname that matches the certificate. A value of <code>False</code> instructs the application to perform no certificate validation. A value of <code>None</code> defaults to the underlying implementation of URL Fetch. The underlying implementation currently defaults to <code>False</code>, but will default to <code>True</code> in the near future.</p>
       </dd>
     </dl>
   </dd>
@@ -757,7 +780,7 @@ Java is a registered trademark of Oracle and/or its affiliates</div>
     ©2011 Google -
     <a href="http://code.google.com">Code Home</a> -
     <a href="http://code.google.com/terms.html">Terms of Service</a> -
-    <a href="http://www.google.com/intl/en/privacypolicy.html">Privacy Policy</a> -
+    <a href="http://code.google.com/privacy.html">Privacy Policy</a> -
     <a href="http://code.google.com/more">Site Directory</a>
     <br> <br>
     Google Code offered in:

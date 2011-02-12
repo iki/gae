@@ -15,7 +15,6 @@
 
 
 
-
  
  
  
@@ -243,6 +242,13 @@ var logged_in_user_email = null;
 
           </ul>
         </li>
+        <li><a href="../../java/capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../../java/capabilities/overview.html">Overview</a></li>
+<li><a href="../../java/javadoc/com/google/appengine/api/capabilities/package-summary.html">Javadoc Reference</a></li>
+
+          </ul>
+        </li>
         <li><a href="../../java/channel/index.html">Channel</a>
           <ul>
             <li><a href="../../java/channel/overview.html">Overview</a></li>
@@ -354,7 +360,7 @@ var logged_in_user_email = null;
     <li><a href="../../java/tools/ant.html">Using Apache Ant</a></li>
     <li><a href="../../java/tools/localunittesting.html">Local Unit Testing</a>
         <ul>
-            <li><a href="../../java/tools/localunittesting/javadoc">Testing Javadoc</a></li>
+            <li><a href="../../java/tools/localunittesting/javadoc/index.html">Testing Javadoc</a></li>
         </ul>    
     </li>
     <li><a href="../../java/tools/appstats.html">Appstats</a></li>
@@ -420,6 +426,18 @@ var logged_in_user_email = null;
     <li><a href="../blobstore/blobreaderclass.html">BlobReader</a></li>
     <li><a href="../blobstore/functions.html">Functions</a></li>
     <li><a href="../blobstore/exceptions.html">Exceptions</a></li>
+  </ul>
+</li>
+
+          </ul>
+        </li>
+        <li><a href="../capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../capabilities/overview.html">Overview</a></li>
+<li><span class="tlw-title tlw-expanded">Reference</span>
+  <ul>
+    <li><a href="../capabilities/capabilitysetclass.html">CapabilitySet</a></li>
+    <li><a href="../capabilities/exceptions.html">Exceptions</a></li>
   </ul>
 </li>
 
@@ -733,7 +751,7 @@ pet.weight_in_pounds = 24
 
 <p>Because validation occurs when the instance is constructed, any property that is configured to be required must be initialized in the constructor. In this example, <code>name</code>, <code>type</code> and <code>owner</code> are all required values, so their initial values are specified in the constructor. <code>weight_in_pounds</code> is not required by the model, so it starts out unassigned, then is assigned a value later.</p>
 
-<p>An instance of a model created using the constructor does not exist in the datastore until it is "put" for the first time. See <a href="creatinggettinganddeletingdata.html">Creating, Getting and Deleting Data</a>.</p>
+<p>An instance of a model created using the constructor does not exist in the datastore until it is "put" for the first time.</p>
 
 <p class="note"><b>Note:</b> As with all Python class attributes, model property configuration is initialized when the script or module is first imported. Because App Engine caches imported modules between requests, module configuration may be initialized during a request for one user, and re-used during a request for another. Do not initialize model property configuration, such as default values, with data specific to the request or the current user. See <a href="../runtime.html#App_Caching">App Caching</a> for more information.</p>
 
@@ -763,6 +781,10 @@ p.travel_trip_count = 13
 <p>Because dynamic properties do not have model property definitions, dynamic properties are not validated. Any dynamic property can have a value of any of the <a href="typesandpropertyclasses.html">datastore base types</a>, including <code>None</code>. Two entities of the same kind can have different types of values for the same dynamic property, and one can leave a property unset that the other sets.</p>
 
 <p>Unlike fixed properties, dynamic properties need not exist. A dynamic property with a value of <code>None</code> is different from a non-existent dynamic property. If an expando model instance does not have an attribute for a property, the corresponding data entity does not have that property. You can delete a dynamic property by deleting the attribute.</p>
+
+<p>Attributes whose names begin with an underscore (<code>_</code>) are not saved to the datastore entity.  This allows you to store values on the model instance for temporary internal use without affecting the data saved with the entity.</p>
+
+<p><span class="note"><strong>Note:</strong> <em>Static</em> properties will always be saved to the datastore entity regardless of whether it is Expando, Model, or begins with an underscore  (<code>_</code>).</span></p>
 
 <pre class="prettyprint">
 del p.chess_elo_rating
@@ -1097,7 +1119,7 @@ Java is a registered trademark of Oracle and/or its affiliates</div>
     ©2011 Google -
     <a href="http://code.google.com">Code Home</a> -
     <a href="http://code.google.com/terms.html">Terms of Service</a> -
-    <a href="http://www.google.com/intl/en/privacypolicy.html">Privacy Policy</a> -
+    <a href="http://code.google.com/privacy.html">Privacy Policy</a> -
     <a href="http://code.google.com/more">Site Directory</a>
     <br> <br>
     Google Code offered in:

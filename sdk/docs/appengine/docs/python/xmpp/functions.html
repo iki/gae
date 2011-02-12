@@ -15,7 +15,6 @@
 
 
 
-
  
  
  
@@ -243,6 +242,13 @@ var logged_in_user_email = null;
 
           </ul>
         </li>
+        <li><a href="../../java/capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../../java/capabilities/overview.html">Overview</a></li>
+<li><a href="../../java/javadoc/com/google/appengine/api/capabilities/package-summary.html">Javadoc Reference</a></li>
+
+          </ul>
+        </li>
         <li><a href="../../java/channel/index.html">Channel</a>
           <ul>
             <li><a href="../../java/channel/overview.html">Overview</a></li>
@@ -354,7 +360,7 @@ var logged_in_user_email = null;
     <li><a href="../../java/tools/ant.html">Using Apache Ant</a></li>
     <li><a href="../../java/tools/localunittesting.html">Local Unit Testing</a>
         <ul>
-            <li><a href="../../java/tools/localunittesting/javadoc">Testing Javadoc</a></li>
+            <li><a href="../../java/tools/localunittesting/javadoc/index.html">Testing Javadoc</a></li>
         </ul>    
     </li>
     <li><a href="../../java/tools/appstats.html">Appstats</a></li>
@@ -420,6 +426,18 @@ var logged_in_user_email = null;
     <li><a href="../blobstore/blobreaderclass.html">BlobReader</a></li>
     <li><a href="../blobstore/functions.html">Functions</a></li>
     <li><a href="../blobstore/exceptions.html">Exceptions</a></li>
+  </ul>
+</li>
+
+          </ul>
+        </li>
+        <li><a href="../capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../capabilities/overview.html">Overview</a></li>
+<li><span class="tlw-title tlw-expanded">Reference</span>
+  <ul>
+    <li><a href="../capabilities/capabilitysetclass.html">CapabilitySet</a></li>
+    <li><a href="../capabilities/exceptions.html">Exceptions</a></li>
   </ul>
 </li>
 
@@ -683,6 +701,7 @@ var logged_in_user_email = null;
   <dt id="get_presence"><span class="itemname">get_presence</span>(<span class="argname">jid</span>, <span class="argname">from_jid</span>=<span class="argdefault">None</span>)</dt>
   <dd>
     <p>Queries the presence status of a Google Talk user.</p>
+    <p class="note"><b>Note:</b> Unless you need to know a user's presence status at a given moment, it is preferable to track presence using the <a href="overview.html#Handling_User_Presence">notification handlers</a>.
     <p>Arguments:</p>
     <dl>
       <dt><span class="argname">jid</span></dt>
@@ -746,6 +765,22 @@ var logged_in_user_email = null;
     </ul>
   </dd>
 
+
+  <dt id="send_presence"><span class="itemname">send_presence</span>(<span class="argname">jid</span>, <span class="argname">status</span>=<span class="argdefault">None</span>, <span class="argname">from_jid</span>=<span class="argdefault">None</span>, <span class="argname">presence_type</span>=<span class="argdefault">PRESENCE_TYPE_AVAILABLE</span>, <span class="argname">presence_show</span>=<span class="argdefault">PRESENCE_SHOW_NONE</span>)</dt>
+  <dd>Sends the presence status of a Google talk user to the given JID.</dd>
+  <dd>Arguments:
+    <dl>
+      <dt><span class="argname">jid</span></dt>
+        <dd>The XMPP address where you wish to send the presence.</dd>
+      <dt><span class="argname">status</span></dt>
+        <dd>An optional status message to send to the given JID, up to 1KB. This message provides the status of the application in the user's roster.</dd>
+      <dt><span class="argname">from_jid</span></dt>
+        <dd>The optional custom JID to use for sending. Currently, the default is <code>&lt;appid&gt;@appspot.com</code>. This is supported as a value. Custom JIDs can be of the form <code>&lt;anything&gt;@&lt;appid&gt;.appspotchat.com</code>.</dd>
+      <dt><span class="argname">presence_type</span></dt>
+        <dd>Optional type of the presence. This argument accepts a subset of the types specified in <a href="http://xmpp.org/rfcs/rfc3921.html#stanzas">RFC 3921, section 2.2.1</a>. An empty string results in a presence stanza without a <code>type</code> attribute. For convenience, all of the valid types are in the <code>PRESENCE_TYPE_*</code> constants list in the <code>google.appengine.api.xmpp</code> package. The default is <code>PRESENCE_TYPE_AVAILABLE</code>. Any other values throw an exception.</dd>
+    <dt><span class="argname">presence_show</span></dt>
+      <dd>Optional value that sets the current status for the presence. Restricted to the values specified in <a href="http://xmpp.org/rfcs/rfc3921.html#stanzas">RFC 3921, section 2.2.2.1</a>. You can find the valid types in the <code>PRESENCE_SHOW_*</code> constants in the google.api.xmpp package. The default is <code>PRESENCE_SHOW_NONE</code>. Any other values throw an exception.</dd>
+  </dd>
 </dl>
 
 
@@ -787,7 +822,7 @@ Java is a registered trademark of Oracle and/or its affiliates</div>
     ©2011 Google -
     <a href="http://code.google.com">Code Home</a> -
     <a href="http://code.google.com/terms.html">Terms of Service</a> -
-    <a href="http://www.google.com/intl/en/privacypolicy.html">Privacy Policy</a> -
+    <a href="http://code.google.com/privacy.html">Privacy Policy</a> -
     <a href="http://code.google.com/more">Site Directory</a>
     <br> <br>
     Google Code offered in:

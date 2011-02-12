@@ -15,7 +15,6 @@
 
 
 
-
  
  
  
@@ -243,6 +242,13 @@ var logged_in_user_email = null;
 
           </ul>
         </li>
+        <li><a href="../capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../capabilities/overview.html">Overview</a></li>
+<li><a href="../javadoc/com/google/appengine/api/capabilities/package-summary.html">Javadoc Reference</a></li>
+
+          </ul>
+        </li>
         <li><a href="../channel/index.html">Channel</a>
           <ul>
             <li><a href="../channel/overview.html">Overview</a></li>
@@ -354,7 +360,7 @@ var logged_in_user_email = null;
     <li><a href="../tools/ant.html">Using Apache Ant</a></li>
     <li><a href="../tools/localunittesting.html">Local Unit Testing</a>
         <ul>
-            <li><a href="../tools/localunittesting/javadoc">Testing Javadoc</a></li>
+            <li><a href="../tools/localunittesting/javadoc/index.html">Testing Javadoc</a></li>
         </ul>    
     </li>
     <li><a href="../tools/appstats.html">Appstats</a></li>
@@ -420,6 +426,18 @@ var logged_in_user_email = null;
     <li><a href="../../python/blobstore/blobreaderclass.html">BlobReader</a></li>
     <li><a href="../../python/blobstore/functions.html">Functions</a></li>
     <li><a href="../../python/blobstore/exceptions.html">Exceptions</a></li>
+  </ul>
+</li>
+
+          </ul>
+        </li>
+        <li><a href="../../python/capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../../python/capabilities/overview.html">Overview</a></li>
+<li><span class="tlw-title tlw-expanded">Reference</span>
+  <ul>
+    <li><a href="../../python/capabilities/capabilitysetclass.html">CapabilitySet</a></li>
+    <li><a href="../../python/capabilities/exceptions.html">Exceptions</a></li>
   </ul>
 </li>
 
@@ -678,7 +696,7 @@ var logged_in_user_email = null;
 
 <p>App Engine applications can authenticate users who have Google Accounts, accounts on your own Google Apps domain, or OpenID identifiers.  An application can detect whether the current user has signed in, and can redirect the user to a sign-in page to sign in or create a new account.  While a user is signed in to the application, the app can detect whether the current user is an administrator, making it easy to implement admin-only areas of the app.</p>
 
-<p class="note"><b>Note:</b> The 1.3.4 release includes support for authentication via OpenID as an experimental feature. OpenID allows users to authenticate by supplying a URL that identifies them with an OpenID provider, a service where the user has previously created an account. Because OpenID support is an experimental feature, the API may change in future minor releases of the SDK.  Let us know what you think!</p>
+<p class="note"><b>Note:</b> The 1.3.4 release includes support for authentication via OpenID as an experimental feature. OpenID allows users to authenticate by supplying a URL that identifies them with an OpenID provider, a service where the user has previously created an account. Because OpenID support is an experimental feature, the API may change in future minor releases of the SDK. We discuss OpenID in detail in our article <a href="../../../articles/openid.html">Using Federated Authentication via OpenID in Google App Engine</a>. Let us know what you think!</p>
 
 <p>This reference describes the Java API for the Users service.  It has the following sections:</p>
 
@@ -727,7 +745,7 @@ Java is a registered trademark of Oracle and/or its affiliates</div>
     ©2011 Google -
     <a href="http://code.google.com">Code Home</a> -
     <a href="http://code.google.com/terms.html">Terms of Service</a> -
-    <a href="http://www.google.com/intl/en/privacypolicy.html">Privacy Policy</a> -
+    <a href="http://code.google.com/privacy.html">Privacy Policy</a> -
     <a href="http://code.google.com/more">Site Directory</a>
     <br> <br>
     Google Code offered in:

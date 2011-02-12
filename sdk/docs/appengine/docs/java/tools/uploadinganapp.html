@@ -16,7 +16,6 @@
 
 
 
-
  
  
  
@@ -244,6 +243,13 @@ var logged_in_user_email = null;
 
           </ul>
         </li>
+        <li><a href="../capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../capabilities/overview.html">Overview</a></li>
+<li><a href="../javadoc/com/google/appengine/api/capabilities/package-summary.html">Javadoc Reference</a></li>
+
+          </ul>
+        </li>
         <li><a href="../channel/index.html">Channel</a>
           <ul>
             <li><a href="../channel/overview.html">Overview</a></li>
@@ -355,7 +361,7 @@ var logged_in_user_email = null;
     <li><a href="ant.html">Using Apache Ant</a></li>
     <li><a href="localunittesting.html">Local Unit Testing</a>
         <ul>
-            <li><a href="localunittesting/javadoc">Testing Javadoc</a></li>
+            <li><a href="localunittesting/javadoc/index.html">Testing Javadoc</a></li>
         </ul>    
     </li>
     <li><a href="appstats.html">Appstats</a></li>
@@ -421,6 +427,18 @@ var logged_in_user_email = null;
     <li><a href="../../python/blobstore/blobreaderclass.html">BlobReader</a></li>
     <li><a href="../../python/blobstore/functions.html">Functions</a></li>
     <li><a href="../../python/blobstore/exceptions.html">Exceptions</a></li>
+  </ul>
+</li>
+
+          </ul>
+        </li>
+        <li><a href="../../python/capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../../python/capabilities/overview.html">Overview</a></li>
+<li><span class="tlw-title tlw-expanded">Reference</span>
+  <ul>
+    <li><a href="../../python/capabilities/capabilitysetclass.html">CapabilitySet</a></li>
+    <li><a href="../../python/capabilities/exceptions.html">Exceptions</a></li>
   </ul>
 </li>
 
@@ -677,12 +695,12 @@ var logged_in_user_email = null;
 
 
 
-<p>The App Engine Java SDK includes a command for interacting with App Engine.  You can use this command to upload new versions of the code, configuration and static files for your app to App Engine.  You can also use the command to manage datastore indexes and download log data.</p>
+<p>The App Engine Java SDK includes a command for interacting with App Engine. You can use this command to upload new versions of the code, configuration and static files for your app to App Engine. You can also use the command to manage datastore indexes and download log data.</p>
 
 <ul>
   <li><a href="#Uploading_the_App">Uploading the App</a></li>
   <li><a href="#Updating_Indexes">Updating Indexes</a></li>
-  
+  <li><a href="#Deleting_Unused_Indexes">Deleting Unused Indexes</a></li>
   <li><a href="#Managing_Task_Queues">Managing Task Queues</a></li>
   <li><a href="#Managing_DoS_Protection">Managing DoS Protection</a></li>
   <li><a href="#Managing_Scheduled_Tasks">Managing Scheduled Tasks</a></li>
@@ -693,9 +711,9 @@ var logged_in_user_email = null;
 
 <h2 id="Uploading_the_App">Uploading the App</h2>
 
-<p>If you are using Eclipse and the Google Plugin, you can upload your application directly from within Eclipse.  To upload the app, click the App Engine deploy button in the toolbar: <img src="eclipse/ae_deploy_button.png" width="22" height="22" alt="The App Engine deploy button." />  For more information, see <a href="eclipse.html">Google Eclipse Plugin</a>.</p>
+<p>If you are using Eclipse and the Google Plugin, you can upload your application directly from within Eclipse. To upload the app, click the App Engine deploy button in the toolbar: <img src="eclipse/ae_deploy_button.png" width="22" height="22" alt="The App Engine deploy button." />  For more information, see <a href="eclipse.html">Google Eclipse Plugin</a>.</p>
 
-<p>You can also upload your application from a command prompt.  To use other features of the command, such as downloading logs, you must run the command from the command prompt.  The command to run is in the SDK's <code>appengine-java-sdk/bin/</code> directory.</p>
+<p>You can also upload your application from a command prompt. To use other features of the command, such as downloading logs, you must run the command from the command prompt. The command to run is in the SDK's <code>appengine-java-sdk/bin/</code> directory.</p>
 
 <p>If you are using Windows, the command is as follows:</p>
 
@@ -722,11 +740,11 @@ appengine-java-sdk\bin\appcfg.cmd <i>[options]</i> <i>&lt;action&gt;</i> <i>&lt;
 
 <h2 id="Updating_Indexes">Updating Indexes</h2>
 
-<p>When you upload an application using the <code>update</code> action, the update includes the app's index configuration (the <code>datastore-indexes.xml</code> and <code>generated/datastore-indexes-auto.xml</code> files).  If the index configuration defines an index that doesn't exist yet on App Engine, App Engine creates the new index.  Depending on how much data is already in the datastore that needs to be mentioned in the new index, the process of creating the index may take a while.  If the app performs a query that requires an index that hasn't finished building yet, the query will raise an exception.</p>
+<p>When you upload an application using the <code>update</code> action, the update includes the app's index configuration (the <code>datastore-indexes.xml</code> and <code>generated/datastore-indexes-auto.xml</code> files). If the index configuration defines an index that doesn't exist yet on App Engine, App Engine creates the new index. Depending on how much data is already in the datastore that needs to be mentioned in the new index, the process of creating the index may take a while. If the app performs a query that requires an index that hasn't finished building yet, the query will raise an exception.</p>
 
-<p>To prevent this, you must ensure that the new version of the app that requires a new index is not the live version of the application until the indexes finish building.  One way to do this is to give the app a new version number in <code>appengine-web.xml</code> whenever you add or change an index in the configuration.  The app is uploaded as a new version, and does not become the default version automatically.  When your indexes have finished building, you change the default version to the new one using the "Versions" section of the <a href="../../adminconsole/index.html">Admin Console</a>.</p>
+<p>To prevent this, you must ensure that the new version of the app that requires a new index is not the live version of the application until the indexes finish building. One way to do this is to give the app a new version number in <code>appengine-web.xml</code> whenever you add or change an index in the configuration. The app is uploaded as a new version, and does not become the default version automatically. When your indexes have finished building, you change the default version to the new one using the "Versions" section of the <a href="../../adminconsole/index.html">Admin Console</a>.</p>
 
-<p>Another way to ensure that new indexes are built before the new app goes live is to upload the index configuration separately before uploading the app.  To upload only the index configuration for an app, use the <code>update_indexes</code> action:</p>
+<p>Another way to ensure that new indexes are built before the new app goes live is to upload the index configuration separately before uploading the app. To upload only the index configuration for an app, use the <code>update_indexes</code> action:</p>
 
 <pre>
 ./appengine-java-sdk/bin/appcfg.sh update_indexes myapp/war
@@ -735,12 +753,22 @@ appengine-java-sdk\bin\appcfg.cmd <i>[options]</i> <i>&lt;action&gt;</i> <i>&lt;
 <p>You can check the status of the app's indexes from the "Indexes" section of <a href="../../theadminconsole.html">the Admin Console</a>.
 
 
+<h2 id="Deleting_Unused_Indexes">Deleting Unused Indexes</h2>
 
+<p>When you change or remove an index from the index configuration, the original index is <i>not</i> deleted from App Engine automatically. This gives you the opportunity to leave an older version of the app running while new indexes are being built, or to revert to the older version immediately if a problem is discovered with a newer version.</p>
+
+<p>When you are sure that old indexes are no longer needed, you can delete them from App Engine using the <code>vacuum_indexes</code> action:</p>
+
+<pre>
+./appengine-java-sdk/bin/appcfg.sh vacuum_indexes myapp/war
+</pre>
+
+<p>This command deletes all indexes for the app that are not mentioned in the local versions of <code>datastore-indexes.xml</code> and <code>generated/datastore-indexes-auto.xml</code>.</p>
 
 
 <h2 id="Managing_Task_Queues">Managing Task Queues</h2>
 
-<p>You define and configure task queues in a file called <code>queue.xml</code>.  You can upload this configuration separately from the rest of the app using the <code>update_queues</code> command:</p>
+<p>You define and configure task queues in a file called <code>queue.xml</code>. You can upload this configuration separately from the rest of the app using the <code>update_queues</code> command:</p>
 
 <pre>
 ./appengine-java-sdk/bin/appcfg.sh update_queues myapp/war
@@ -753,7 +781,7 @@ appengine-java-sdk\bin\appcfg.cmd <i>[options]</i> <i>&lt;action&gt;</i> <i>&lt;
 
 <h2 id="Managing_DoS_Protection">Managing DoS Protection</h2>
 
-<p>You configure DoS protection for an app in a file called <code>dos.xml</code>.  You can upload this configuration separately from the rest of the app using the <code>update_dos</code> command:</p>
+<p>You configure DoS protection for an app in a file called <code>dos.xml</code>. You can upload this configuration separately from the rest of the app using the <code>update_dos</code> command:</p>
 
 <pre>
 ./appengine-java-sdk/bin/appcfg.sh update_dos myapp/war
@@ -783,22 +811,22 @@ appengine-java-sdk\bin\appcfg.cmd <i>[options]</i> <i>&lt;action&gt;</i> <i>&lt;
 
 <h2 id="Downloading_Logs">Downloading Logs</h2>
 
-<p>App Engine maintains a log of messages that your application emits.  App Engine also records each request in the log.  You can browse your app's logs from the "Logs" section of <a href="../../theadminconsole.html">the Admin Console</a>.</p>
+<p>App Engine maintains a log of messages that your application emits. App Engine also records each request in the log. You can browse your app's logs from the "Logs" section of <a href="../../theadminconsole.html">the Admin Console</a>.</p>
 
-<p>If you wish to perform more detailed analysis of your application's logs, you can download the log data to a file on your computer.  To download logs to a file named <code>mylogs.txt</code>, use the <code>request_logs</code> action, as follows:</p>
+<p>If you wish to perform more detailed analysis of your application's logs, you can download the log data to a file on your computer. To download logs to a file named <code>mylogs.txt</code>, use the <code>request_logs</code> action, as follows:</p>
 
 <pre>
 ./appengine-java-sdk/bin/appcfg.sh request_logs myapp/war mylogs.txt
 </pre>
 
-<p>By default, the command downloads log messages from the current calendar day (since midnight Pacific Time) with a log level of INFO or higher (omitting DEBUG level messages).  You can adjust the number of days, the minimum log level, and whether to overwrite or append to the local log file using command-line options.</p>
+<p>By default, the command downloads log messages from the current calendar day (since midnight Pacific Time) with a log level of INFO or higher (omitting DEBUG level messages). You can adjust the number of days, the minimum log level, and whether to overwrite or append to the local log file using command-line options.</p>
 
-<p>By default, the command overwrites the local log file.  You can tell it to append the downloaded data to the file instead by specifying the <code>--append</code> argument.  This simply appends the requested log data to the file, it doesn't guarantee that the file doesn't contain duplicate log messages.</p>
+<p>By default, the command overwrites the local log file. You can tell it to append the downloaded data to the file instead by specifying the <code>--append</code> argument. This simply appends the requested log data to the file, it doesn't guarantee that the file doesn't contain duplicate log messages.</p>
 
 
 <h2 id="Using_an_HTTP_Proxy">Using an HTTP Proxy</h2>
 
-<p>If your development environment resides behind an HTTP proxy, the AppCfg command needs to know about the proxy to connect to App Engine.  To tell AppCfg about your proxy, using the <code>--proxy</code> option:</p>
+<p>If your development environment resides behind an HTTP proxy, the AppCfg command needs to know about the proxy to connect to App Engine. To tell AppCfg about your proxy, using the <code>--proxy</code> option:</p>
 
 <pre>
 ./appengine-java-sdk/bin/appcfg.sh --proxy=10.1.2.3 update myapp/war
@@ -816,22 +844,22 @@ appengine-java-sdk\bin\appcfg.cmd <i>[options]</i> <i>&lt;action&gt;</i> <i>&lt;
 <dl>
   <dt><code>appcfg.sh <i>[options]</i> update <i>&lt;war-location&gt;</i></code></dt>
   <dd>
-    <p>Uploads files for an application given the application's root directory.  The application ID and version are taken from the <code>appengine-web.xml</code> file.</p>
+    <p>Uploads files for an application given the application's root directory. The application ID and version are taken from the <code>appengine-web.xml</code> file.</p>
   </dd>
 
   <dt><code>appcfg.sh <i>[options]</i> rollback <i>&lt;war-location&gt;</i></code></dt>
   <dd>
-    <p>Undoes a partially completed update for the given application.  You can use this if an update was interrupted, and the command is reporting that the application cannot be updated due to a lock.</p>
+    <p>Undoes a partially completed update for the given application. You can use this if an update was interrupted, and the command is reporting that the application cannot be updated due to a lock.</p>
   </dd>
 
   <dt><code>appcfg.sh <i>[options]</i> update_indexes <i>&lt;war-location&gt;</i></code></dt>
   <dd>
-    <p>Updates datastore indexes in App Engine to include newly added indexes.  If a new version of your application requires an additional index definition that was added to the index configuration, you can update your index configuration in App Engine prior to uploading the new version of your application.  Running this action a few hours prior to uploading your new application version will give the indexes time to build and be serving when the application is deployed.</p>
+    <p>Updates datastore indexes in App Engine to include newly added indexes. If a new version of your application requires an additional index definition that was added to the index configuration, you can update your index configuration in App Engine prior to uploading the new version of your application. Running this action a few hours prior to uploading your new application version will give the indexes time to build and be serving when the application is deployed.</p>
   </dd>
 
   <dt><code>appcfg.sh <i>[options]</i> update_queues <i>&lt;war-location&gt;</i></code></dt>
   <dd>
-    <p>Updates the task queue configuration (<code>queue.xml</code>) in App Engine.  If the new configuration does not include a named queue (other than <code>default</code>) that exists and has tasks, the existing queue is paused.</p>
+    <p>Updates the task queue configuration (<code>queue.xml</code>) in App Engine. If the new configuration does not include a named queue (other than <code>default</code>) that exists and has tasks, the existing queue is paused.</p>
   </dd>
 
 
@@ -853,19 +881,19 @@ appengine-java-sdk\bin\appcfg.cmd <i>[options]</i> <i>&lt;action&gt;</i> <i>&lt;
 
   <dt><code>appcfg.sh <i>[options]</i> request_logs <i>&lt;war-location&gt;</i> <i>&lt;output-file&gt;</i></code></dt>
   <dd>
-    <p>Retrieves log data for the application running on App Engine.  <code><i>output-file</i></code> is the name of the file to create or replace.  If <code><i>output-file</i></code> is a hyphen (<code>-</code>), the log data is printed to the console.  The following options apply to <code>request_logs</code>:</p>
+    <p>Retrieves log data for the application running on App Engine. <code><i>output-file</i></code> is the name of the file to create or replace. If <code><i>output-file</i></code> is a hyphen (<code>-</code>), the log data is printed to the console. The following options apply to <code>request_logs</code>:</p>
     <dl>
       <dt><code>--num_days=<i>...</i></code></dt>
       <dd>
-        <p>The number of days of log data to retrieve, ending on the current date at midnight UTC.  A value of 0 retrieves all available logs.  If <code>--append</code> is given, then the default is 0, otherwise the default is 1.</p>
+        <p>The number of days of log data to retrieve, ending on the current date at midnight UTC. A value of 0 retrieves all available logs. If <code>--append</code> is given, then the default is 0, otherwise the default is 1.</p>
       </dd>
       <dt><code>--severity=<i>...</i></code></dt>
       <dd>
-        <p>The minimum log level for the log messages to retrieve.  The value is a number corresponding to the log level: 4 for CRITICAL, 3 for ERROR, 2 for WARNING, 1 for INFO, 0 for DEBUG.  All messages at the given log level and above will be retrieved.  Default is 1 (INFO).</p>
+        <p>The minimum log level for the log messages to retrieve. The value is a number corresponding to the log level: 4 for CRITICAL, 3 for ERROR, 2 for WARNING, 1 for INFO, 0 for DEBUG. All messages at the given log level and above will be retrieved. Default is 1 (INFO).</p>
       </dd>
       <dt><code>--append</code></dt>
       <dd>
-        <p>Tells AppCfg to append logs to the log output file instead of overwriting the file.  This simply appends the requested data, it does not guarantee the file won't contain duplicate error messages.  If this argument is not specified, AppCfg will overwrite the log output file.</p>
+        <p>Tells AppCfg to append logs to the log output file instead of overwriting the file. This simply appends the requested data, it does not guarantee the file won't contain duplicate error messages. If this argument is not specified, AppCfg will overwrite the log output file.</p>
       </dd>
     </dl>
   </dd>
@@ -877,7 +905,7 @@ appengine-java-sdk\bin\appcfg.cmd <i>[options]</i> <i>&lt;action&gt;</i> <i>&lt;
 
   <dt><code>appcfg.sh <i>[options]</i> version</code></dt>
   <dd>
-    <p>Prints detailed version information about the SDK, Java and the operating system, then quits.  Use this when submitting bug reports.</p>
+    <p>Prints detailed version information about the SDK, Java and the operating system, then quits. Use this when submitting bug reports.</p>
   </dd>
 
 </dl>
@@ -887,12 +915,12 @@ appengine-java-sdk\bin\appcfg.cmd <i>[options]</i> <i>&lt;action&gt;</i> <i>&lt;
 <dl>
   <dt><code>--email=<i>...</i></code></dt>
   <dd>
-    <p>The email address of the Google account of an administrator for the application, for actions that require signing in.  If omitted and no cookie is stored from a previous use of the command, the command will prompt for this value.</p>
+    <p>The email address of the Google account of an administrator for the application, for actions that require signing in. If omitted and no cookie is stored from a previous use of the command, the command will prompt for this value.</p>
   </dd>
 
   <dt><code>--server=<i>...</i></code></dt>
   <dd>
-    <p>The App Engine server hostname.  The default is <code>appengine.google.com</code>.</p>
+    <p>The App Engine server hostname. The default is <code>appengine.google.com</code>.</p>
   </dd>
 
   <dt><code>--host=<i>...</i></code></dt>
@@ -917,7 +945,7 @@ appengine-java-sdk\bin\appcfg.cmd <i>[options]</i> <i>&lt;action&gt;</i> <i>&lt;
 
   <dt><code>--proxy_https=...</code></dt>
   <dd>
-    <p>Use the given HTTPS proxy to contact App Engine, when using HTTPS.  If <code>--proxy</code> is given but <code>--proxy_https</code> is not, both HTTP and HTTPS requests will use the given proxy.</p>
+    <p>Use the given HTTPS proxy to contact App Engine, when using HTTPS. If <code>--proxy</code> is given but <code>--proxy_https</code> is not, both HTTP and HTTPS requests will use the given proxy.</p>
   </dd>
 </dl>
 
@@ -959,7 +987,7 @@ Java is a registered trademark of Oracle and/or its affiliates</div>
     ©2011 Google -
     <a href="http://code.google.com">Code Home</a> -
     <a href="http://code.google.com/terms.html">Terms of Service</a> -
-    <a href="http://www.google.com/intl/en/privacypolicy.html">Privacy Policy</a> -
+    <a href="http://code.google.com/privacy.html">Privacy Policy</a> -
     <a href="http://code.google.com/more">Site Directory</a>
     <br> <br>
     Google Code offered in:

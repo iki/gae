@@ -15,7 +15,6 @@
 
 
 
-
  
  
  
@@ -243,6 +242,13 @@ var logged_in_user_email = null;
 
           </ul>
         </li>
+        <li><a href="../capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../capabilities/overview.html">Overview</a></li>
+<li><a href="../javadoc/com/google/appengine/api/capabilities/package-summary.html">Javadoc Reference</a></li>
+
+          </ul>
+        </li>
         <li><a href="../channel/index.html">Channel</a>
           <ul>
             <li><a href="../channel/overview.html">Overview</a></li>
@@ -354,7 +360,7 @@ var logged_in_user_email = null;
     <li><a href="../tools/ant.html">Using Apache Ant</a></li>
     <li><a href="../tools/localunittesting.html">Local Unit Testing</a>
         <ul>
-            <li><a href="../tools/localunittesting/javadoc">Testing Javadoc</a></li>
+            <li><a href="../tools/localunittesting/javadoc/index.html">Testing Javadoc</a></li>
         </ul>    
     </li>
     <li><a href="../tools/appstats.html">Appstats</a></li>
@@ -420,6 +426,18 @@ var logged_in_user_email = null;
     <li><a href="../../python/blobstore/blobreaderclass.html">BlobReader</a></li>
     <li><a href="../../python/blobstore/functions.html">Functions</a></li>
     <li><a href="../../python/blobstore/exceptions.html">Exceptions</a></li>
+  </ul>
+</li>
+
+          </ul>
+        </li>
+        <li><a href="../../python/capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../../python/capabilities/overview.html">Overview</a></li>
+<li><span class="tlw-title tlw-expanded">Reference</span>
+  <ul>
+    <li><a href="../../python/capabilities/capabilitysetclass.html">CapabilitySet</a></li>
+    <li><a href="../../python/capabilities/exceptions.html">Exceptions</a></li>
   </ul>
 </li>
 
@@ -759,7 +777,12 @@ import java.io.IOException;
 
 <p>An app can fetch a URL with the HTTPS method to connect to secure servers.  Request and response data are transmitted over the network in encrypted form.</p>
 
-<p>The proxy the URL Fetch service uses <i>cannot</i> authenticate the host it is contacting.  Because there is no certificate trust chain, the proxy accepts all certificates, including self-signed certificates.  The proxy server cannot detect "man in the middle" attacks between App Engine and the remote host when using HTTPS.</p>
+
+<p>In the high-level Java API, the proxy does not validate the host it is contacting. The proxy server cannot detect "man in the middle" attacks between App Engine and the remote host when using HTTPS.</p>
+
+<p>However, you can use the <a href="../javadoc/com/google/appengine/api/urlfetch/FetchOptions.html">FetchOptions</a> class in the low-level API to enable host validation. In the near future, host validation will become the default in both low-level and the high-level APIs.</p>
+
+
 
 
 <h2 id="Request_Headers">Request Headers</h2>
@@ -910,7 +933,7 @@ Java is a registered trademark of Oracle and/or its affiliates</div>
     ©2011 Google -
     <a href="http://code.google.com">Code Home</a> -
     <a href="http://code.google.com/terms.html">Terms of Service</a> -
-    <a href="http://www.google.com/intl/en/privacypolicy.html">Privacy Policy</a> -
+    <a href="http://code.google.com/privacy.html">Privacy Policy</a> -
     <a href="http://code.google.com/more">Site Directory</a>
     <br> <br>
     Google Code offered in:

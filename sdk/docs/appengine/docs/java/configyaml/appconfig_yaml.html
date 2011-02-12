@@ -38,7 +38,6 @@
 
 
 
-
  
  
  
@@ -266,6 +265,13 @@ var logged_in_user_email = null;
 
           </ul>
         </li>
+        <li><a href="../capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../capabilities/overview.html">Overview</a></li>
+<li><a href="../javadoc/com/google/appengine/api/capabilities/package-summary.html">Javadoc Reference</a></li>
+
+          </ul>
+        </li>
         <li><a href="../channel/index.html">Channel</a>
           <ul>
             <li><a href="../channel/overview.html">Overview</a></li>
@@ -377,7 +383,7 @@ var logged_in_user_email = null;
     <li><a href="../tools/ant.html">Using Apache Ant</a></li>
     <li><a href="../tools/localunittesting.html">Local Unit Testing</a>
         <ul>
-            <li><a href="../tools/localunittesting/javadoc">Testing Javadoc</a></li>
+            <li><a href="../tools/localunittesting/javadoc/index.html">Testing Javadoc</a></li>
         </ul>    
     </li>
     <li><a href="../tools/appstats.html">Appstats</a></li>
@@ -443,6 +449,18 @@ var logged_in_user_email = null;
     <li><a href="../../python/blobstore/blobreaderclass.html">BlobReader</a></li>
     <li><a href="../../python/blobstore/functions.html">Functions</a></li>
     <li><a href="../../python/blobstore/exceptions.html">Exceptions</a></li>
+  </ul>
+</li>
+
+          </ul>
+        </li>
+        <li><a href="../../python/capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../../python/capabilities/overview.html">Overview</a></li>
+<li><span class="tlw-title tlw-expanded">Reference</span>
+  <ul>
+    <li><a href="../../python/capabilities/capabilitysetclass.html">CapabilitySet</a></li>
+    <li><a href="../../python/capabilities/exceptions.html">Exceptions</a></li>
   </ul>
 </li>
 
@@ -981,7 +999,11 @@ context_params:
   There is no way to disallow HTTPS for some URL paths and not others in the Java runtime environment. The development web server does not support HTTPS connections. It ignores the secure parameter, so paths intended for use with HTTPS can be tested using regular HTTP connections to the development web server.
 </p>
 <p>
-  When you test your app's HTTPS handlers using the versioned appspot.com URL, such as https://1.latest.app-id.appspot.com/, your browser warns you that the HTTPS certificate was not signed for that specific domain path. If you accept the certificate for that domain, pages will load successfully. Users will not see the certificate warning when accessing https://app-id.appspot.com/.
+  When you test your app's HTTPS handlers using the versioned appspot.com URL, such as <code>https://1.latest.app-id.appspot.com/</code>, your browser warns you that the HTTPS certificate was not signed for that specific domain path. If you accept the certificate for that domain, pages will load successfully. Users will not see the certificate warning when accessing <code>https://app-id.appspot.com/</code>.
+</p>
+
+<p>
+  You can also use an alternate form of the versioned appspot.com URL designed to avoid this problem by replacing the periods separating the subdomain components with the string "-dot-". For instance, the previous example could be accessed without a certificate warning at <code>https://1-dot-latest-dot-app-id.appspot.com/</code>.
 </p>
 <p>
   Google Accounts sign-in and sign-out always use a secure connection, unrelated to how the application's URLs are configured.
@@ -1066,18 +1088,18 @@ inbound_services:
 - xmpp_message
 - mail</pre>
 
-<h3 id="Warming_Requests">Warming Requests</h3>
+<h3 id="Warmup_Requests">Warmup Requests</h3>
 <p>App Engine frequently needs to load application code into a fresh instance. This happens when you redeploy the application, when the load pattern has increased beyond the capacity of the current instances, or simply due to maintenance or repairs of the underlying infrastructure or physical hardware. </p>
 
-<p>Loading new application code on a fresh instance can result in <a href="../../adminconsole/instances.html#Loading_Requests">loading requests</a>. Loading requests can result in increased request latency for your users, but you can avoid this latency using <b>warming requests</b>. Warming requests load application code into a new instance before any live requests reach that instance.</p>
+<p>Loading new application code on a fresh instance can result in <a href="../../adminconsole/instances.html#Loading_Requests">loading requests</a>. Loading requests can result in increased request latency for your users, but you can avoid this latency using <b>warmup requests</b>. Warmup requests load application code into a new instance before any live requests reach that instance.</p>
 
-<p>App Engine attempts to detect when your application needs a new instance, and (assuming that warming requests are enabled for your application) initiates a warming request to initialize the new instance. However, these detection attempts do not work in every case. As a result, you may encounter loading requests, even if warming requests are enabled in your app. For example, if your app is serving no traffic, the first request to the app will always be a loading request, not a warming request. You can prevent loading requests in most cases by using the <a href="../../adminconsole/instances.html#Always_On">Always On</a> feature.</p>
+<p>App Engine attempts to detect when your application needs a new instance, and (assuming that warmup requests are enabled for your application) initiates a warmup request to initialize the new instance. However, these detection attempts do not work in every case. As a result, you may encounter loading requests, even if warmup requests are enabled in your app. For example, if your app is serving no traffic, the first request to the app will always be a loading request, not a warmup request. You can prevent loading requests in most cases by using the <a href="../../adminconsole/instances.html#Always_On">Always On</a> feature.</p>
 
-<p>Warming requests use CPU quota like any other request to your App Engine application. In most cases, you won't notice an increase in CPU usage, since your application is simply initializing in a warming request instead of a loading request. Your CPU usage will likely increase if you decide to do more work (such as precaching) during a warming request.</p>
+<p>Warmup requests use CPU quota like any other request to your App Engine application. In most cases, you won't notice an increase in CPU usage, since your application is simply initializing in a warmup request instead of a loading request. Your CPU usage will likely increase if you decide to do more work (such as precaching) during a warmup request.</p>
 
 
   
-<p>In Java applications configured with <code>app.yaml</code>, warming requests are disabled by default. To enable them, add the <code>warmup</code> argument to the <code>inbound_services</code> directive:</p>
+<p>In Java applications configured with <code>app.yaml</code>, warmup requests are disabled by default. To enable them, add the <code>warmup</code> argument to the <code>inbound_services</code> directive:</p>
 <pre>inbound_services:
 - warmup</pre>
 
@@ -1210,7 +1232,7 @@ Java is a registered trademark of Oracle and/or its affiliates</div>
     ©2011 Google -
     <a href="http://code.google.com">Code Home</a> -
     <a href="http://code.google.com/terms.html">Terms of Service</a> -
-    <a href="http://www.google.com/intl/en/privacypolicy.html">Privacy Policy</a> -
+    <a href="http://code.google.com/privacy.html">Privacy Policy</a> -
     <a href="http://code.google.com/more">Site Directory</a>
     <br> <br>
     Google Code offered in:

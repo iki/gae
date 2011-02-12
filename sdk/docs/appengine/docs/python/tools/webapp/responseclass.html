@@ -15,7 +15,6 @@
 
 
 
-
  
  
  
@@ -243,6 +242,13 @@ var logged_in_user_email = null;
 
           </ul>
         </li>
+        <li><a href="../../../java/capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../../../java/capabilities/overview.html">Overview</a></li>
+<li><a href="../../../java/javadoc/com/google/appengine/api/capabilities/package-summary.html">Javadoc Reference</a></li>
+
+          </ul>
+        </li>
         <li><a href="../../../java/channel/index.html">Channel</a>
           <ul>
             <li><a href="../../../java/channel/overview.html">Overview</a></li>
@@ -354,7 +360,7 @@ var logged_in_user_email = null;
     <li><a href="../../../java/tools/ant.html">Using Apache Ant</a></li>
     <li><a href="../../../java/tools/localunittesting.html">Local Unit Testing</a>
         <ul>
-            <li><a href="../../../java/tools/localunittesting/javadoc">Testing Javadoc</a></li>
+            <li><a href="../../../java/tools/localunittesting/javadoc/index.html">Testing Javadoc</a></li>
         </ul>    
     </li>
     <li><a href="../../../java/tools/appstats.html">Appstats</a></li>
@@ -420,6 +426,18 @@ var logged_in_user_email = null;
     <li><a href="../../blobstore/blobreaderclass.html">BlobReader</a></li>
     <li><a href="../../blobstore/functions.html">Functions</a></li>
     <li><a href="../../blobstore/exceptions.html">Exceptions</a></li>
+  </ul>
+</li>
+
+          </ul>
+        </li>
+        <li><a href="../../capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../../capabilities/overview.html">Overview</a></li>
+<li><span class="tlw-title tlw-expanded">Reference</span>
+  <ul>
+    <li><a href="../../capabilities/capabilitysetclass.html">CapabilitySet</a></li>
+    <li><a href="../../capabilities/exceptions.html">Exceptions</a></li>
   </ul>
 </li>
 
@@ -707,7 +725,7 @@ var logged_in_user_email = null;
 
 <h2 id="Introduction">Introduction</h2>
 
-<p>When the webapp framework calls a request handler method, the handler instance's <code>response</code> member is initialized with an empty Response instance.  The handler method prepares the response by manipulating the Response instance, such as by writing body data to the <code>out</code> member or setting headers on the <code>headers</code> member.</p>
+<p>When the webapp framework calls a request handler method, the handler instance's <code>response</code> member is initialized with an empty Response instance. The handler method prepares the response by manipulating the Response instance, such as by writing body data to the <code>out</code> member or setting headers on the <code>headers</code> member.</p>
 
 <pre class="prettyprint">
 import datetime
@@ -723,11 +741,11 @@ class MyRequestHandler(webapp.RequestHandler):
         self.response.headers.add_header("Expires", expires_str)
 </pre>
 
-<p>webapp sends the response when the handler method returns.  The content of the response is the final state of the Response object when the method returns.</p>
+<p>webapp sends the response when the handler method returns. The content of the response is the final state of the Response object when the method returns.</p>
 
-<p class="note"><b>Note:</b> Manipulating the object in the handler method does not communicate any data to the user.  In particular, this means that webapp cannot send data to the browser then perform additional logic, as in a streaming application.  (App Engine applications cannot stream data to the browser, with or without webapp.)</p>
+<p class="note"><b>Note:</b> Manipulating the object in the handler method does not communicate any data to the user. In particular, this means that webapp cannot send data to the browser then perform additional logic, as in a streaming application. (App Engine applications cannot stream data to the browser, with or without webapp.)</p>
 
-<p>By default, responses use a HTTP status code of 200 ("OK").  To change the status code, the application uses the <a href="#Response_set_status">set_status()</a> method.  See also <a href="requesthandlerclass.html#RequestHandler_error">the RequestHandler object's error() method</a> for a convenient way to set error codes.</p>
+<p>By default, responses use a HTTP status code of 200 ("OK"). To change the status code, the application uses the <a href="#Response_set_status">set_status()</a> method. See also <a href="requesthandlerclass.html#RequestHandler_error">the RequestHandler object's error() method</a> for a convenient way to set error codes.</p>
 
 <p>If the response does not specify a character set in the <code>Content-Type</code> header, the character set for the response is set to UTF-8 automatically.</li>
 
@@ -739,7 +757,7 @@ class MyRequestHandler(webapp.RequestHandler):
 <dl class="apireference">
   <dt id="Response"><span class="type">class</span>&nbsp;<span class="itemname">Response</span>()</dt>
   <dd>
-    <p>An outgoing response.  Typically, the <a href="wsgiapplicationclass.html">WSGIApplication</a> instantiates a <a href="requesthandlerclass.html">RequestHandler</a> and initializes it with a Response object with default values.</p>
+    <p>An outgoing response. Typically, the <a href="wsgiapplicationclass.html">WSGIApplication</a> instantiates a <a href="requesthandlerclass.html">RequestHandler</a> and initializes it with a Response object with default values.</p>
   </dd>
 </dl>
 
@@ -771,13 +789,13 @@ class MyRequestHandler(webapp.RequestHandler):
 
   <dt id="Response_out"><span class="itemname">out</span></dt>
   <dd>
-    <p>An instance of the <a href="http://www.python.org/doc/2.5.2/lib/module-StringIO.html">StringIO</a> class that contains the body text of the response.  The contents of this object are sent as the body of the response when the request handler method returns.</p>
+    <p>An instance of the <a href="http://www.python.org/doc/2.5.2/lib/module-StringIO.html">StringIO</a> class that contains the body text of the response. The contents of this object are sent as the body of the response when the request handler method returns.</p>
   </dd>
 
   <dt id="Response_headers"><span class="itemname">headers</span></dt>
   <dd>
-    <p>An instance of the <a href="http://www.python.org/doc/lib/module-wsgiref.headers.html">wsgiref.headers.Headers</a> class that contains the headers of the response.  The contents of this object are sent as the headers of the response when the request handler method returns.</p>
-    <p>For security reasons, some response headers cannot be modified by the application.  See <a href="#Disallowed_HTTP_Response_Headers">Disallowed HTTP Response Headers</a>.</p>
+    <p>An instance of the <a href="http://docs.python.org/library/wsgiref.html#module-wsgiref.headers">wsgiref.headers.Headers</a> class that contains the headers of the response. The contents of this object are sent as the headers of the response when the request handler method returns.</p>
+    <p>For security reasons, some response headers cannot be modified by the application. See <a href="#Disallowed_HTTP_Response_Headers">Disallowed HTTP Response Headers</a>.</p>
   </dd>
 
 </dl>
@@ -807,7 +825,7 @@ class MyRequestHandler(webapp.RequestHandler):
 
   <dt id="Response_wsgi_write"><span class="itemname">wsgi_write</span>(<span class="argname">start_response</span>)</dt>
   <dd>
-    <p>Writes the response using WSGI semantics.  Typically, an application does not call this directly.  Instead, webapp calls this to write the response when the request handler method returns.</p>
+    <p>Writes the response using WSGI semantics. Typically, an application does not call this directly. Instead, webapp calls this to write the response when the request handler method returns.</p>
     <p>Arguments:</p>
     <dl>
       <dt><span class="argname">start_response</span></dt>
@@ -822,7 +840,7 @@ class MyRequestHandler(webapp.RequestHandler):
 
 
 
-<p>For security reasons, the following HTTP response headers cannot be modified by the application.  Setting these in the Response object's <code>headers</code> object has no effect.</p>
+<p>For security reasons, the following HTTP response headers cannot be modified by the application. Setting these in the Response object's <code>headers</code> object has no effect.</p>
 
 <ul>
   <li><code>Content-Encoding</code></li>
@@ -871,7 +889,7 @@ Java is a registered trademark of Oracle and/or its affiliates</div>
     ©2011 Google -
     <a href="http://code.google.com">Code Home</a> -
     <a href="http://code.google.com/terms.html">Terms of Service</a> -
-    <a href="http://www.google.com/intl/en/privacypolicy.html">Privacy Policy</a> -
+    <a href="http://code.google.com/privacy.html">Privacy Policy</a> -
     <a href="http://code.google.com/more">Site Directory</a>
     <br> <br>
     Google Code offered in:

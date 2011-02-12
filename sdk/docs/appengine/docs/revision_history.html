@@ -15,7 +15,6 @@
 
 
 
-
  
  
  
@@ -243,6 +242,13 @@ var logged_in_user_email = null;
 
           </ul>
         </li>
+        <li><a href="java/capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="java/capabilities/overview.html">Overview</a></li>
+<li><a href="java/javadoc/com/google/appengine/api/capabilities/package-summary.html">Javadoc Reference</a></li>
+
+          </ul>
+        </li>
         <li><a href="java/channel/index.html">Channel</a>
           <ul>
             <li><a href="java/channel/overview.html">Overview</a></li>
@@ -354,7 +360,7 @@ var logged_in_user_email = null;
     <li><a href="java/tools/ant.html">Using Apache Ant</a></li>
     <li><a href="java/tools/localunittesting.html">Local Unit Testing</a>
         <ul>
-            <li><a href="java/tools/localunittesting/javadoc">Testing Javadoc</a></li>
+            <li><a href="java/tools/localunittesting/javadoc/index.html">Testing Javadoc</a></li>
         </ul>    
     </li>
     <li><a href="java/tools/appstats.html">Appstats</a></li>
@@ -420,6 +426,18 @@ var logged_in_user_email = null;
     <li><a href="python/blobstore/blobreaderclass.html">BlobReader</a></li>
     <li><a href="python/blobstore/functions.html">Functions</a></li>
     <li><a href="python/blobstore/exceptions.html">Exceptions</a></li>
+  </ul>
+</li>
+
+          </ul>
+        </li>
+        <li><a href="python/capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="python/capabilities/overview.html">Overview</a></li>
+<li><span class="tlw-title tlw-expanded">Reference</span>
+  <ul>
+    <li><a href="python/capabilities/capabilitysetclass.html">CapabilitySet</a></li>
+    <li><a href="python/capabilities/exceptions.html">Exceptions</a></li>
   </ul>
 </li>
 
@@ -680,7 +698,23 @@ var logged_in_user_email = null;
 
 <p>For information about changes to the App Engine API, the runtime environment, or the SDK, see <a href="http://code.google.com/p/googleappengine/wiki/SdkReleaseNotes">the release notes</a>.</p>
 
-<p><b>2010-01-04</b></p>
+<p><b>2011-02-10</b></p>
+<ul>
+  <li>App Engine 1.4.2 SDKs are <a href="../downloads.html">now available</a> for Python and Java.</li>
+
+  <li>New feature: Capabilities API. The Capabilities API allows you to detect when an App Engine capability is unavailable, so you can avoid latency in your application.</li>
+  <li>New feature: XMPP v2. The XMPP service provides new methods to handle presence and send the application's chat status.</li>
+  <li>New feature: You can now clear tasks from the task queue programmatically.</li>
+  <li>New feature: Task Queue configuration includes a new parameter allowing you to limit the number of tasks being performed in a queue at a given time.</li>
+  <li>New feature: <code>app.yaml</code> includes a <code>deferred</code> builtin handler that allows developers to simplify the creation of task queue tasks.</li>
+  <li>New feature: The Java SDK supports vacuum indexes.</li>
+  <li>New feature: The low-level Memcache API includes additional functions for the Memcache service.</li>
+  <li>New feature: URL Fetch includes a new method allowing you to validate certificates.</li>
+  <li>New feature: Django 1.2.5 is now available in the Python SDK.</li>
+</ul>
+
+
+<p><b>2011-01-04</b></p>
 <ul>
   <li>The App Engine 1.4.1 Python SDK is <a href="../downloads.html">now available</a>. There is no Java SDK in this release.</li>
   <li>New feature: High replication datastore. The High Replication Datastore provides higher availability of reads and writes, at the cost of increased latency for writes, higher cost, and changes in consistency guarantees in the API.</li>
@@ -693,7 +727,7 @@ var logged_in_user_email = null;
 <ul>
   <li>App Engine 1.4.0 SDKs are <a href="../downloads.html">now available</a> for Python and Java. (This is a major release, so version numbers increased from 1.3.8 directly to 1.4.0.)</li>
   <li>New feature: Using Always On, you can pay to keep 3 instances of your application always running, which can significantly reduce application latency.</li>
-  <li>New feature: Reduce latency using warming requests.</li>
+  <li>New feature: Reduce latency using warmup requests.</li>
   <li>New Feature: Use the Channel API to create a persistent connection between your application and Google servers, allowing your application to send messages to JavaScript clients in real time without the use of polling.</li>
   <li>New feature: Configure custom retry parameters from queues.yaml.</li>
   <li>Limit increase: Deadline for tasks increased from 30s to 2m.</li>
@@ -710,7 +744,7 @@ var logged_in_user_email = null;
 <ul>
   <li>App Engine 1.3.8 SDKs are <a href="../downloads.html">now available</a> for Python and Java.</li>
   <li>New feature: Run tasks from the Admin Console.</li>
-  <li>New feature: Include standard libraries in your application using builtin handlers.</li>S
+  <li>New feature: Include standard libraries in your application using builtin handlers.</li>
   <li>New feature (experimental): From the Admin console, delete all entities of a kind, or all entities of all kinds, in the default namespace.</li>
   <li>The imageclass now provides a <code>quality</code> argument to <code>execute_transforms</code> and <code>composite</code>.</li>
   <li>Python precompilation is now enabled by default.</li>
@@ -1348,7 +1382,7 @@ Java is a registered trademark of Oracle and/or its affiliates</div>
     ©2011 Google -
     <a href="http://code.google.com">Code Home</a> -
     <a href="http://code.google.com/terms.html">Terms of Service</a> -
-    <a href="http://www.google.com/intl/en/privacypolicy.html">Privacy Policy</a> -
+    <a href="http://code.google.com/privacy.html">Privacy Policy</a> -
     <a href="http://code.google.com/more">Site Directory</a>
     <br> <br>
     Google Code offered in:

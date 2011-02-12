@@ -15,7 +15,6 @@
 
 
 
-
  
  
  
@@ -243,6 +242,13 @@ var logged_in_user_email = null;
 
           </ul>
         </li>
+        <li><a href="../capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../capabilities/overview.html">Overview</a></li>
+<li><a href="../javadoc/com/google/appengine/api/capabilities/package-summary.html">Javadoc Reference</a></li>
+
+          </ul>
+        </li>
         <li><a href="../channel/index.html">Channel</a>
           <ul>
             <li><a href="../channel/overview.html">Overview</a></li>
@@ -354,7 +360,7 @@ var logged_in_user_email = null;
     <li><a href="../tools/ant.html">Using Apache Ant</a></li>
     <li><a href="../tools/localunittesting.html">Local Unit Testing</a>
         <ul>
-            <li><a href="../tools/localunittesting/javadoc">Testing Javadoc</a></li>
+            <li><a href="../tools/localunittesting/javadoc/index.html">Testing Javadoc</a></li>
         </ul>    
     </li>
     <li><a href="../tools/appstats.html">Appstats</a></li>
@@ -420,6 +426,18 @@ var logged_in_user_email = null;
     <li><a href="../../python/blobstore/blobreaderclass.html">BlobReader</a></li>
     <li><a href="../../python/blobstore/functions.html">Functions</a></li>
     <li><a href="../../python/blobstore/exceptions.html">Exceptions</a></li>
+  </ul>
+</li>
+
+          </ul>
+        </li>
+        <li><a href="../../python/capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../../python/capabilities/overview.html">Overview</a></li>
+<li><span class="tlw-title tlw-expanded">Reference</span>
+  <ul>
+    <li><a href="../../python/capabilities/capabilitysetclass.html">CapabilitySet</a></li>
+    <li><a href="../../python/capabilities/exceptions.html">Exceptions</a></li>
   </ul>
 </li>
 
@@ -676,7 +694,7 @@ var logged_in_user_email = null;
 
 
 
-<p>The App Engine Java SDK supports JCache, a proposed interface standard for memory caches, as an interface to the App Engine memcache service.  The proposal, <a href="http://jcp.org/en/jsr/detail?id=107">JSR 107</a>, is not yet official.  App Engine provides this interface using the <a href="http://sourceforge.net/projects/jsr107cache/">net.sf.jsr107</a> interface package.</p>
+<p>The App Engine Java SDK supports JCache, a proposed interface standard for memory caches, as an interface to the App Engine memcache service.  The proposal, <a href="http://jcp.org/en/jsr/detail?id=107">JSR 107</a>, is not yet official.  App Engine provides this interface using the <a href="http://sourceforge.net/projects/jsr107cache/">net.sf.jsr107cache</a> interface package.</p>
 
 <p>With JCache, you can set and get values, control how values expire from the cache, inspect the contents of the cache, and get statistics about the cache.  You can also use "listeners" to add custom behavior when setting and deleting values.</p>
 
@@ -694,16 +712,16 @@ var logged_in_user_email = null;
 
 <h2 id="Getting_a_Cache_Instance">Getting a Cache Instance</h2>
 
-<p>You use an implementation of the <code>net.sf.jsr107.Cache</code> interface to interact with the cache.  You obtain a Cache instance using a CacheFactory, which you obtain from a static method on the CacheManager.  The following code gets a Cache instance with the default configuration:</p>
+<p>You use an implementation of the <code>net.sf.jsr107cache.Cache</code> interface to interact with the cache.  You obtain a Cache instance using a CacheFactory, which you obtain from a static method on the CacheManager.  The following code gets a Cache instance with the default configuration:</p>
 
 
 
 <pre class="prettyprint">
 import java.util.Collections;
-import net.sf.jsr107.Cache;
-import net.sf.jsr107.CacheException;
-import net.sf.jsr107.CacheFactory;
-import net.sf.jsr107.CacheManager;
+import net.sf.jsr107cache.Cache;
+import net.sf.jsr107cache.CacheException;
+import net.sf.jsr107cache.CacheFactory;
+import net.sf.jsr107cache.CacheManager;
 
 // ...
         Cache cache;
@@ -748,12 +766,13 @@ import net.sf.jsr107.CacheManager;
 <p>You specify the expiration policy using configuration properties when you create the Cache instance.  All values put with that instance use the same expiration policy.  For example, to configure a Cache instance to expire values one hour (3,600 seconds) after they are set:</p>
 
 <pre class="prettyprint">
+import java.util.HashMap;
 import java.util.Map;
-import net.sf.jsr107.Cache;
-import net.sf.jsr107.CacheException;
-import net.sf.jsr107.CacheFactory;
-import net.sf.jsr107.CacheManager;
-import com.google.appengine.api.memcache.stdimpl.GCacheFactory;
+import net.sf.jsr107cache.Cache;
+import net.sf.jsr107cache.CacheException;
+import net.sf.jsr107cache.CacheFactory;
+import net.sf.jsr107cache.CacheManager;
+import com.google.appengine.api.memcache.jsr107cache.GCacheFactory;
 
 // ...
         Cache cache;
@@ -783,6 +802,7 @@ import com.google.appengine.api.memcache.stdimpl.GCacheFactory;
 <p>By default, setting a value in the cache adds the value if there is no value with the given key, and replaces a value if there is a value with the given key.  You can configure the cache to only add (protect existing values) or only replace values (do not add).</p>
 
 <pre class="prettyprint">
+import java.util.HashMap;
 import java.util.Map;
 import com.google.appengine.api.memcache.MemcacheService;
 
@@ -807,7 +827,7 @@ import com.google.appengine.api.memcache.MemcacheService;
 <p>Available statistics include the number of cache hits (gets for keys that existed), the number of cache misses (gets for keys that did not exist), and the number of values in the cache.</p>
 
 <pre class="prettyprint">
-import net.sf.jsr107.CacheStatistics;
+import net.sf.jsr107cache.CacheStatistics;
 
 // ...
         CacheStatistics stats = cache.getCacheStatistics();
@@ -835,11 +855,14 @@ import net.sf.jsr107.CacheStatistics;
 
 <h2 id="Features_of_the_Low_level_API">Features of the Low-level API</h2>
 
-<p>The low-level API to the Memcache service includes methods for atomically incrementing and decrementing integer counter values.</p>
+<p>The low-level Memcache API includes a number of additional functions of the Memcache service . This includes methods to:</p>
+<ul>
+	<li>Atomically increment and decrement integer counter values</li>
+	<li>Expose more cache statistics, such as the amount of time since the least-recently-used entry was accessed, and the total size of all items in the cache.</li>
+	<li>Check and set operations to conditionally store data</li>
+</ul>
 
-<p>The low-level API exposes more cache statistics, such as the amount of time since the least-recently-used entry was accessed, and the total size of all items in the cache.</p>
-
-<p>For more information on the low-level API, see <a href="../javadoc/com/google/appengine/api/memcache/package-summary.html">the Memcache Javadoc</a>.</p>
+<p>For more information on the low-level API, see the <a href="../javadoc/com/google/appengine/api/memcache/package-summary.html">Memcache Javadoc</a>.</p>
 
 
 
@@ -880,7 +903,7 @@ Java is a registered trademark of Oracle and/or its affiliates</div>
     ©2011 Google -
     <a href="http://code.google.com">Code Home</a> -
     <a href="http://code.google.com/terms.html">Terms of Service</a> -
-    <a href="http://www.google.com/intl/en/privacypolicy.html">Privacy Policy</a> -
+    <a href="http://code.google.com/privacy.html">Privacy Policy</a> -
     <a href="http://code.google.com/more">Site Directory</a>
     <br> <br>
     Google Code offered in:

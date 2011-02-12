@@ -15,7 +15,6 @@
 
 
 
-
  
  
  
@@ -243,6 +242,13 @@ var logged_in_user_email = null;
 
           </ul>
         </li>
+        <li><a href="../capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../capabilities/overview.html">Overview</a></li>
+<li><a href="../javadoc/com/google/appengine/api/capabilities/package-summary.html">Javadoc Reference</a></li>
+
+          </ul>
+        </li>
         <li><a href="../channel/index.html">Channel</a>
           <ul>
             <li><a href="../channel/overview.html">Overview</a></li>
@@ -354,7 +360,7 @@ var logged_in_user_email = null;
     <li><a href="../tools/ant.html">Using Apache Ant</a></li>
     <li><a href="../tools/localunittesting.html">Local Unit Testing</a>
         <ul>
-            <li><a href="../tools/localunittesting/javadoc">Testing Javadoc</a></li>
+            <li><a href="../tools/localunittesting/javadoc/index.html">Testing Javadoc</a></li>
         </ul>    
     </li>
     <li><a href="../tools/appstats.html">Appstats</a></li>
@@ -420,6 +426,18 @@ var logged_in_user_email = null;
     <li><a href="../../python/blobstore/blobreaderclass.html">BlobReader</a></li>
     <li><a href="../../python/blobstore/functions.html">Functions</a></li>
     <li><a href="../../python/blobstore/exceptions.html">Exceptions</a></li>
+  </ul>
+</li>
+
+          </ul>
+        </li>
+        <li><a href="../../python/capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../../python/capabilities/overview.html">Overview</a></li>
+<li><span class="tlw-title tlw-expanded">Reference</span>
+  <ul>
+    <li><a href="../../python/capabilities/capabilitysetclass.html">CapabilitySet</a></li>
+    <li><a href="../../python/capabilities/exceptions.html">Exceptions</a></li>
   </ul>
 </li>
 
@@ -693,15 +711,15 @@ var logged_in_user_email = null;
 
 <h2 id="Caching_Data_with_JCache">Caching Data with JCache</h2>
 
-<p>The App Engine Java SDK supports JCache, a proposed interface standard for memory caches, as an interface to the App Engine memcache.  This interface is described by <a href="http://jcp.org/en/jsr/detail?id=107">JSR 107</a>.  Since this is not yet an official standard, App Engine provides this interface using the <a href="http://sourceforge.net/projects/jsr107cache/">net.sf.jsr107</a> interface package.</p>
+<p>The App Engine Java SDK supports JCache, a proposed interface standard for memory caches, as an interface to the App Engine memcache.  This interface is described by <a href="http://jcp.org/en/jsr/detail?id=107">JSR 107</a>.  Since this is not yet an official standard, App Engine provides this interface using the <a href="http://sourceforge.net/projects/jsr107cache/">net.sf.jsr107cache</a> interface package.</p>
 
 <p>JCache provides a Map-like interface to cached data.  You store and retrieve values in the cache using keys.  Keys and values can be of any Serializable type or class.</p>
 
 <pre class="prettyprint">
 import java.util.Collections;
-import net.sf.jsr107.Cache;
-import net.sf.jsr107.CacheException;
-import net.sf.jsr107.CacheManager;
+import net.sf.jsr107cache.Cache;
+import net.sf.jsr107cache.CacheException;
+import net.sf.jsr107cache.CacheManager;
 
 // ...
         Cache cache;
@@ -810,7 +828,7 @@ Java is a registered trademark of Oracle and/or its affiliates</div>
     ©2011 Google -
     <a href="http://code.google.com">Code Home</a> -
     <a href="http://code.google.com/terms.html">Terms of Service</a> -
-    <a href="http://www.google.com/intl/en/privacypolicy.html">Privacy Policy</a> -
+    <a href="http://code.google.com/privacy.html">Privacy Policy</a> -
     <a href="http://code.google.com/more">Site Directory</a>
     <br> <br>
     Google Code offered in:

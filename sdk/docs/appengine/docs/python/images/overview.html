@@ -15,7 +15,6 @@
 
 
 
-
  
  
  
@@ -243,6 +242,13 @@ var logged_in_user_email = null;
 
           </ul>
         </li>
+        <li><a href="../../java/capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../../java/capabilities/overview.html">Overview</a></li>
+<li><a href="../../java/javadoc/com/google/appengine/api/capabilities/package-summary.html">Javadoc Reference</a></li>
+
+          </ul>
+        </li>
         <li><a href="../../java/channel/index.html">Channel</a>
           <ul>
             <li><a href="../../java/channel/overview.html">Overview</a></li>
@@ -354,7 +360,7 @@ var logged_in_user_email = null;
     <li><a href="../../java/tools/ant.html">Using Apache Ant</a></li>
     <li><a href="../../java/tools/localunittesting.html">Local Unit Testing</a>
         <ul>
-            <li><a href="../../java/tools/localunittesting/javadoc">Testing Javadoc</a></li>
+            <li><a href="../../java/tools/localunittesting/javadoc/index.html">Testing Javadoc</a></li>
         </ul>    
     </li>
     <li><a href="../../java/tools/appstats.html">Appstats</a></li>
@@ -420,6 +426,18 @@ var logged_in_user_email = null;
     <li><a href="../blobstore/blobreaderclass.html">BlobReader</a></li>
     <li><a href="../blobstore/functions.html">Functions</a></li>
     <li><a href="../blobstore/exceptions.html">Exceptions</a></li>
+  </ul>
+</li>
+
+          </ul>
+        </li>
+        <li><a href="../capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../capabilities/overview.html">Overview</a></li>
+<li><span class="tlw-title tlw-expanded">Reference</span>
+  <ul>
+    <li><a href="../capabilities/capabilitysetclass.html">CapabilitySet</a></li>
+    <li><a href="../capabilities/exceptions.html">Exceptions</a></li>
   </ul>
 </li>
 
@@ -812,10 +830,26 @@ class Thumbnailer(webapp.RequestHandler):
 
 <h3>Using get_serving_url()</h3>
 
-<p>The get_serving_url() method allows you to generate a stable, dedicated URL for serving web-suitable image thumbnails. You simply store a single copy of your original image in Blobstore, and then request a high-performance per-image URL. This special URL can serve that image resized and/or cropped automatically, and serving from this URL does not incur any CPU or dynamic serving load on your application (though bandwidth is still charged as usual). Images are served with low latency from a highly optimized, cookieless infrastructure.</p>
-<p>The URL returned by this method is always public, but not guessable; private URLs are not currently supported. If you wish to stop serving the URL, delete the underlying blob key. This takes up to 24 hours to take effect.</p>
-<p>If you supply the arguments, this method returns a URL encoded with the arguments specified. If you do not supply any arguments, this method returns the default URL for the image, which you can then modify to get the desired size and crop parameters.</p>
+<p>The <a href="functions.html#Image_get_serving_url">get_serving_url()</a> method allows you to generate a stable, dedicated URL for serving web-suitable image thumbnails. You simply store a single copy of your original image in Blobstore, and then request a high-performance per-image URL. This special URL can serve that image resized and/or cropped automatically, and serving from this URL does not incur any CPU or dynamic serving load on your application (though bandwidth is still charged as usual). Images are served with low latency from a highly optimized, cookieless infrastructure.</p>
+<p>The URL returned by this method is always public, but not guessable; private URLs are not currently supported. If you wish to stop serving the URL, delete the underlying blob. This takes up to 24 hours to take effect.</p>
+<p>If you supply the arguments, this method returns a URL encoded with the arguments specified. If you do not supply any arguments, this method returns the default URL for the image, for example:</p>
+<pre>http://my-app.appspot.com/randomStringImageId</pre>
 
+<p>You can then add arguments to this URL to get the desired size and crop parameters. The available arguments are:</p>
+
+<ul>
+  <li><code>=s<b>xx</b></code> where <code><b>xx</b></code> is an integer from 0&ndash;1600 representing the length, in pixels, of the image's longest side. For example, adding <code>=s32</code> resizes the image so its longest dimension is 32 pixels.</li>
+  <li><code>=sxx<b>-c</b></code> where <b>xx</b> is an integer from 0&ndash;1600 representing the cropped image size in pixels, and <code><b>-c</b></code> tells the system to crop the image.</li>
+</ul>
+
+
+<pre>
+// Resize the image to 32 pixels (aspect-ratio preserved)
+http://my-app.appspot.com/randomStringImageId<span style="color:maroon"><b>=s32</b></span>
+
+// Crop the image to 32 pixels
+http://my-app.appspot.com/randomStringImageId<span style="color:maroon">=s32<b>-c</b></span>
+</pre>
 
 <h2 id="Development_Server">Images and the Development Server</h2>
 
@@ -851,6 +885,10 @@ class Thumbnailer(webapp.RequestHandler):
   <tr>
     <td>maximum data size of image received from service</td>
     <td>32 megabytes</td>
+  </tr>
+  <tr>
+    <td>maximum size of image sent or received from service</td>
+    <td>50 megapixels</td>
   </tr>
 </table>
 
@@ -893,7 +931,7 @@ Java is a registered trademark of Oracle and/or its affiliates</div>
     ©2011 Google -
     <a href="http://code.google.com">Code Home</a> -
     <a href="http://code.google.com/terms.html">Terms of Service</a> -
-    <a href="http://www.google.com/intl/en/privacypolicy.html">Privacy Policy</a> -
+    <a href="http://code.google.com/privacy.html">Privacy Policy</a> -
     <a href="http://code.google.com/more">Site Directory</a>
     <br> <br>
     Google Code offered in:

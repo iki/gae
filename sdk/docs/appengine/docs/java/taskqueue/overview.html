@@ -15,7 +15,6 @@
 
 
 
-
  
  
  
@@ -243,6 +242,13 @@ var logged_in_user_email = null;
 
           </ul>
         </li>
+        <li><a href="../capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../capabilities/overview.html">Overview</a></li>
+<li><a href="../javadoc/com/google/appengine/api/capabilities/package-summary.html">Javadoc Reference</a></li>
+
+          </ul>
+        </li>
         <li><a href="../channel/index.html">Channel</a>
           <ul>
             <li><a href="../channel/overview.html">Overview</a></li>
@@ -354,7 +360,7 @@ var logged_in_user_email = null;
     <li><a href="../tools/ant.html">Using Apache Ant</a></li>
     <li><a href="../tools/localunittesting.html">Local Unit Testing</a>
         <ul>
-            <li><a href="../tools/localunittesting/javadoc">Testing Javadoc</a></li>
+            <li><a href="../tools/localunittesting/javadoc/index.html">Testing Javadoc</a></li>
         </ul>    
     </li>
     <li><a href="../tools/appstats.html">Appstats</a></li>
@@ -420,6 +426,18 @@ var logged_in_user_email = null;
     <li><a href="../../python/blobstore/blobreaderclass.html">BlobReader</a></li>
     <li><a href="../../python/blobstore/functions.html">Functions</a></li>
     <li><a href="../../python/blobstore/exceptions.html">Exceptions</a></li>
+  </ul>
+</li>
+
+          </ul>
+        </li>
+        <li><a href="../../python/capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../../python/capabilities/overview.html">Overview</a></li>
+<li><span class="tlw-title tlw-expanded">Reference</span>
+  <ul>
+    <li><a href="../../python/capabilities/capabilitysetclass.html">CapabilitySet</a></li>
+    <li><a href="../../python/capabilities/exceptions.html">Exceptions</a></li>
   </ul>
 </li>
 
@@ -697,6 +715,7 @@ var logged_in_user_email = null;
   <li><a href="#Securing_URLs_for_Tasks">URLs for Tasks</a></li>
   <li><a href="#Tasks_Within_Transactions">Tasks within Transactions</a></li>
   <li><a href="#Task_Execution">Task Execution</a></li>
+  <li><a href="#Deleting_Tasks_Programmatically">Deleting Tasks Programmatically</a></li>
   <li><a href="#Queue_Concepts">Queue Concepts</a></li>
   <li><a href="#The_Default_Queue">The Default Queue</a></li>
   <li><a href="#Queue_Default_URLs">Queue Default URLs</a></li>
@@ -932,6 +951,17 @@ import com.google.appengine.api.taskqueue.TaskOptions.Builder.*;
 <p>If a task performs sensitive operations (such as modifying important data), you may wish to <a href="#Securing_URLs_for_Tasks">secure the worker URL</a> to prevent a malicious external user from calling it directly.
 
 
+<h2 id="Deleting_Tasks_Programmatically">Deleting Tasks Programmatically</h2>
+<p>You can delete individual tasks from the Admin Console, or you can programmatically purge entire queues using the <a href="../javadoc/com/google/appengine/api/taskqueue/Queue.html#purge()">purge()</a> function:</p>
+
+<pre class="prettyprint">
+// ...
+        Queue queue = QueueFactory.getQueue('foo');
+        queue.purge();
+</pre>
+
+<p>It takes the backends about 20 seconds to notice that the queue has been purged. Tasks continue to execute during this time.</p>
+
 <h2 id="Queue_Concepts">Queue Concepts</h2>
 
 <p>Thus far, this document has explained how tasks can be used to encapsulate small chunks of work for asynchronous execution. When used in large numbers, tasks provide an efficient and powerful tool for background processing. However, you might need to manage the execution of these tasks. In particular, you might need to control the rate at which tasks are invoked, so as not to exhaust resources.</p>
@@ -1009,7 +1039,7 @@ import com.google.appengine.api.taskqueue.TaskOptions.Builder.*;
   <li><b>Task Queue Stored Task Bytes</b></li>
 </ul>
 
-<p>The Task Queue Stored Task Bytes quota is configurable in  queue.xml by setting TotalStorageLimit. This quota counts towards your Stored Data (billable) quota.</p>
+<p>The Task Queue Stored Task Bytes quota is configurable in  queue.xml by setting <code>&lt;total-storage-limit&gt;</code>. This quota counts towards your Stored Data (billable) quota.</p>
 
 <p>Execution of a task counts toward the following quotas:</p>
 
@@ -1107,7 +1137,7 @@ Java is a registered trademark of Oracle and/or its affiliates</div>
     ©2011 Google -
     <a href="http://code.google.com">Code Home</a> -
     <a href="http://code.google.com/terms.html">Terms of Service</a> -
-    <a href="http://www.google.com/intl/en/privacypolicy.html">Privacy Policy</a> -
+    <a href="http://code.google.com/privacy.html">Privacy Policy</a> -
     <a href="http://code.google.com/more">Site Directory</a>
     <br> <br>
     Google Code offered in:

@@ -19,7 +19,6 @@
 
 
 
-
  
  
  
@@ -247,6 +246,13 @@ var logged_in_user_email = null;
 
           </ul>
         </li>
+        <li><a href="../capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../capabilities/overview.html">Overview</a></li>
+<li><a href="../javadoc/com/google/appengine/api/capabilities/package-summary.html">Javadoc Reference</a></li>
+
+          </ul>
+        </li>
         <li><a href="../channel/index.html">Channel</a>
           <ul>
             <li><a href="../channel/overview.html">Overview</a></li>
@@ -358,7 +364,7 @@ var logged_in_user_email = null;
     <li><a href="../tools/ant.html">Using Apache Ant</a></li>
     <li><a href="../tools/localunittesting.html">Local Unit Testing</a>
         <ul>
-            <li><a href="../tools/localunittesting/javadoc">Testing Javadoc</a></li>
+            <li><a href="../tools/localunittesting/javadoc/index.html">Testing Javadoc</a></li>
         </ul>    
     </li>
     <li><a href="../tools/appstats.html">Appstats</a></li>
@@ -424,6 +430,18 @@ var logged_in_user_email = null;
     <li><a href="../../python/blobstore/blobreaderclass.html">BlobReader</a></li>
     <li><a href="../../python/blobstore/functions.html">Functions</a></li>
     <li><a href="../../python/blobstore/exceptions.html">Exceptions</a></li>
+  </ul>
+</li>
+
+          </ul>
+        </li>
+        <li><a href="../../python/capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../../python/capabilities/overview.html">Overview</a></li>
+<li><span class="tlw-title tlw-expanded">Reference</span>
+  <ul>
+    <li><a href="../../python/capabilities/capabilitysetclass.html">CapabilitySet</a></li>
+    <li><a href="../../python/capabilities/exceptions.html">Exceptions</a></li>
   </ul>
 </li>
 
@@ -684,8 +702,13 @@ var logged_in_user_email = null;
 </p>
 <ul>
   <li>
-    <a href="#About_queue_xml">About queue.xml</a>
+    <a href="#About_queue_xml">About Queues</a>
   </li>
+  <li>
+    <a href="#Setting_the_Storage_Limit_for_All_Queues">Setting the Storage Limit for All Queues</a>
+  </li>
+  <li>
+    <a href="#Defining_Queues_and_Processing_Rates">Defining Queues and Processing Rates</h2>
   <li>
     <a href="#Configuring_Retry_Attempts_for_Failed_Tasks">Configuring Retry Attempts for Failed Tasks</a>
   </li>
@@ -696,42 +719,89 @@ var logged_in_user_email = null;
     <a href="#Updating_Task_Queue_Configuration">Updating Task Queue Configuration</a>
   </li>
 </ul>
-<h2 id="About_queue_xml">About queue.xml</h2>
+<h2 id="About_queue_xml">About Queues</h2>
 <p>
-  A Java app can define task queues using a file named <code>queue.xml</code>, in the app's <code>WEB-INF/</code> directory in the WAR. If no <code>queue.xml</code> file is provided, the app can still use the default queue returned by <code>QueueFactory.getDefaultQueue()</code>.
+  A Java app can define task queues using a file named <code>queue.xml</code>, in the app's <code>WEB-INF/</code> directory in the WAR. The file specifies an element named <code>queue</code>. Within this element, you can name any number of individual queues and define their processing rates. If no <code>queue.xml</code> file is provided, the app can still use the default queue returned by <code>QueueFactory.getDefaultQueue()</code>.
 </p>
-<p>
-  The following example defines three queues:
-</p>
-<pre class="prettyprint">
-&lt;queue-entries&gt;
-  &lt;queue&gt;
-    &lt;name&gt;default&lt;/name&gt;
-    &lt;rate&gt;1/s&lt;/rate&gt;
-  &lt;/queue&gt;
-  &lt;queue&gt;
-    &lt;name&gt;mail-queue&lt;/name&gt;
-    &lt;rate&gt;2000/d&lt;/rate&gt;
-    &lt;bucket-size&gt;10&lt;/bucket-size&gt;
-  &lt;/queue&gt;
-  &lt;queue&gt;
-    &lt;name&gt;background-processing&lt;/name&gt;
-    &lt;rate&gt;5/s&lt;/rate&gt;
-  &lt;/queue&gt;
-&lt;/queue-entries&gt;
-</pre> 
 <p>
   The app's queue configuration applies to all versions of the app. If a given version of an app enqueues a task, the queue uses the task handler for that version of the app.
 </p>
 <p>
-  All apps have a default queue, with a rate of 5 tasks per second. You can customize the settings for this queue by defining a queue named <code>default</code> in <code>queue.xml</code>. If you go without configuration, the <code>default</code> queue doesn't show up in the Administration Console until the first time it is used.
-</p>
-<p>
   An app can only add tasks to queues defined in <code>queue.xml</code> and the default queue. If you upload a new <code>queue.xml</code> file that removes a queue, but that queue still has tasks, the queue is "paused" (its rate is set to 0) but not deleted. You can re-enable the deleted queue by uploading a new <code>queue.xml</code> file with the queue defined.
 </p>
+
+<h2 id="Setting_the_Storage_Limit_for_All_Queues">Setting the Storage Limit for All Queues</h2>
 <p>
-  <code>&lt;queue-entries&gt;</code> can also contain an element named <code>&lt;total-storage-limit&gt;</code>. This specifies specifies the total amount of storage task data is allowed to consume over all queues. The value is a number followed by a unit: <code>B</code> for bytes, <code>K</code> for kilobytes, <code>M</code> for megabytes, <code>G</code> for gigabytes, <code>T</code> for terabytes. For example, <code>100K</code> specifies a limit of 100 kilobytes. If adding a task would cause the queue to exceed its storage limit, the call to add the task will fail. The default limit is <code>100M</code> (100 megabytes).
+  You can use <code>queue.xml</code> to define the total amount of storage that task data can consume over all queues. To define the total storage limit, include an element named <code>&lt;total-storage-limit&gt;</code> at the first level under <code>&lt;queue-entries&gt;</code>:</p>
+
+<pre class="prettyprint">
+&lt;!--Change the total storage limit for all queues to 50MB--&gt;
+&lt;queue-entries&gt;
+  &lt;total-storage-limit&gt;
+    50M
+  &lt;total-storage-limit&gt;
+...
+&lt;queue-entries&gt;
+</pre>
+<p>
+  The value is a number followed by a unit: <code>B</code> for bytes, <code>K</code> for kilobytes, <code>M</code> for megabytes, <code>G</code> for gigabytes, <code>T</code> for terabytes. For example, <code>100K</code> specifies a limit of 100 kilobytes. If adding a task would cause the queue to exceed its storage limit, the call to add the task will fail. The default limit is <code>100M</code> (100 megabytes). 
 </p>
+
+
+
+<h2 id="Defining_Queues_and_Processing_Rates">Defining Queues and Processing Rates</h2>
+
+<p>You can define any number of individual queues by providing a queue <code>&lt;name&gt;</code>. You can control the rate at which tasks are processed in each queue by defining other directives, such as <code>&lt;rate&gt;</code>, <code>&lt;bucket-size&gt;</code>, and <code>&lt;max-concurrent-requests&gt;</code>. You can read more about these directives in the <a href="#Queue_Definitions">Queue Definitions</a> section.</p>
+
+<p>The task queue uses <a href="http://en.wikipedia.org/wiki/Token_bucket">token buckets</a> to control the rate of task execution. Each named queue has a token bucket that holds a certain number of tokens, defined by the <code>&lt;bucket-size&gt;</code> directive. Each time your application executes a task, it uses a token. Your app continues processing tasks in the queue until the queue's bucket runs out of tokens. App Engine refills the bucket with new tokens continuously based on the <code>&lt;rate&gt;</code> that you specified for the queue.</p>
+
+<h3>Configuring the Default Queue</h3>
+<p>All apps have a queue named <code>default</code> with a default rate of 5 tasks per second. If do not configure the default queue, it doesn't display in the Administration Console until the first time it is used. You can customize the settings for this queue by defining a queue named <code>default</code> in <code>queue.xml</code>:</p>
+
+<pre class="prettyprint">
+&lt;queue-entries&gt;
+&lt;!--Change the refresh rate of the default queue to 1/s--&gt;
+  &lt;queue&gt;
+    &lt;name&gt;default&lt;/name&gt;
+    &lt;rate&gt;1/s&lt;/rate&gt;
+  &lt;/queue&gt;
+&lt;/queue-entries&gt;</pre>
+
+<h3>Configuring the Processing Rate</h3>
+<p>If your queue contains tasks to process, and the queue's bucket contains tokens, App Engine processes as many tasks as there are tokens remaining in the bucket. This can lead to bursts of processing, consuming system resources and competing with user-serving requests. Therefore, you need to limit the bucket size and rate based on your application's needs and available resources. You can specify a rate and bucket size as follows:</p>
+
+<pre class="prettyprint">
+&lt;queue-entries&gt;
+&lt;!--Set the max number of concurrent requests to 50--&gt;
+  &lt;queue&gt;
+    &lt;name&gt;optimize-queue&lt;/name&gt;
+    &lt;rate&gt;20/s&lt;/rate&gt;
+    &lt;bucket-size&gt;40&lt;/bucket-size&gt;
+  &lt;/queue&gt;
+&lt;queue-entries&gt;</pre>
+
+<h3>Configuring the Maximum Number of Concurrent Requests</h3>
+<p>You can further control the processing rate by setting <code>&lt;max-concurrent-requests&gt;</code>, which limits the number of tasks that can execute simultaneously.</p>
+
+<p>If your application queue has a rate of 20/s and a bucket size of 40, tasks in that queue execute at a rate of 20/s and can burst up to 40/s briefly. These settings work fine if task latency is relatively low; however, if latency increases significantly, you'll end up processing significantly more concurrent tasks. This extra processing load can consume extra instances and slow down your application.</p>
+
+<p>For example, let's assume that your normal task latency is 0.3 seconds. At this latency, you'll process at most around 40 tasks simultaneously. But if your task latency increases to 5 seconds, you could easily have over 100 tasks processing at once. This increase forces your application to consume more instances to process the extra tasks, potentially slowing down the entire application and interfering with user requests.</p>
+
+<p>You can avoid this possibility by setting <code>&lt;max-concurrent-requests&gt;</code> to a lower value. For example, if you set  <code>&lt;max-concurrent-requests&gt;</code> to 10, our example queue maintains about 20 tasks/second when latency is 0.3 seconds. However, when the latency increases over 0.5 seconds, this setting throttles the processing rate to ensure that no more than 10 tasks run simultaneously.</p>
+
+<pre class="prettyprint">
+&lt;queue-entries&gt;
+&lt;!--Set the number of max concurrent requests to 10--&gt;
+  &lt;queue&gt;
+    &lt;name&gt;optimize-queue&lt;/name&gt;
+    &lt;rate&gt;20/s&lt;/rate&gt;
+    &lt;bucket-size&gt;40&lt;/bucket-size&gt;
+    &lt;max-concurrent-requests&gt;50&lt;/max-concurrent-requests&gt;
+  &lt;/queue&gt;
+&lt;/queue-entries&gt;
+</pre> 
+
+
 
 <h2 id="Configuring_Retry_Attempts_for_Failed_Tasks">Configuring Retry Attempts for Failed Tasks</h2>
 <p>
@@ -744,9 +814,9 @@ var logged_in_user_email = null;
   The following example demonstrates various retry scenarios:
 </p>
 <ul>
-  <li>In <code>fooqueue</code>, tasks are retried at least seven times and at least two days from the first execution attempt. After both limits are passed, it fails permanently.</li>
+  <li>In <code>fooqueue</code>, tasks are retried at least seven times and for up to two days from the first execution attempt. After both limits are passed, it fails permanently.</li>
   <li>In <code>barqueue</code>, App Engine attempts to retry tasks, increasing the interval linearly between each retry until reaching the maximum backoff and retrying indefinitely at the maximum interval (so the intervals between requests are 10s, 20s, 30s, ..., 190s, 200s, 200s, ...).</li>
-  <li>In <code>bazqueue</code>, the interval increases to twice the minimum backoff and retryies indefinitely at the maximum interval (so the intervals between requests are 10s, 20s, 40s, 80s, 120s, 160s, 200s, 200s, ...).</li>
+  <li>In <code>bazqueue</code>, the interval increases to twice the minimum backoff and retries indefinitely at the maximum interval (so the intervals between requests are 10s, 20s, 40s, 80s, 120s, 160s, 200s, 200s, ...).</li>
 </ul>
 
   
@@ -827,6 +897,20 @@ var logged_in_user_email = null;
       For more information on the algorithm, see <a href="http://en.wikipedia.org/wiki/Token_Bucket">the Wikipedia article on token buckets</a>.
     </p>
   </dd>
+
+  <dt id="max-concurrent-requests">
+    <code>&lt;max-concurrent-requests&gt;</code>
+  </dt>
+  <dd>
+    <p>
+      Sets the maximum number of tasks that can be executed at any given time in the specified queue. The value is an integer. By default, this directive is unset and there is no limit on the maximum number of concurrent tasks.
+    </p>
+
+    <p>
+      Restricting the maximum number of concurrent tasks gives you more control over your queue's rate of execution. In particular, you can explicitly control the number of clones that a queue consumes. Limiting the number of concurrent requests in a given queue allows you to make resources available for other queues or online processing.
+    </p>
+  </dd>
+
   <dt id="retry_parameters">
     <code>&lt;retry-parameters&gt;</code>
   </dt>
@@ -916,7 +1000,7 @@ Java is a registered trademark of Oracle and/or its affiliates</div>
     ©2011 Google -
     <a href="http://code.google.com">Code Home</a> -
     <a href="http://code.google.com/terms.html">Terms of Service</a> -
-    <a href="http://www.google.com/intl/en/privacypolicy.html">Privacy Policy</a> -
+    <a href="http://code.google.com/privacy.html">Privacy Policy</a> -
     <a href="http://code.google.com/more">Site Directory</a>
     <br> <br>
     Google Code offered in:

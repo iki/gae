@@ -1,5 +1,21 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
 
 
 
@@ -243,6 +259,13 @@ var logged_in_user_email = null;
 
           </ul>
         </li>
+        <li><a href="../capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../capabilities/overview.html">Overview</a></li>
+<li><a href="../javadoc/com/google/appengine/api/capabilities/package-summary.html">Javadoc Reference</a></li>
+
+          </ul>
+        </li>
         <li><a href="../channel/index.html">Channel</a>
           <ul>
             <li><a href="../channel/overview.html">Overview</a></li>
@@ -354,7 +377,7 @@ var logged_in_user_email = null;
     <li><a href="../tools/ant.html">Using Apache Ant</a></li>
     <li><a href="../tools/localunittesting.html">Local Unit Testing</a>
         <ul>
-            <li><a href="../tools/localunittesting/javadoc">Testing Javadoc</a></li>
+            <li><a href="../tools/localunittesting/javadoc/index.html">Testing Javadoc</a></li>
         </ul>    
     </li>
     <li><a href="../tools/appstats.html">Appstats</a></li>
@@ -420,6 +443,18 @@ var logged_in_user_email = null;
     <li><a href="../../python/blobstore/blobreaderclass.html">BlobReader</a></li>
     <li><a href="../../python/blobstore/functions.html">Functions</a></li>
     <li><a href="../../python/blobstore/exceptions.html">Exceptions</a></li>
+  </ul>
+</li>
+
+          </ul>
+        </li>
+        <li><a href="../../python/capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../../python/capabilities/overview.html">Overview</a></li>
+<li><span class="tlw-title tlw-expanded">Reference</span>
+  <ul>
+    <li><a href="../../python/capabilities/capabilitysetclass.html">CapabilitySet</a></li>
+    <li><a href="../../python/capabilities/exceptions.html">Exceptions</a></li>
   </ul>
 </li>
 
@@ -678,39 +713,33 @@ var logged_in_user_email = null;
 
 
 
+<p>An App Engine application can send and receive chat messages to and from any XMPP-compatible chat messaging service, such as <a href="http://www.google.com/talk/">Google Talk</a>. An app can send and receive chat messages, send chat invites, request a user's chat presence and status, and provide a chat status. Incoming XMPP messages are handled by request handlers, similar to web requests.</p>
 
+<p>Some possible uses of chat messages include automated chat participants ("chat bots"), chat notifications, and chat interfaces to services. A rich client with a connection to an XMPP server (such as Google Talk) can use XMPP to interact with an App Engine application in real time, including receiving messages initiated by the app. (Note that such a client using Google Talk must use the user's password to make an XMPP connection, and cannot use a Google Accounts cookie.)</p>
 
-
-
-
-
-
-
-
-<p>An App Engine application can send and receive instant messages to and from any XMPP-compatible instant messaging service, such as <a href="http://www.google.com/talk/">Google Talk</a>.  An app can send and receive chat messages, send chat invites, and request status information.  Incoming XMPP messages are handled by request handlers, similar to web requests.</p>
-
-<p>Some possible uses of instant messages include automated chat participants ("chat bots"), instant notifications, and chat interfaces to services.  A rich client with a connection to an XMPP server (such as Google Talk) can use XMPP to interact with an App Engine application in real time, including receiving messages initiated by the app.  (Note that such a client using Google Talk must use the user's password to make an XMPP connection, and cannot use a Google Accounts cookie.)</p>
-
-<p>Currently, an app cannot participate in group chats.  An app can only receive messages of the "chat" and "normal" types.  An app can send messages of any type defined in <a href="http://www.ietf.org/rfc/rfc3921.txt">RFC 3921</a>.</p>
+<p>Currently, an app cannot participate in group chats. An app can only receive messages of the "chat" and "normal" types. An app can send messages of any type defined in <a href="http://www.ietf.org/rfc/rfc3921.txt">RFC 3921</a>.</p>
 
 <ul>
-  <li><a href="#Sending_Instant_Messages">Sending Instant Messages</a></li>
-  <li><a href="#Receiving_Instant_Messages">Receiving Instant Messages</a></li>
-  <li><a href="#XMPP_Addresses">XMPP Addresses</a></li>
-  <li><a href="#JIDs_and_Resources">JIDs and Resources</a></li>
-  <li><a href="#Invitations">Invitations</a></li>
-  <li><a href="#Google_Talk_User_Status">Google Talk User Status</a></li>
-  <li><a href="#Quotas_and_Limits">Quotas and Limits</a></li>
+<li><a href="#Sending_Chat_Messages">Sending Chat Messages</a></li>
+<li><a href="#Handling_Incoming_Calls">Handling Incoming Calls</a></li>
+<li><a href="#XMPP_Addresses">XMPP Addresses</a></li>
+<li><a href="#JIDs_and_Resources">JIDs and Resources</a></li>
+<li><a href="#Sending_Invitations">Sending Invitations</a></li>
+<li><a href="#Sending_Application_Status">Sending the Application's Chat Status</a></li>
+<li><a href="#Quotas_and_Limits">Quotas and Limits</a></li>
 </ul>
 
 
-<h2 id="Sending_Instant_Messages">Sending Instant Messages</h2>
+<h2 id="Sending_Chat_Messages">Sending Chat Messages</h2>
 
-<p>An app can send messages to any XMPP address by calling the XMPP service API.  An app can also use the API to send chat invitations, and query a user's status (available to chat, or not available).</p>
+<p>An app can send chat messages to any XMPP address by calling the XMPP service API. A chat message can be of any of the five types defined in <a href="http://www.ietf.org/rfc/rfc3921.txt">RFC 3921</a>. Note that an app can only receive three types of messages:</p>
+<ol>
+  <li>chat messages via <code>/_ah/xmpp/message/chat/</code></li>
+  <li>normal messages via <code>/_ah/xmpp/message/chat/</code></li>
+  <li>error messages via <code>/_ah/xmpp/message/error/</code></li>
+</ol>
 
-<p>A chat message can be of any of the five types defined in <a href="http://www.ietf.org/rfc/rfc3921.txt">RFC 3921</a>.  Note that an app can only receive messages of the types "chat" and "normal."</p>
-
-<p>For the body of the message, an app can provide plain text that is displayed to the user, or it can provide an XML stanza that is included in the XMPP XML data.  You can use XML message data to communicate structured data to a custom client.</p>
+<p>For the body of the message, an app can provide plain text that is displayed to the user, or it can provide an XML stanza that is included in the XMPP XML data. You can use XML message data to communicate structured data to a custom client.</p>
 
 
 <p>The following example tests for a user's availability, then sends a chat message.</p>
@@ -744,12 +773,38 @@ import com.google.appengine.api.xmpp.XMPPServiceFactory;
 </pre>
 
 
-<p>When an app running in the development server sends an XMPP message, the fields of the message are printed to the console, and no message is sent.  The development server cannot send XMPP messages on behalf of the app.</p>
+<p>When an app running in the development server sends an XMPP message, the fields of the message are printed to the console, and no message is sent. The development server cannot send XMPP messages on behalf of the app.</p>
+
+<h2 id="Handling_Incoming_Calls">Handling Incoming Calls</h2>
+<p>App Engine provides three inbound services to manage messages, subscriptions, and presence:</p>
+
+<ul>
+  <li><code>xmpp_message</code> allows your application to receive chat messages from XMPP-compliant chat services.</li>
+  <li><code>xmpp_subscribe</code> allows subscriptions between users and your application for the purpose of exchanging data, such as chat messages, presence information, and status messages.</li>
+  <li><code>xmpp_presence</code> allows your application to determine a user's chat presence (available or unavailable).</li>
+</ul>
+
+<p>You can <a href="../config/appconfig.html#Inbound_Services">enable these inbound services</a> in <code>appengine-web.xml</code>:</p>
 
 
-<h2 id="Receiving_Instant_Messages">Receiving Instant Messages</h2>
+<pre class="prettyprint">  &lt;inbound-services&gt;
+    &lt;service&gt;xmpp_message&lt;/service&gt;
+    &lt;service&gt;xmpp_presence&lt;/service&gt;
+    &lt;service&gt;xmpp_subscribe&lt;/service&gt;
+  &lt;/inbound-services&gt;</pre>
 
-<p>Users of XMPP-compliant chat services can send chat messages to App Engine applications.  For an app to receive chat messages, the XMPP message service must be enabled in the app's configuration.</p>
+
+<p>The following sections show you how to handle these inbound services in your application:</p>
+
+<ul>
+  <li><a href="#Receiving_Chat_Messages">Chat Messages</a></li>
+  <li><a href="#Handling_User_Subscriptions">User Subscriptions</a></li>
+  <li><a href="#Handling_User_Presence">User Presence</a></li>
+</ul>
+
+<h3 id="Receiving_Chat_Messages">Chat Messages</h3>
+
+<p>Users of XMPP-compliant chat services can send chat messages to App Engine applications. For an app to receive chat messages, the XMPP message service must be enabled in the app's configuration.</p>
 
 
 <p>To enable the XMPP service for a Java app, edit the <code>appengine-web.xml</code> file and include the following lines:</p>
@@ -761,21 +816,25 @@ import com.google.appengine.api.xmpp.XMPPServiceFactory;
 </pre>
 
 
-<p>With the XMPP service enabled, when App Engine receives a chat message for the app, it makes an HTTP POST request to the following URL path:</p>
+<p>With the XMPP service enabled, App Engine makes an HTTP POST request to the following URL path when your app receives a chat message:</p>
 
 <p><code>/_ah/xmpp/message/chat/</code></p>
 
+<p>When <code>xmpp_message</code> is enabled, your application also receives chat error messages at:</p>
+
+<p><code>/_ah/xmpp/message/error/</code></p>
+
 <p>To handle incoming messages, you simply create a request handler that accepts POST requests at this URL path.</p>
 
-<p>This URL path is restricted to app administrators automatically.  The XMPP service connects to the app with "administrator" status for the purposes of accessing this URL path.  You can configure the path to have this restriction explicitly if you like, but this is not necessary.  Only the XMPP service and clients authenticated as administrators using Google Accounts can access this URL path.</p>
+<p>This URL path is restricted to app administrators automatically. The XMPP service connects to the app with "administrator" status for the purposes of accessing this URL path. You can configure the path to have this restriction explicitly if you like, but this is not necessary. Only the XMPP service and clients authenticated as administrators using Google Accounts can access this URL path.</p>
 
-<p>The POST request data represents the message as a MIME multipart message (<a href="http://www.ietf.org/rfc/rfc2388.txt">RFC 2388</a>).  Each part is a named POST parameter:</p>
+<p>The POST request data represents the message as a MIME multipart message (<a href="http://www.ietf.org/rfc/rfc2388.txt">RFC 2388</a>). Each part is a named POST parameter:</p>
 
 <ul>
-  <li><code>from</code>, the address of the sender of the message</li>
-  <li><code>to</code>, the address of the recipient as described by the sender (see below)</li>
-  <li><code>body</code>, the body of the message</li>
-  <li><code>stanza</code>, the full XMPP message in its original XML form</li>
+<li><code>from</code>, the address of the sender of the message</li>
+<li><code>to</code>, the address of the recipient as described by the sender (see below)</li>
+<li><code>body</code>, the body of the message</li>
+<li><code>stanza</code>, the full XMPP message in its original XML form</li>
 </ul>
 
 <p>An app can receive messages of two XMPP types: "chat" and "normal."  If App Engine receives an XMPP message of an unsupported type, the message is ignored and the request handler is not called.</p>
@@ -819,6 +878,57 @@ public class XMPPReceiverServlet extends HttpServlet {
 </pre>
 
 
+<h3 id="Handling_Subscriptions">Subscriptions</h3>
+<p>Enabling the <code>xmpp_subscribe</code> inbound service allows your application to receive updates to a user's subscription information via POSTs to the following URL paths:</p>
+
+<ul>
+  <li>POSTs to <code>/_ah/xmpp/subscription/subscribe/</code> signal that the user wishes to subscribe to the application's presence.</li>
+  <li>POSTs to <code>/_ah/xmpp/subscription/subscribed/</code> signal that the user has allowed the application to receive its presence.</li>
+  <li>POSTs to <code>/_ah/xmpp/subscription/unsubscribe/</code> signal that the user is unsubscribing from the application's presence.</li>
+  <li>POSTs to <code>/_ah/xmpp/subscription/unsubscribed/</code> signal that the user has denied the application's subscription request, or cancelled a previously granted subscription.</li>
+</ul>
+
+<p>These URLs correspond to the stanzas used for managing subscriptions described in the <a href="http://xmpp.org/rfcs/rfc3921.html#sub">XMPP Instant Messages and Presence Protocol</a>. The following code sample demonstrates how to track subscriptions using webhooks to the above handlers. The following code sample uses POSTs to the above handlers to maintain a roster of subscribed users in the datastore: </p>
+
+
+<pre class="prettyprint">// In the handler for _ah/xmpp/presence/subscribe
+XMPPService xmppService = XMPPServiceFactory.getXMPPService();
+Subscription sub = xmppService.parseSubscription(req);
+
+// Split the bare XMPP address (e.g., user@gmail.com)
+// from the resource (e.g., gmail.CD6EBC4A)
+String from = sub.getFromJid().getId().split("/")[0];
+
+// Add an object tracking the roster to the contact
+
+this.roster.addContact(sub.getFromJid());</pre>
+
+
+<h3 id="Handling_User_Presence">User Presence</h3>
+
+<p>Enabling the <code>xmpp_presence</code> inbound service allows your application to detect changes to a user's chat presence. When you enable <code>xmpp_presence</code>, your application receives POSTs to the following URL paths:</p>
+
+<ul>
+  <li>POSTs to <code>/_ah/xmpp/presence/available/</code> signal that the user is available and provide the user's chat status.</li>
+  <li>POSTs to <code>/_ah/xmpp/presence/unavailable/</code> signal that the user is unavailable.</li>
+  <li>POSTs to <code>/_ah/xmpp/presence/probe/</code> request a user's current presence.</li>
+</ul>
+
+<p>Your application can register handlers to these paths in order to receive notifications. You can use these notifications to track which users are currently online. Tracking presence via these handlers is preferable to the <code><a href="../javadoc/com/google/appengine/api/xmpp/XMPPService.html#getPresence(com.google.appengine.api.xmpp.JID)">getPresence()</a></code> call, unless you need to know a user's status at a particular moment in time. If you do need to know a user's status at a given moment, you should use <code>getPresence()</code>.</p>
+
+<p>If a Google talk user has subscribed to an app (has accepted an invitation or has invited the app to chat), the app can discover the user's availability by looking for a POST to <code>/_ah/xmpp/presence/available</code>. If the user is subscribed and available, you can send them your application's presence and status:</p>
+
+<pre class="prettyprint">// In the handler for _ah/xmpp/presence/available
+XMPPService xmppService = XMPPServiceFactory.getXMPPService();
+Presence presence = xmppService.parsePresence(req);
+
+// Split the XMPP address (e.g., user@gmail.com)
+// from the resource (e.g., gmail.CD6EBC4A)
+String from = presence.getFromJid().getId().split("/")[0];
+
+// Mirror the contact's presence back to them
+xmppService.sendPresence(from, PresenceType.AVAILABLE, presence.getPresenceShow(), presence.getStatus());</pre>
+
 
 <h2 id="XMPP_Addresses">XMPP Addresses</h2>
 
@@ -832,13 +942,13 @@ public class XMPPReceiverServlet extends HttpServlet {
 
 <p>(Notice the different domain name for custom addresses: <code>appspotchat.com</code>)</p>
 
-<p>The use of Google Apps domains in XMPP addresses is not yet supported for apps.  Of course, users with Google accounts on your domain can use the domain for their Google Talk addresses, as usual.</p>
+<p>The use of Google Apps domains in XMPP addresses is not yet supported for apps. Of course, users with Google accounts on your domain can use the domain for their Google Talk addresses, as usual.</p>
 
-<p>The app can choose which address is used as the sender address when sending a message.  All messages sent to any address in the supported formats are routed to the application.</p>
+<p>The app can choose which address is used as the sender address when sending a message. All messages sent to any address in the supported formats are routed to the application.</p>
 
 <h3>Addresses and App Versions</h3>
 
-<p>The <code>@appspot.com</code> address and the <code>@<i>app-id</i>.appspotchat.com</code> addresses all refer to the default version of the app.  Messages sent to these addresses are routed to the default version.  When the default version of an app sends a message, the requested address is used as the sender of the message.  Replies to the app's messages are routed to the default version, even if the default version has changed since the original message was sent.</p>
+<p>The <code>@appspot.com</code> address and the <code>@<i>app-id</i>.appspotchat.com</code> addresses all refer to the default version of the app. Messages sent to these addresses are routed to the default version. When the default version of an app sends a message, the requested address is used as the sender of the message. Replies to the app's messages are routed to the default version, even if the default version has changed since the original message was sent.</p>
 
 <p>Each version of an app has its own set of XMPP addresses in the following format:</p>
 
@@ -846,35 +956,32 @@ public class XMPPReceiverServlet extends HttpServlet {
 
 <p>If App Engine receives a message for an address in this format, it is routed to the corresponding version of the app (if that version still exists).</p>
 
-<p>If a version of an app sends a message and that version is not the default, the sender address of the message is changed to an address in this format.  If the sender is <code><i>app-id</i>@appspot.com</code>, the sender address becomes <code><i>app-id</i>@<i>version</i>.latest.<i>app-id</i>.appspotchat.com</code>.  This ensures that replies to a message sent by a specific non-default version of the app are routed back to that version.</p>
+<p>If a version of an app sends a message and that version is not the default, the sender address of the message is changed to an address in this format. If the sender is <code><i>app-id</i>@appspot.com</code>, the sender address becomes <code><i>app-id</i>@<i>version</i>.latest.<i>app-id</i>.appspotchat.com</code>. This ensures that replies to a message sent by a specific non-default version of the app are routed back to that version.</p>
 
 
 <h2 id="JIDs_and_Resources">JIDs and Resources</h2>
 
-<p>An XMPP address, also known as a "JID," has several components: a node (such as the name of a user of a chat service), a domain (the domain name of the service), and an optional resource.  These components are separated by punctuation: <code>node@domain/resource</code></p>
+<p>An XMPP address, also known as a "JID," has several components: a node (such as the name of a user of a chat service), a domain (the domain name of the service), and an optional resource. These components are separated by punctuation: <code>node@domain/resource</code></p>
 
-<p>When establishing a chat conversation with a human user of a chat service, you typically use just the node and domain parts of the JID.  Each chat client the user has connected to the service may have its own resource, and sending a message to the JID without the resource sends it to all of the user's clients.</p>
+<p>When establishing a chat conversation with a human user of a chat service, you typically use just the node and domain parts of the JID. Each chat client the user has connected to the service may have its own resource, and sending a message to the JID without the resource sends it to all of the user's clients.</p>
 
 <p>A JID without a resource is known as a "bare JID."  A JID with a resource is a "full JID."  App Engine's XMPP service supports both bare and full JIDs for recipient and sender addresses of messages.</p>
 
-<p>When sending a message, if you use a bare JID as the sender address, the XMPP service automatically uses the resource <code>/bot</code>.  If another XMPP user sends a message to the app using a full JID with a custom resource, the app can see which resource was used by inspecting the <code>to</code> field of the incoming message.</p>
+<p>When sending a message, if you use a bare JID as the sender address, the XMPP service automatically uses the resource <code>/bot</code>. If another XMPP user sends a message to the app using a full JID with a custom resource, the app can see which resource was used by inspecting the <code>to</code> field of the incoming message.</p>
 
 
-<h2 id="Invitations">Invitations</h2>
+<h2 id="Sending_Invitations">Sending Invitations</h2>
 
-<p>Google Talk and other chat servers will only accept messages for users that are "subscribed" to the sender, either because the user invited the sender to chat or because the user accepted an invitation to chat sent by the sender.  An App Engine app can send chat invitations using the service API.  As with sending email, a best practice is to send a chat invitation only when the user asks, such as by clicking a button on a web page.  Alternatively, the app can ask the user to send an invitation to the app's XMPP address to enable receiving of messages.</p>
+<p>Google Talk and other chat servers only accept messages for users that are "subscribed" to the sender, either because the user invited the sender to chat or because the user accepted an invitation to chat sent by the sender. An App Engine app can send chat invitations using <a href="../javadoc/com/google/appengine/api/xmpp/XMPPService.html#sendInvitation(com.google.appengine.api.xmpp.JID)">sendInvitation()</a>.</p>
 
-<p>App Engine accepts all chat invitations automatically, and does not communicate invitations to the application.  App Engine will route all chat messages to the application, regardless of whether the sender previously sent an invitation to the app.</p>
+<p>As with sending email, a best practice is to send a chat invitation only when the user asks, such as by clicking a button on a web page. Alternatively, the app can ask the user to send an invitation to the app's XMPP address to enable receiving of messages.</p>
 
+<p>App Engine accepts all chat invitations and automatically registers subscriptions as described in the <a href="#Handling_Subscriptions">Handling Subscriptions</a> section. App Engine routes all chat messages to the application, regardless of whether the sender previously sent an invitation to the app.</p>
 
-<h2 id="Google_Talk_User_Status">Google Talk User Status</h2>
+<h2 id="Sending_Application_Status">Sending the Application's Status</h2>
+<p>The <a href="../javadoc/com/google/appengine/api/xmpp/XMPPService.html#sendPresence(com.google.appengine.api.xmpp.JID,%20com.google.appengine.api.xmpp.XMPPService.PresenceType,%20com.google.appengine.api.xmpp.XMPPService.PresenceShow,%20java.lang.String)">sendPresence()</a> API allows the application to send the application's presence, along with an optional status message, to a given JID. By default, the application appears available with no status message. You can set the status message as follows:</p>
 
-<p>If a user has "subscribed" to an app (has accepted an invitation or has invited the app to chat), the app can query whether a Google Talk user has a chat client running using the XMPP service API.  The app can detect two possible status values: the user is connected, or the user is not connected.  The app cannot determine the "away" status, nor can it determine the user's status message.</p>
-
-<p>An app can only query the status of Google Talk users, and only those that have "subscribed" to the app.  There is no way for an XMPP service to query the status of users on other XMPP services.</p>
-
-<p>App Engine reports a status of connected and available for all applications, regardless of whether the app supports receiving XMPP messages.  There is no way to set a status message for an app.</p>
-
+<pre class="prettyprint">  xmppService.sendPresence(toJid, PresenceType.AVAILABLE, PresenceShow.NONE, "My app's status")</pre>
 
 <h2 id="Quotas_and_Limits">Quotas and Limits</h2>
 
@@ -883,26 +990,28 @@ public class XMPPReceiverServlet extends HttpServlet {
 <p>Each outgoing XMPP chat message counts toward the following quotas:</p>
 
 <ul>
-  <li><b>XMPP Data Sent</b></li>
-  <li><b>XMPP Recipients Messaged</b></li>
-  <li><b>Outgoing Bandwidth (billable)</b></li>
+<li><b>XMPP Data Sent</b></li>
+<li><b>XMPP Recipients Messaged</b></li>
+<li><b>Outgoing Bandwidth (billable)</b></li>
 </ul>
 
 <p>Each outgoing XMPP chat invitation counts toward the following quotas:</p>
 
 <ul>
-  <li><b>XMPP Data Sent</b></li>
-  <li><b>XMPP Invitations Sent</b></li>
-  <li><b>Outgoing Bandwidth (billable)</b></li>
+<li><b>XMPP Data Sent</b></li>
+<li><b>XMPP Invitations Sent</b></li>
+<li><b>Outgoing Bandwidth (billable)</b></li>
 </ul>
 
 <p>Each incoming XMPP message counts toward the following quotas:</p>
 
 <ul>
-  <li><b>CPU Time (billable)</b> (50 ms/message)</li>
-  <li><b>Requests</b></li>
-  <li><b>Incoming Bandwidth (billable)</b></li>
+<li><b>CPU Time (billable)</b> (50 ms/message)</li>
+<li><b>Requests</b></li>
+<li><b>Incoming Bandwidth (billable)</b></li>
 </ul>
+
+<p>Each incoming presence and subscription message counts as a normal HTTP request.</p>
 
 <p>Computation performed in a request handler for incoming XMPP messages applies toward the same quotas as with web requests and tasks.</p>
 
@@ -911,22 +1020,25 @@ public class XMPPReceiverServlet extends HttpServlet {
 <p>In addition to quotas, the following limits apply to the use of the XMPP service:</p>
 
 <table>
-  <tr>
-    <th>Limit</th>
-    <th>Amount</th>
-  </tr>
-  <tr>
-    <td>incoming message size</td>
-    <td>100 kilobytes</td>
-  </tr>
-  <tr>
-    <td>outgoing message size</td>
-    <td>100 kilobytes</td>
-  </tr>
-  
+<tr>
+<th>Limit</th>
+<th>Amount</th>
+</tr>
+<tr>
+<td>incoming message size</td>
+<td>100 kilobytes</td>
+</tr>
+<tr>
+<td>outgoing message size</td>
+<td>100 kilobytes</td>
+</tr>
+<tr>
+<td>invitations sent</td>
+<td>100,000/day</td>
+</tr>
 </table>
 
-<p>There is no explicit limit to the number of recipients for a message.  However, each message is sent and metered separately for each recipient.  A message with 30 recipients consumes 30 times as much of the affected quotas as a message with 1 recipient.  Also, the total size of the API call is limited to 1 megabyte, including the total size of the recipient list and the message body.</p>
+<p>There is no explicit limit to the number of recipients for a message. However, each message is sent and metered separately for each recipient. A message with 30 recipients consumes 30 times as much of the affected quotas as a message with 1 recipient. Also, the total size of the API call is limited to 1 megabyte, including the total size of the recipient list and the message body.</p>
 
 
 
@@ -967,7 +1079,7 @@ Java is a registered trademark of Oracle and/or its affiliates</div>
     ©2011 Google -
     <a href="http://code.google.com">Code Home</a> -
     <a href="http://code.google.com/terms.html">Terms of Service</a> -
-    <a href="http://www.google.com/intl/en/privacypolicy.html">Privacy Policy</a> -
+    <a href="http://code.google.com/privacy.html">Privacy Policy</a> -
     <a href="http://code.google.com/more">Site Directory</a>
     <br> <br>
     Google Code offered in:

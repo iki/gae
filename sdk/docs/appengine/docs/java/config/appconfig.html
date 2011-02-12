@@ -37,7 +37,6 @@
 
 
 
-
  
  
  
@@ -265,6 +264,13 @@ var logged_in_user_email = null;
 
           </ul>
         </li>
+        <li><a href="../capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../capabilities/overview.html">Overview</a></li>
+<li><a href="../javadoc/com/google/appengine/api/capabilities/package-summary.html">Javadoc Reference</a></li>
+
+          </ul>
+        </li>
         <li><a href="../channel/index.html">Channel</a>
           <ul>
             <li><a href="../channel/overview.html">Overview</a></li>
@@ -376,7 +382,7 @@ var logged_in_user_email = null;
     <li><a href="../tools/ant.html">Using Apache Ant</a></li>
     <li><a href="../tools/localunittesting.html">Local Unit Testing</a>
         <ul>
-            <li><a href="../tools/localunittesting/javadoc">Testing Javadoc</a></li>
+            <li><a href="../tools/localunittesting/javadoc/index.html">Testing Javadoc</a></li>
         </ul>    
     </li>
     <li><a href="../tools/appstats.html">Appstats</a></li>
@@ -442,6 +448,18 @@ var logged_in_user_email = null;
     <li><a href="../../python/blobstore/blobreaderclass.html">BlobReader</a></li>
     <li><a href="../../python/blobstore/functions.html">Functions</a></li>
     <li><a href="../../python/blobstore/exceptions.html">Exceptions</a></li>
+  </ul>
+</li>
+
+          </ul>
+        </li>
+        <li><a href="../../python/capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../../python/capabilities/overview.html">Overview</a></li>
+<li><span class="tlw-title tlw-expanded">Reference</span>
+  <ul>
+    <li><a href="../../python/capabilities/capabilitysetclass.html">CapabilitySet</a></li>
+    <li><a href="../../python/capabilities/exceptions.html">Exceptions</a></li>
   </ul>
 </li>
 
@@ -717,7 +735,7 @@ var logged_in_user_email = null;
   <li><a href="#Disabling_Precompilation">Disabling Precompilation</a></li>
   <li><a href="#Administration_Console_Custom_Pages">Administration Console Custom Pages</a></li>
   <li><a href="#Custom_Error_Responses">Custom Error Responses</a></li>
-  <li><a href="#Warming_Requests">Warming Requests</a></li>
+  <li><a href="#Warmup_Requests">Warmup Requests</a></li>
 </ul>
 
 <h2 id="About_appengine_web_xml">About appengine-web.xml</h2>
@@ -848,9 +866,17 @@ var logged_in_user_email = null;
 
 <h2 id="Inbound_Services">Inbound Services</h2>
 
-<p>Before an application can receive email and XMPP messages, the application must be configured to enable those services. You enable these services for a Java app by including an <code>&lt;inbound-services&gt;</code> element in the <code>appengine-web.xml</code> file.</p>
+<p>Before an application can receive email and XMPP messages, the application must be configured to enable those services. You enable these services for a Java app by including an <code>&lt;inbound-services&gt;</code> element in the <code>appengine-web.xml</code> file. The following inbound services are available:</p>
 
-<p>To enable incoming email and XMPP messages, add the following to <code>appengine-web.xml</code>:</p>
+<ul>
+  <li><code>mail</code> &ndash; allows your application to <a href="../../python/mail/receivingmail.html">receive mail</a></li>
+  <li><code>xmpp_message</code> &ndash; allows your application to <a href="../../python/xmpp/overview.html#Receiving_Instant_Messages">receive instant messages</a></li>
+  <li><code>xmpp_presence</code> &ndash; allows your application to receive a user's chat presence</li>
+  <li><code>xmpp_subscribe</code> &ndash; allows your application to receive user subscription POSTs.</li>
+  <li><code>warmup</code> &ndash; enables <a href="../../adminconsole/instances.html#Warming_Requests">warmup requests</a></li>
+</ul>
+
+<p>For example, you can enable mail and warmup by adding the following to <code>web.xml</code>:</p>
 
 <pre class="prettyprint">
   &lt;inbound-services&gt;
@@ -922,18 +948,18 @@ var logged_in_user_email = null;
 
 
 
-<h2 id="Warming_Requests">Warming Requests</h2>
+<h2 id="Warmup_Requests">Warmup Requests</h2>
 <p>App Engine frequently needs to load application code into a fresh instance. This happens when you redeploy the application, when the load pattern has increased beyond the capacity of the current instances, or simply due to maintenance or repairs of the underlying infrastructure or physical hardware. </p>
 
-<p>Loading new application code on a fresh instance can result in <a href="../../adminconsole/instances.html#Loading_Requests">loading requests</a>. Loading requests can result in increased request latency for your users, but you can avoid this latency using <b>warming requests</b>. Warming requests load application code into a new instance before any live requests reach that instance.</p>
+<p>Loading new application code on a fresh instance can result in <a href="../../adminconsole/instances.html#Loading_Requests">loading requests</a>. Loading requests can result in increased request latency for your users, but you can avoid this latency using <b>warmup requests</b>. Warmup requests load application code into a new instance before any live requests reach that instance.</p>
 
-<p>App Engine attempts to detect when your application needs a new instance, and (assuming that warming requests are enabled for your application) initiates a warming request to initialize the new instance. However, these detection attempts do not work in every case. As a result, you may encounter loading requests, even if warming requests are enabled in your app. For example, if your app is serving no traffic, the first request to the app will always be a loading request, not a warming request. You can prevent loading requests in most cases by using the <a href="../../adminconsole/instances.html#Always_On">Always On</a> feature.</p>
+<p>App Engine attempts to detect when your application needs a new instance, and (assuming that warmup requests are enabled for your application) initiates a warmup request to initialize the new instance. However, these detection attempts do not work in every case. As a result, you may encounter loading requests, even if warmup requests are enabled in your app. For example, if your app is serving no traffic, the first request to the app will always be a loading request, not a warmup request. You can prevent loading requests in most cases by using the <a href="../../adminconsole/instances.html#Always_On">Always On</a> feature.</p>
 
-<p>Warming requests use CPU quota like any other request to your App Engine application. In most cases, you won't notice an increase in CPU usage, since your application is simply initializing in a warming request instead of a loading request. Your CPU usage will likely increase if you decide to do more work (such as precaching) during a warming request.</p>
+<p>Warmup requests use CPU quota like any other request to your App Engine application. In most cases, you won't notice an increase in CPU usage, since your application is simply initializing in a warmup request instead of a loading request. Your CPU usage will likely increase if you decide to do more work (such as precaching) during a warmup request.</p>
 
 
   
-<p>The default warming request causes all jar files to be indexed in memory and initializes your application and filters. The following sections describe how to configure warming requests and create warming logic for your application:</p>
+<p>The default warmup request causes all jar files to be indexed in memory and initializes your application and filters. The following sections describe how to configure warmup requests and create warmup logic for your application:</p>
 
 <ul>
   <li><a href="#Configuration">Configuration</a></li>
@@ -943,17 +969,17 @@ var logged_in_user_email = null;
 </ul>
 
 <h3 id="Configuration">Configuration</h3>
-<p>Warming requests are enabled by default for all Java applications.</p>
+<p>Warmup requests are enabled by default for all Java applications.</p>
 
-<p>If you configured your app with <code>web.xml</code>, you can implement warming requests via an optional <code>&lt;warmup-requests-enabled&gt;</code> element in <code>appengine-web.xml</code>, which defaults to true. This causes the App Engine infrastructure to issue <code>GET</code> requests to <code>/_ah/warmup</code>, initializing <a href="#Using_a_load-on-startup_Servlet">&lt;load-on-startup&gt;</a> servlets, <a href="#Using_a_ServletContextListener">ServletContextListeners</a>, and <a href="#Using_a_Custom_Servlet">custom servlets</a>&mdash;which allow you to initialize your application's code as it requires. You may or may not need to implement your own hander for <code>/_ah/warmup</code> depending on which of these methods you choose.</p>
-<p>To disable warming requests, specify the <code>&lt;warmup-requests-enabled&gt;</code> element with a value of <code>false</code>:</p>
+<p>If you configured your app with <code>web.xml</code>, you can implement warmup requests via an optional <code>&lt;warmup-requests-enabled&gt;</code> element in <code>appengine-web.xml</code>, which defaults to true. This causes the App Engine infrastructure to issue <code>GET</code> requests to <code>/_ah/warmup</code>, initializing <a href="#Using_a_load-on-startup_Servlet">&lt;load-on-startup&gt;</a> servlets, <a href="#Using_a_ServletContextListener">ServletContextListeners</a>, and <a href="#Using_a_Custom_Servlet">custom servlets</a>&mdash;which allow you to initialize your application's code as it requires. You may or may not need to implement your own hander for <code>/_ah/warmup</code> depending on which of these methods you choose.</p>
+<p>To disable warmup requests, specify the <code>&lt;warmup-requests-enabled&gt;</code> element with a value of <code>false</code>:</p>
 
 <pre class="prettyprint">&lt;warmup-requests-enabled&gt;false&lt;/warmup-requests-enabled&gt;</pre>
 
-<p>Warming requests are not enabled by default if you configured your Java application with <code>app.yaml</code>. For details, please refer to <a href="../configyaml/appconfig_yaml.html#Warming_Requests">Java Application Configuration Using app.yaml</a>.</p>
+<p>Warmup requests are not enabled by default if you configured your Java application with <code>app.yaml</code>. For details, please refer to <a href="../configyaml/appconfig_yaml.html#Warmup_Requests">Java Application Configuration Using app.yaml</a>.</p>
 
 <h3 id="Using_a_load-on-startup_Servlet">Using a &lt;load-on-startup&gt; Servlet</h3>
-<p>The easiest way to provide warming logic is to mark your own servlets as <code>&lt;load-on-startup&gt;</code> in <code>web.xml</code>. This method requires no changes to your application code, and initializes all specified servlets when your application initializes. The following example demonstrates how to load <code>my-servlet</code> on startup:</p>
+<p>The easiest way to provide warmup logic is to mark your own servlets as <code>&lt;load-on-startup&gt;</code> in <code>web.xml</code>. This method requires no changes to your application code, and initializes all specified servlets when your application initializes. The following example demonstrates how to load <code>my-servlet</code> on startup:</p>
 
 <pre class="prettyprint">&lt;servlet&gt;
   &lt;servlet-name&gt;my-servlet&lt;/servlet-name&gt;
@@ -961,7 +987,7 @@ var logged_in_user_email = null;
   &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
 &lt;/servlet&gt;</pre>
 
-<p>These lines load the specified servlet class and invoke the servlet's <code>init()</code> method. The warming request initializes the specified servlets before servicing any live requests. However, if there is no warming request, the servlets specified in <code>&lt;load-on-startup&gt;</code> are registered upon the first request to a new instance, which result in a loading request. As noted earlier, App Engine may not issue a warming request every time your application needs a new instance. You can use App Engine's <a href="../../adminconsole/instances.html#Always_On">Always On</a> feature to avoid loading requests in most cases.</p>
+<p>These lines load the specified servlet class and invoke the servlet's <code>init()</code> method. The warmup request initializes the specified servlets before servicing any live requests. However, if there is no warmup request, the servlets specified in <code>&lt;load-on-startup&gt;</code> are registered upon the first request to a new instance, which result in a loading request. As noted earlier, App Engine may not issue a warmup request every time your application needs a new instance. You can use App Engine's <a href="../../adminconsole/instances.html#Always_On">Always On</a> feature to avoid loading requests in most cases.</p>
 
 <h3 id="Using_a_ServletContextListener">Using a ServletContextListener</h3>
 <p>If you have custom logic that you want to run before any of your servlets is
@@ -976,24 +1002,24 @@ to register a <a href="http://download.oracle.com/docs/cd/E17802_01/products/pro
 
 <pre class="prettyprint">public class MyListener implements ServletContextListener {
  public void contextInitialized(ServletContextEvent event) {
-   // This will be invoked as part of a warming request, or the first user
-   // request if no warming request was invoked.
+   // This will be invoked as part of a warmup request, or the first user
+   // request if no warmup request was invoked.
  }
  public void contextDestroyed(ServletContextEvent event) {
    // App Engine does not currently invoke this method.
  }
 }</pre>
 
-<p>The ServletContextListener runs during a warming request. If there is no warming request, it runs upon the first request to a new instance. This may result in loading requests, but you can use <a href="../../adminconsole/instances.html#Always_On">Always On</a> to avoid most loading requests.</p>
+<p>The ServletContextListener runs during a warmup request. If there is no warmup request, it runs upon the first request to a new instance. This may result in loading requests, but you can use <a href="../../adminconsole/instances.html#Always_On">Always On</a> to avoid most loading requests.</p>
 
 <h3 id="Using_a_Custom_Servlet">Using a Custom Servlet</h3>
-<p>As noted earlier, the prediction algorithm to initiate warming requests for new instances does not work in every case. Even with this feature enabled, you may encounter loading requests. If you use <code>&lt;load-on-startup&gt;</code> or <code>ServletContextListeners</code>, and the warmup request is not initiated, you may incur additional load time and CPU time when a new instance starts to run. You can avoid this additional load time by providing a custom servlet that runs only during warming requests. Custom servlets work best when you plan to have expensive logic (such as precaching) that runs only during a warming request.</p>
+<p>As noted earlier, the prediction algorithm to initiate warmup requests for new instances does not work in every case. Even with this feature enabled, you may encounter loading requests. If you use <code>&lt;load-on-startup&gt;</code> or <code>ServletContextListeners</code>, and the warmup request is not initiated, you may incur additional load time and CPU time when a new instance starts to run. You can avoid this additional load time by providing a custom servlet that runs only during warmup requests. Custom servlets work best when you plan to have expensive logic (such as precaching) that runs only during a warmup request.</p>
 
-<p>The custom warming servlet invokes the warming servlet's <code>service</code> method only during a warming request. To create a custom warming servlet, simply override the built-in servlet definition for <code>_ah_warmup</code> in <code>web.xml</code>:</p>
+<p>The custom warmup servlet invokes the warmup servlet's <code>service</code> method only during a warmup request. To create a custom warmup servlet, simply override the built-in servlet definition for <code>_ah_warmup</code> in <code>web.xml</code>:</p>
 
 <pre class="prettyprint">&lt;servlet&gt;
  &lt;servlet-name&gt;_ah_warmup&lt;/servlet-name&gt;
- &lt;servlet-class&gt;com.company.MywarmingServlet&lt;/servlet-class&gt;</pre>
+ &lt;servlet-class&gt;com.company.MywarmupServlet&lt;/servlet-class&gt;</pre>
 
 
 
@@ -1037,7 +1063,7 @@ Java is a registered trademark of Oracle and/or its affiliates</div>
     ©2011 Google -
     <a href="http://code.google.com">Code Home</a> -
     <a href="http://code.google.com/terms.html">Terms of Service</a> -
-    <a href="http://www.google.com/intl/en/privacypolicy.html">Privacy Policy</a> -
+    <a href="http://code.google.com/privacy.html">Privacy Policy</a> -
     <a href="http://code.google.com/more">Site Directory</a>
     <br> <br>
     Google Code offered in:

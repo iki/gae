@@ -15,7 +15,6 @@
 
 
 
-
  
  
  
@@ -243,6 +242,13 @@ var logged_in_user_email = null;
 
           </ul>
         </li>
+        <li><a href="../capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../capabilities/overview.html">Overview</a></li>
+<li><a href="../javadoc/com/google/appengine/api/capabilities/package-summary.html">Javadoc Reference</a></li>
+
+          </ul>
+        </li>
         <li><a href="../channel/index.html">Channel</a>
           <ul>
             <li><a href="../channel/overview.html">Overview</a></li>
@@ -354,7 +360,7 @@ var logged_in_user_email = null;
     <li><a href="../tools/ant.html">Using Apache Ant</a></li>
     <li><a href="../tools/localunittesting.html">Local Unit Testing</a>
         <ul>
-            <li><a href="../tools/localunittesting/javadoc">Testing Javadoc</a></li>
+            <li><a href="../tools/localunittesting/javadoc/index.html">Testing Javadoc</a></li>
         </ul>    
     </li>
     <li><a href="../tools/appstats.html">Appstats</a></li>
@@ -420,6 +426,18 @@ var logged_in_user_email = null;
     <li><a href="../../python/blobstore/blobreaderclass.html">BlobReader</a></li>
     <li><a href="../../python/blobstore/functions.html">Functions</a></li>
     <li><a href="../../python/blobstore/exceptions.html">Exceptions</a></li>
+  </ul>
+</li>
+
+          </ul>
+        </li>
+        <li><a href="../../python/capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../../python/capabilities/overview.html">Overview</a></li>
+<li><span class="tlw-title tlw-expanded">Reference</span>
+  <ul>
+    <li><a href="../../python/capabilities/capabilitysetclass.html">CapabilitySet</a></li>
+    <li><a href="../../python/capabilities/exceptions.html">Exceptions</a></li>
   </ul>
 </li>
 
@@ -747,28 +765,38 @@ var logged_in_user_email = null;
 <p>The following are examples of schedules:</p>
 
 <pre>
-every 5 minutes
 every 12 hours
+every 5 minutes from 10:00 to 14:00
 2nd,third mon,wed,thu of march 17:00
 every monday 09:00
 1st monday of sep,oct,nov 17:00
 every day 00:00
 </pre>
 
-<p>If you don't need to run a recurring job at a specific time, but instead only need to run it at regular intervals, use the form: <code>every N (hours|mins|minutes)</code>, where N is a number and hours or minutes specifies the unit of time. The shortest time between runs of a task that can be specified is 1 minute.</p>
+<p>If you don't need to run a recurring job at a specific time, but instead only need to run it at regular intervals, use the form:
 
-<p>By default, an interval schedule starts the next interval after the last job has completed.  If you want jobs to start on regular intervals during the day independent of when the last job has completed, add the word <code>synchronized</code> to the interval description.  For example:</p>
+<pre>every N (hours|mins|minutes) ["from" (time) "to" (time)]</pre>
+
+<p>The brackets are for illustration only, and quotes indicate a literal.
+
+<ul>
+  <li><i>N</i> specifies a number.</li>
+  <li><i>hours</i> or <i>minutes</i> (you can also use <i>mins</i>) specifies the unit of time.</li>
+  <li><i>time</i> specifies a time of day, as HH:MM in 24 hour time.</li>
+</ul>
+
+<p>By default, an interval schedule starts the next interval after the last job has completed.  If a <i>from...to</i> clause is specified, however, the jobs are scheduled at regular intervals independent of when the last job completed.  For example:
+
+<pre>every 2 hours from 10:00 to 14:00</pre>
+
+<p>This schedule runs the job three times per day at 10:00, 12:00, and 14:00, regardless of how long it takes to complete.  You can use the literal "synchronized" as a synonym for <i>from 00:00 to 23:59</i>:
 
 <pre>every 2 hours synchronized</pre>
-
-<p>This runs a job 12 times a day at 2 hour intervals, starting from midnight.</p>
 
 <p>If you want more specific timing, you can specify the schedule as:</p>
 <pre>
 ("every"|ordinal) (days) ["of" (monthspec)] (time)
 </pre>
-
-<p>The brackets are for illustration only, and quotes indicate a literal.</p>
 
 <p>Where:</p>
 <ul>
@@ -842,7 +870,6 @@ every day 00:00
 
 
 
-
       </div><!-- end gc-pagecontent -->
    </div><!-- end gooey wrapper -->
 
@@ -880,7 +907,7 @@ Java is a registered trademark of Oracle and/or its affiliates</div>
     ©2011 Google -
     <a href="http://code.google.com">Code Home</a> -
     <a href="http://code.google.com/terms.html">Terms of Service</a> -
-    <a href="http://www.google.com/intl/en/privacypolicy.html">Privacy Policy</a> -
+    <a href="http://code.google.com/privacy.html">Privacy Policy</a> -
     <a href="http://code.google.com/more">Site Directory</a>
     <br> <br>
     Google Code offered in:

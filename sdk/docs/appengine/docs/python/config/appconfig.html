@@ -26,7 +26,6 @@
 
 
 
-
  
  
  
@@ -254,6 +253,13 @@ var logged_in_user_email = null;
 
           </ul>
         </li>
+        <li><a href="../../java/capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../../java/capabilities/overview.html">Overview</a></li>
+<li><a href="../../java/javadoc/com/google/appengine/api/capabilities/package-summary.html">Javadoc Reference</a></li>
+
+          </ul>
+        </li>
         <li><a href="../../java/channel/index.html">Channel</a>
           <ul>
             <li><a href="../../java/channel/overview.html">Overview</a></li>
@@ -365,7 +371,7 @@ var logged_in_user_email = null;
     <li><a href="../../java/tools/ant.html">Using Apache Ant</a></li>
     <li><a href="../../java/tools/localunittesting.html">Local Unit Testing</a>
         <ul>
-            <li><a href="../../java/tools/localunittesting/javadoc">Testing Javadoc</a></li>
+            <li><a href="../../java/tools/localunittesting/javadoc/index.html">Testing Javadoc</a></li>
         </ul>    
     </li>
     <li><a href="../../java/tools/appstats.html">Appstats</a></li>
@@ -431,6 +437,18 @@ var logged_in_user_email = null;
     <li><a href="../blobstore/blobreaderclass.html">BlobReader</a></li>
     <li><a href="../blobstore/functions.html">Functions</a></li>
     <li><a href="../blobstore/exceptions.html">Exceptions</a></li>
+  </ul>
+</li>
+
+          </ul>
+        </li>
+        <li><a href="../capabilities/index.html">Capabilities</a>
+          <ul>
+            <li><a href="../capabilities/overview.html">Overview</a></li>
+<li><span class="tlw-title tlw-expanded">Reference</span>
+  <ul>
+    <li><a href="../capabilities/capabilitysetclass.html">CapabilitySet</a></li>
+    <li><a href="../capabilities/exceptions.html">Exceptions</a></li>
   </ul>
 </li>
 
@@ -1002,7 +1020,8 @@ builtins:
   <li><code>admin_redirect</code> &ndash; Redirects calls to <code>/_ah/admin</code> from the development console of the development web server to the Admin Console dashboard page.</li>
   <li><code>appstats</code> &ndash; Enables <a href="../tools/appstats.html">Appstats</a> at <code>/_ah/stats/</code>, which you can use to measure your application's performance. In order to use App Stats, you also need to <a href="../tools/appstats.html#Installing_the_Event_Recorder">Install the Event Recorder</a>.</li>
   <li><code>datastore_admin</code> &ndash; Enables <a href="../../adminconsole/datastoreadmin.html">datastore admin</a> at <code>/_ah/datastore_admin/</code>. This builtin enables the Datastore Admin page in the Admin Console, where you can delete all entities of a given kind, or of all kinds, in the default namespace. </li>
-  <li><code>remote_api</code> &ndash; enables the <a href="../tools/uploadingdata.html#Setting_Up_remote_api">remote_api</a> handler at <code>/_ah/remote_api/</code>.</li>
+  <li><code>deferred</code> &ndash; Enables the deferred handler at <code>/_ah/queue/deferred</code>. This builtin allows developers to use <code>deferred.defer()</code> to simplify the creation of Task Queue tasks. Also see <a href="../../../articles/deferred.html">Background work with the deferred library</a>. </li>
+  <li><code>remote_api</code> &ndash; Enables the <a href="../tools/uploadingdata.html#Setting_Up_remote_api">remote_api</a> builtin at <code>/_ah/remote_api/</code>. This builtin allows remote applications with the proper credentials to access the datastore remotely.</li>
 </ul>
 
 
@@ -1070,7 +1089,9 @@ handlers:
 
 <p>The development web server does not support HTTPS connections. It ignores the <code>secure</code> parameter, so paths intended for use with HTTPS can be tested using regular HTTP connections to the development web server.</p>
 
-<p>When you test your app's HTTPS handlers using the versioned appspot.com URL, such as <code>https://1.latest.app-id.appspot.com/</code>, your browser will warn that the HTTPS certificate was not signed for that specific domain path. If you accept the certificate for that domain, pages will load successfully. Users will not see the certificate warning when accessing <code>https://app-id.appspot.com/</code>.</p>
+<p>When you test your app's HTTPS handlers using the versioned appspot.com URL, such as <code>https://1.latest.app-id.appspot.com/</code>, your browser warns you that the HTTPS certificate was not signed for that specific domain path. If you accept the certificate for that domain, pages will load successfully. Users will not see the certificate warning when accessing <code>https://app-id.appspot.com/</code>.</p>
+
+<p>You can also use an alternate form of the versioned appspot.com URL designed to avoid this problem by replacing the periods separating the subdomain components with the string "-dot-". For instance, the previous example could be accessed without a certificate warning at <code>https://1-dot-latest-dot-app-id.appspot.com/</code>.</p>
 
 <p>Google Accounts sign-in and sign-out are always performed using a secure connection, unrelated to how the application's URLs are configured.</p>
 
@@ -1187,28 +1208,37 @@ handlers:
 
 <h2 id="Inbound_Services">Inbound Services</h2>
 
-<p>Before an application can receive email or XMPP messages, the application must be configured to enable the service. You enable the service for a Python app by including an <code>inbound_services</code> section in the <code>app.yaml</code> file.</p>
+<p>Before an application can receive email or XMPP messages, the application must be configured to enable the service. You enable the service for a Python app by including an <code>inbound_services</code> section in the <code>app.yaml</code> file. The following inbound services are available:</p>
 
-<p>To enable incoming email and XMPP messages, add the following to <code>app.yaml</code>:</p>
+<ul>
+  <li><code>mail</code> &ndash; allows your application to <a href="../mail/receivingmail.html">receive mail</a></li>
+  <li><code>xmpp_message</code> &ndash; allows your application to <a href="../xmpp/overview.html#Receiving_Instant_Messages">receive instant messages</a></li>
+  <li><code>xmpp_presence</code> &ndash; allows your application to receive a user's chat presence</li>
+  <li><code>xmpp_subscribe</code> &ndash; allows your application to receive user subscription POSTs.</li>
+  <li><code>warmup</code> &ndash; enables <a href="../../adminconsole/instances.html#Warming_Requests">warmup requests</a></li>
+</ul>
+
+
+<p>For example, you can enable mail and warmup by specifying the following in <code>app.yaml</code>:</p>
 
 <pre>
 inbound_services:
-- xmpp_message
 - mail
+- warmup
 </pre>
 
-<h3 id="Warming_Requests">Warming Requests</h3>
+<h3 id="Warmup_Requests">Warmup Requests</h3>
 <p>App Engine frequently needs to load application code into a fresh instance. This happens when you redeploy the application, when the load pattern has increased beyond the capacity of the current instances, or simply due to maintenance or repairs of the underlying infrastructure or physical hardware. </p>
 
-<p>Loading new application code on a fresh instance can result in <a href="../../adminconsole/instances.html#Loading_Requests">loading requests</a>. Loading requests can result in increased request latency for your users, but you can avoid this latency using <b>warming requests</b>. Warming requests load application code into a new instance before any live requests reach that instance.</p>
+<p>Loading new application code on a fresh instance can result in <a href="../../adminconsole/instances.html#Loading_Requests">loading requests</a>. Loading requests can result in increased request latency for your users, but you can avoid this latency using <b>warmup requests</b>. Warmup requests load application code into a new instance before any live requests reach that instance.</p>
 
-<p>App Engine attempts to detect when your application needs a new instance, and (assuming that warming requests are enabled for your application) initiates a warming request to initialize the new instance. However, these detection attempts do not work in every case. As a result, you may encounter loading requests, even if warming requests are enabled in your app. For example, if your app is serving no traffic, the first request to the app will always be a loading request, not a warming request. You can prevent loading requests in most cases by using the <a href="../../adminconsole/instances.html#Always_On">Always On</a> feature.</p>
+<p>App Engine attempts to detect when your application needs a new instance, and (assuming that warmup requests are enabled for your application) initiates a warmup request to initialize the new instance. However, these detection attempts do not work in every case. As a result, you may encounter loading requests, even if warmup requests are enabled in your app. For example, if your app is serving no traffic, the first request to the app will always be a loading request, not a warmup request. You can prevent loading requests in most cases by using the <a href="../../adminconsole/instances.html#Always_On">Always On</a> feature.</p>
 
-<p>Warming requests use CPU quota like any other request to your App Engine application. In most cases, you won't notice an increase in CPU usage, since your application is simply initializing in a warming request instead of a loading request. Your CPU usage will likely increase if you decide to do more work (such as precaching) during a warming request.</p>
+<p>Warmup requests use CPU quota like any other request to your App Engine application. In most cases, you won't notice an increase in CPU usage, since your application is simply initializing in a warmup request instead of a loading request. Your CPU usage will likely increase if you decide to do more work (such as precaching) during a warmup request.</p>
 
 
   
-<p>In Python, warming requests are disabled by default. To enable them, add <code>-warmup</code> to the <code>inbound_services</code> directive in <code>app.yaml</code>:</p>
+<p>In Python, warmup requests are disabled by default. To enable them, add <code>-warmup</code> to the <code>inbound_services</code> directive in <code>app.yaml</code>:</p>
 <pre>inbound_services:
 - warmup</pre>
 <p>This causes the App Engine infrastructure to issue <code>GET</code> requests to <code>/_ah/warmup</code>. You can implement handlers in this directory to perform application-specific tasks, such as pre-caching application data.</p>
@@ -1317,7 +1347,7 @@ Java is a registered trademark of Oracle and/or its affiliates</div>
     ©2011 Google -
     <a href="http://code.google.com">Code Home</a> -
     <a href="http://code.google.com/terms.html">Terms of Service</a> -
-    <a href="http://www.google.com/intl/en/privacypolicy.html">Privacy Policy</a> -
+    <a href="http://code.google.com/privacy.html">Privacy Policy</a> -
     <a href="http://code.google.com/more">Site Directory</a>
     <br> <br>
     Google Code offered in:
