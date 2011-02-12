@@ -204,7 +204,7 @@ Configuration file
   **GAE_PYV**
     Python version to use.
     Defaults to **2.5**. Using a newer version is not recommended now,
-    although pyhton 2.7 support is on the roadmap_ finally.
+    although python 2.7 support is on the roadmap_ finally.
 
     .. _roadmap: http://code.google.com/appengine/docs/roadmap.html
 
