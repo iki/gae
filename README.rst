@@ -24,7 +24,7 @@ Use cases
     and switching::
 
       git checkout --track origin/1.4.1   # get info on branch 1.4.1 and switch to
-      git checkout master                 # switch to newest version
+      git checkout master                 # switch to the newest version
       git checkout 1.4.1                  # switch to 1.4.1
 
   * Fork the repository and add it as a git submodule_ of your project,
@@ -140,8 +140,8 @@ Commands
   ``gae-docs-local``
     ``Opens local copy of GAE Python SDK documentation.``
 
-  ``py``
-    ``Runs Python; the version requested in configuration file.``
+  ``gae-py``
+    ``Runs the python version specified in a configuration file (defaults to 2.5).``
 
 
 Helpers
