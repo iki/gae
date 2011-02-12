@@ -316,35 +316,36 @@ ul.auto-toc {
 <div class="contents topic" id="contents">
 <p class="topic-title first">Contents</p>
 <ul class="simple">
-<li><a class="reference internal" href="#overview" id="id5">Overview</a><ul>
-<li><a class="reference internal" href="#summary" id="id6">Summary</a></li>
-<li><a class="reference internal" href="#use-cases" id="id7">Use cases</a></li>
-<li><a class="reference internal" href="#getting-started" id="id8">Getting started</a></li>
-<li><a class="reference internal" href="#structure" id="id9">Structure</a></li>
-<li><a class="reference internal" href="#license" id="id10">License</a></li>
+<li><a class="reference internal" href="#overview" id="id6">Overview</a><ul>
+<li><a class="reference internal" href="#summary" id="id7">Summary</a></li>
+<li><a class="reference internal" href="#use-cases" id="id8">Use cases</a></li>
+<li><a class="reference internal" href="#alternatives" id="id9">Alternatives</a></li>
+<li><a class="reference internal" href="#getting-started" id="id10">Getting started</a></li>
+<li><a class="reference internal" href="#structure" id="id11">Structure</a></li>
+<li><a class="reference internal" href="#license" id="id12">License</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#tools" id="id11">Tools</a><ul>
-<li><a class="reference internal" href="#commands" id="id12">Commands</a></li>
-<li><a class="reference internal" href="#helpers" id="id13">Helpers</a><ul>
-<li><a class="reference internal" href="#command-helpers" id="id14">Command helpers</a></li>
-<li><a class="reference internal" href="#python-helper-module" id="id15">Python helper module</a></li>
+<li><a class="reference internal" href="#tools" id="id13">Tools</a><ul>
+<li><a class="reference internal" href="#commands" id="id14">Commands</a></li>
+<li><a class="reference internal" href="#helpers" id="id15">Helpers</a><ul>
+<li><a class="reference internal" href="#command-helpers" id="id16">Command helpers</a></li>
+<li><a class="reference internal" href="#python-helper-module" id="id17">Python helper module</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#configuration-file" id="id16">Configuration file</a></li>
+<li><a class="reference internal" href="#configuration-file" id="id18">Configuration file</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="overview">
-<h1><a class="toc-backref" href="#id5">Overview</a></h1>
+<h1><a class="toc-backref" href="#id6">Overview</a></h1>
 <div class="section" id="summary">
-<h2><a class="toc-backref" href="#id6">Summary</a></h2>
+<h2><a class="toc-backref" href="#id7">Summary</a></h2>
 <blockquote>
 Google App Engine (<a class="reference external" href="http://code.google.com/appengine/">GAE</a>) Python <a class="reference external" href="http://code.google.com/appengine/docs/python/overview.html">SDK</a> packaged for simple inclusion within your project.</blockquote>
 </div>
 <div class="section" id="use-cases">
-<h2><a class="toc-backref" href="#id7">Use cases</a></h2>
+<h2><a class="toc-backref" href="#id8">Use cases</a></h2>
 <blockquote>
 <ul>
 <li><p class="first">Clone the repository to gain simple SDK updating (<tt class="docutils literal">git pull</tt>)
@@ -374,8 +375,17 @@ on Ubuntu Lucid/Maverick using <a class="reference external" href="https://launc
 </ul>
 </blockquote>
 </div>
+<div class="section" id="alternatives">
+<h2><a class="toc-backref" href="#id9">Alternatives</a></h2>
+<blockquote>
+<ul class="simple">
+<li>The <a class="reference external" href="http://www.tipfy.org/">tipfy</a> framework uses a <a class="reference external" href="http://pypi.python.org/pypi/zc.buildout">zc.buildout</a> (<a class="reference external" href="http://www.buildout.org/">more info</a>) recipe from <a class="reference external" href="http://code.google.com/p/appfy/">appfy</a>
+to automatically download and install the Google Appengine Python SDK specified in <tt class="docutils literal">buildout.cfg</tt>.</li>
+</ul>
+</blockquote>
+</div>
 <div class="section" id="getting-started">
-<h2><a class="toc-backref" href="#id8">Getting started</a></h2>
+<h2><a class="toc-backref" href="#id10">Getting started</a></h2>
 <blockquote>
 <ol class="arabic">
 <li><p class="first">Clone the <a class="reference external" href="https://github.com/iki/gae/">repository</a>.
@@ -394,7 +404,7 @@ to your project directory.</p>
 </blockquote>
 </div>
 <div class="section" id="structure">
-<h2><a class="toc-backref" href="#id9">Structure</a></h2>
+<h2><a class="toc-backref" href="#id11">Structure</a></h2>
 <blockquote>
 <ul class="simple">
 <li>The <a class="reference external" href="sdk">sdk</a> directory contains the <a class="reference external" href="http://code.google.com/appengine/docs/python/overview.html">SDK</a>
@@ -414,7 +424,7 @@ and do not originate from <a class="reference external" href="http://code.google
 </blockquote>
 </div>
 <div class="section" id="license">
-<h2><a class="toc-backref" href="#id10">License</a></h2>
+<h2><a class="toc-backref" href="#id12">License</a></h2>
 <blockquote>
 <ul class="simple">
 <li>The <tt class="docutils literal">sdk</tt> directory contains the <a class="reference external" href="http://code.google.com/appengine/docs/python/overview.html">SDK</a> and documentation.
@@ -426,12 +436,12 @@ You can find the license terms in <a class="reference external" href="sdk/licens
 </div>
 </div>
 <div class="section" id="tools">
-<h1><a class="toc-backref" href="#id11">Tools</a></h1>
+<h1><a class="toc-backref" href="#id13">Tools</a></h1>
 <blockquote>
 Provided for simple use of the SDK across supported platforms.
 They ensure that the configured SDK and Python version are used.</blockquote>
 <div class="section" id="commands">
-<h2><a class="toc-backref" href="#id12">Commands</a></h2>
+<h2><a class="toc-backref" href="#id14">Commands</a></h2>
 <blockquote>
 <p>Shortcuts for running SDK commands using the configured SDK and Python version.</p>
 <p>Provided as a shell scripts for Linux/Mac and a batch scripts (<tt class="docutils literal">*.bat</tt>) for Windows.</p>
@@ -456,9 +466,9 @@ They ensure that the configured SDK and Python version are used.</blockquote>
 </blockquote>
 </div>
 <div class="section" id="helpers">
-<h2><a class="toc-backref" href="#id13">Helpers</a></h2>
+<h2><a class="toc-backref" href="#id15">Helpers</a></h2>
 <div class="section" id="command-helpers">
-<h3><a class="toc-backref" href="#id14">Command helpers</a></h3>
+<h3><a class="toc-backref" href="#id16">Command helpers</a></h3>
 <blockquote>
 <p>Used by most of the <a class="reference internal" href="#commands">commands</a> above.
 They load the configuration and optionally run an SDK command.</p>
@@ -476,7 +486,7 @@ gae --help
 </blockquote>
 </div>
 <div class="section" id="python-helper-module">
-<h3><a class="toc-backref" href="#id15">Python helper module</a></h3>
+<h3><a class="toc-backref" href="#id17">Python helper module</a></h3>
 <blockquote>
 <p>The python module <a class="reference external" href="gae.py">gae.py</a>
 allows simple SDK acces from any python script or module.
@@ -497,7 +507,7 @@ because the environment is already set up by the development server.</p>
 </div>
 </div>
 <div class="section" id="configuration-file">
-<h2><a class="toc-backref" href="#id16">Configuration file</a></h2>
+<h2><a class="toc-backref" href="#id18">Configuration file</a></h2>
 <blockquote>
 <p>The configuration file <a class="reference external" href="gae.conf">gae.conf</a> defines environment
 for the commands and helpers located in the same directory.

@@ -48,6 +48,18 @@ Use cases
       .. _Felix Krull PPA: https://launchpad.net/~fkrull/+archive/deadsnakes
 
 
+Alternatives
+------------
+
+  * The tipfy_ framework uses a zc.buildout_ (`more info`__) recipe from appfy_
+    to automatically download and install the Google Appengine Python SDK specified in ``buildout.cfg``.
+
+    .. _tipfy: http://www.tipfy.org/
+    .. _appfy: http://code.google.com/p/appfy/
+    .. _zc.buildout: http://pypi.python.org/pypi/zc.buildout
+    __ http://www.buildout.org/
+
+
 Getting started
 ---------------
 
@@ -57,8 +69,8 @@ Getting started
       .. _repository: https://github.com/iki/gae/
 
  2. Copy the `configuration file`_ (``gae.conf``),
-    `helpers`_ (``gae``, ``gae.bat``, ``gae.py``)
-    and selected `commands`_ (``gae-*``)
+    helpers_ (``gae``, ``gae.bat``, ``gae.py``)
+    and selected commands_ (``gae-*``)
     to your project directory.
 
  3. Set GAE_SDK_ path in the configuration file.
